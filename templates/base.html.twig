@@ -17,7 +17,7 @@
 
 
 <div class="">
-    {% for rubrique, messages in app.flashes   %}
+    {% for rubrique, messages in app.flashes %}
         <div class="alert alert-{{ rubrique }} text-center">
             {% for message in messages %}
                 <p>{{ message }}</p>
