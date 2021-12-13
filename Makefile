@@ -7,3 +7,6 @@ phpmd:
 
 insights:
 	vendor/bin/phpinsights --no-interaction
+
+phpcpd:
+	vendor/bin/phpcpd src/

@@ -17,6 +17,7 @@
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpmd/phpmd": "^2.11",
         "phpstan/phpdoc-parser": "^1.2",
+        "sebastian/phpcpd": "^6.0",
         "sensio/framework-extra-bundle": "^6.1",
         "symfony/asset": "5.4.*",
         "symfony/console": "5.4.*",
