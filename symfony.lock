@@ -2,6 +2,12 @@
     "composer/package-versions-deprecated": {
         "version": "1.11.99.4"
     },
+    "composer/pcre": {
+        "version": "1.0.0"
+    },
+    "composer/xdebug-handler": {
+        "version": "2.0.3"
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {
@@ -103,6 +109,9 @@
     "nikic/php-parser": {
         "version": "v4.13.2"
     },
+    "pdepend/pdepend": {
+        "version": "2.10.2"
+    },
     "phar-io/manifest": {
         "version": "2.0.3"
     },
@@ -117,6 +126,9 @@
     },
     "phpdocumentor/type-resolver": {
         "version": "1.5.1"
+    },
+    "phpmd/phpmd": {
+        "version": "2.11.0"
     },
     "phpspec/prophecy": {
         "version": "v1.15.0"
