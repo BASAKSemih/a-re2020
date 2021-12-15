@@ -66,8 +66,7 @@ return [
         'src/Kernel.php',
         'migrations',
         'src/Form',
-        'src/Security/AppAuthenticator',
-        'src/Twig',
+        'src/Security/WebAuthenticator',
     ],
 
     'add' => [
