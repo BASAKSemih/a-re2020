@@ -8,7 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 
-
 final class HomeTest extends WebTestCase
 {
     public function testShowHomePage(): void
@@ -19,5 +18,4 @@ final class HomeTest extends WebTestCase
         $crawler = $client->request(Request::METHOD_GET, $router->generate('homePage'));
         self::assertRouteSame('homePage');
     }
-
 }
