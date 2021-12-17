@@ -28,15 +28,18 @@ class ProjectController extends AbstractController
             $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');
             return $this->redirectToRoute('security_login');
         }
+
         $project = new Project();
         $ownerProject = new Owner();
         $projectForm = $this->createForm(ProjectType::class, $project)->handleRequest($request);
         $ownerForm = $this->createForm(OwnerType::class, $ownerProject)->handleRequest($request);
-
         if ($projectForm->isSubmitted() && $projectForm->isValid()) {
             /** @var User $user */
             $user = $this->getUser();
             $project->setUser($user);
+           if ($project == null){
+               dd("test");
+           }
             $project->setOwnerProject($ownerProject);
             $this->entityManager->persist($project);
             $this->entityManager->persist($ownerProject);

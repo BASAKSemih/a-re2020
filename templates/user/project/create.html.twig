@@ -1,19 +1,23 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        {{ form_start(ownerForm) }}
-        <label for="">Prénom propio</label>
-        {{ form_row(ownerForm.firstName) }}
-        <label for="">Nom famille propio</label>
-        {{ form_row(ownerForm.lastName) }}
-        <label for="">Adresse</label>
-        {{ form_row(ownerForm.address) }}
-        <label for="">postalCode </label>
-        {{ form_row(ownerForm.postalCode) }}
-        <label for="">city </label>
-        {{ form_row(ownerForm.city) }}
-        {{ form_start(projectForm) }}
+    {{ form_start(ownerForm) }}
+    <section class="row container">
+        <div class="col-md-6">
+            <label for="">Prénom propio</label>
+            {{ form_row(ownerForm.firstName) }}
+            <label for="">Nom famille propio</label>
+            {{ form_row(ownerForm.lastName) }}
+            <label for="">Adresse</label>
+            {{ form_row(ownerForm.address) }}
+            <label for="">postalCode </label>
+            {{ form_row(ownerForm.postalCode) }}
+            <label for="">city </label>
+            {{ form_row(ownerForm.city) }}
+            <div></div>
+        </div>
+        <div class="col-md-6">
+            {{ form_start(projectForm) }}
             <label for="">Votre Prénom</label>
             {{ form_row(projectForm.firstName) }}
             <label for="">Votre Nom Famille</label>
@@ -41,8 +45,8 @@
             <label for="">constructionPlanDate</label>
             {{ form_row(projectForm.constructionPlanDate) }}
             {{ form_widget(projectForm.submit, {'label': 'Crée le project'}) }}
-        {{ form_end(ownerForm) }}
-        {{ form_end(projectForm) }}
-    </div>
-
+            {{ form_end(projectForm) }}
+            {{ form_end(ownerForm) }}
+        </div>
+    </section>
 {% endblock %}
