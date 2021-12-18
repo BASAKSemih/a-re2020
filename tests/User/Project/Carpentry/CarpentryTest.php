@@ -82,4 +82,109 @@ class CarpentryTest extends WebTestCase
         $client->followRedirect();
         self::assertRouteSame('homePage');
     }
+
+    public function testCreateProjectForCarpentryForEdit(): void
+    {
+        $client = static::createClient();
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get('router');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('security_login'));
+        $form = $crawler->filter('form[name=login]')->form([
+            'email' => 'user@user.com',
+            'password' => 'password',
+        ]);
+
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('project_create'));
+        self::assertRouteSame('project_create');
+        $form = $crawler->filter('form[name=owner]')->form([
+            'owner[lastName]' => 'Carpentryedit',
+            'owner[firstName]' => 'Carpentryedit',
+            'owner[address]' => '21 rue Carpentryedit',
+            'owner[postalCode]' => '25200',
+            'owner[city]' => 'Paris',
+            'project[firstName]' => 'Carpentryedit',
+            'project[lastName]' => 'Carpentryedit',
+            'project[company]' => 'Carpentryeditcomapny',
+            'project[address]' => 'address',
+            'project[postalCode]' => 'postalCode',
+            'project[city]' => 'citycitycitycitycity',
+            'project[phoneNumber]' => 'phoneNumber',
+            'project[email]' => 'Carpentry@build.com',
+            'project[masterJob]' => 'ARCHITECTE',
+            'project[projectType]' => 'CONSTRUCTION',
+            'project[cadastralReference]' => 'De 0 à 400m',
+            'project[projectLocation]' => 'RASE CAMPAGNE',
+            'project[constructionPlanDate][day]' => 01,
+            'project[constructionPlanDate][month]' => 01,
+            'project[constructionPlanDate][year]' => 2018,
+        ]);
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+    }
+
+    public function testCreateCarpentryForEdit(): void
+    {
+        $client = static::createClient();
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get('router');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('security_login'));
+        $form = $crawler->filter('form[name=login]')->form([
+            'email' => 'user@user.com',
+            'password' => 'password',
+        ]);
+
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+        $projectRepository = $entityManager->getRepository(Project::class);
+        /** @var Project $project */
+        $project = $projectRepository->findOneByCompany('Carpentryeditcomapny');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('carpentry_create', [
+            'idProject' => $project->getId(),
+        ]));
+        self::assertRouteSame('carpentry_create');
+        $form = $crawler->filter('form[name=carpentry]')->form([
+            'carpentry[doors]' => 'edit this',
+            'carpentry[windows]' => 'edit this',
+        ]);
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+    }
+
+    public function testEditCarpentry(): void
+    {
+        $client = static::createClient();
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get('router');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('security_login'));
+        $form = $crawler->filter('form[name=login]')->form([
+            'email' => 'user@user.com',
+            'password' => 'password',
+        ]);
+
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+        $projectRepository = $entityManager->getRepository(Project::class);
+        /** @var Project $project */
+        $project = $projectRepository->findOneByCompany('Carpentryeditcomapny');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('carpentry_edit', [
+            'idProject' => $project->getId(),
+        ]));
+        self::assertRouteSame('carpentry_edit');
+        $form = $crawler->filter('form[name=carpentry]')->form([
+            'carpentry[doors]' => 'edited',
+            'carpentry[windows]' => 'edited',
+        ]);
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+    }
 }
