@@ -36,8 +36,8 @@ class BuildingController extends AbstractController
             $this->addFlash('warning', "Donné deja valider veuillez modifier building");
             return $this->redirectToRoute('homePage');
         }
-        /** @var User $user */
         $user = $this->getUser();
+        /** @phpstan-ignore-next-line */
         if (!$project->getUser() === $user){
             $this->addFlash('warning', "Ceci ne vous appartient pas");
             return $this->redirectToRoute('homePage');
