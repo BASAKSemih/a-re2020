@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\Owner;
@@ -9,10 +11,14 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method Owner|null find($id, $lockMode = null, $lockVersion = null)
  * @method Owner|null findOneBy(array $criteria, array $orderBy = null)
- * @method Owner[]    findAll()
- * @method Owner[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method            findAll()                                                                     array<int, Owner>
+ * @method            findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null) array<array-key, Owner>
+ *
+ * @template T
+ *
+ * @extends ServiceEntityRepository<Owner>
  */
-class OwnerRepository extends ServiceEntityRepository
+final class OwnerRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

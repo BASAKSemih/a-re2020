@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\User\Project;
 
 use App\Entity\Owner;
@@ -14,18 +16,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(name: 'project_')]
-class ProjectController extends AbstractController
+final class ProjectController extends AbstractController
 {
     public function __construct(protected EntityManagerInterface $entityManager)
     {
     }
-
 
     #[Route('/espace-client/cree-un-projet', name: 'create')]
     public function createProject(Request $request): Response
     {
         if (!$this->getUser()) {
             $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');
+
             return $this->redirectToRoute('security_login');
         }
 
@@ -42,13 +44,13 @@ class ProjectController extends AbstractController
             $this->entityManager->persist($ownerProject);
             $this->entityManager->flush();
             $this->addFlash('success', 'Le project à été crée');
+
             return $this->redirectToRoute('homePage');
         }
 
         return $this->render('user/project/create.html.twig', [
             'projectForm' => $projectForm->createView(),
-            'ownerForm' => $ownerForm->createView()
+            'ownerForm' => $ownerForm->createView(),
         ]);
     }
-
 }

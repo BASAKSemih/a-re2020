@@ -44,8 +44,8 @@ class ProjectType extends AbstractType
                 'required' => true,
                 'label' => false,
                 'attr' => [
-                    'class' => 'form-control'
-                ]])
+                    'class' => 'form-control',
+                ], ])
             ->add('postalCode', TextType::class, [
                 'required' => true,
                 'label' => false,
@@ -84,11 +84,11 @@ class ProjectType extends AbstractType
                 'choices' => [
                     'ARCHITECTE' => 'ARCHITECTE',
                     "MAITRE D'OEUVRE" => "MAITRE D'OEUVRE",
-                    'CONSTRUCTEUR' => 'CONSTRUCTEUR'
+                    'CONSTRUCTEUR' => 'CONSTRUCTEUR',
                 ],
                 'attr' => [
-                    'class' => 'form-control'
-                ]])
+                    'class' => 'form-control',
+                ], ])
             ->add('cadastralReference', TextType::class, [
                 'required' => true,
                 'label' => false,
@@ -103,27 +103,27 @@ class ProjectType extends AbstractType
                     'RASE CAMPAGNE' => 'RASE CAMPAGNE',
                     'VILLAGE' => 'VILLAGE',
                     'CENTRE VILLE' => 'CENTRE VILLE',
-                    'ZONE PAVILLONNAIRE' => 'ZONE PAVILLONNAIRE'
+                    'ZONE PAVILLONNAIRE' => 'ZONE PAVILLONNAIRE',
                 ],
                 'attr' => [
-                    'class' => 'form-control'
-                ]])
+                    'class' => 'form-control',
+                ], ])
             ->add('projectType', ChoiceType::class, [
                 'required' => true,
                 'label' => false,
                 'choices' => [
                     'CONSTRUCTION' => 'CONSTRUCTION',
-                    'EXTENSION' => 'EXTENSION'
+                    'EXTENSION' => 'EXTENSION',
                 ],
                 'attr' => [
-                    'class' => 'form-control'
-                ]])
+                    'class' => 'form-control',
+                ], ])
             ->add('constructionPlanDate', DateType::class, [
                 'required' => true,
                 'label' => false,
                 'attr' => [
-                    'class' => 'form-control'
-                ]
+                    'class' => 'form-control',
+                ],
             ])
             ->add('submit', SubmitType::class, [
                 'label' => false,

@@ -32,8 +32,8 @@ class OwnerType extends AbstractType
                 'required' => true,
                 'label' => false,
                 'attr' => [
-                    'class' => 'form-control'
-                ]])
+                    'class' => 'form-control',
+                ], ])
             ->add('postalCode', TextType::class, [
                 'required' => true,
                 'label' => false,

@@ -24,31 +24,31 @@ class ProjectTest extends WebTestCase
         self::assertRouteSame('homePage');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('project_create'));
         self::assertRouteSame('project_create');
-        $form = $crawler->filter("form[name=owner]")->form([
-            "owner[lastName]" => 'lastName',
-            "owner[firstName]" => 'firstName',
-            "owner[address]" => '21 rue Chamvalon',
-            "owner[postalCode]" => '25200',
-            "owner[city]" => 'Paris',
-            "project[firstName]" => 'firstName',
-            "project[lastName]" => 'lastName',
-            "project[company]" => 'company',
-            "project[address]" => 'address',
-            "project[postalCode]" => 'postalCode',
-            "project[city]" => "city",
-            "project[phoneNumber]" => "phoneNumber",
-            "project[email]" => "test@gmail.com",
-            "project[masterJob]" => "ARCHITECTE",
-            "project[projectType]" => "CONSTRUCTION",
-            "project[cadastralReference]" => "De 0 à 400m",
-            "project[projectLocation]" => "RASE CAMPAGNE",
-            "project[constructionPlanDate][day]" => 01,
-            "project[constructionPlanDate][month]" => 01,
-            "project[constructionPlanDate][year]" => 2018,
+        $form = $crawler->filter('form[name=owner]')->form([
+            'owner[lastName]' => 'lastName',
+            'owner[firstName]' => 'firstName',
+            'owner[address]' => '21 rue Chamvalon',
+            'owner[postalCode]' => '25200',
+            'owner[city]' => 'Paris',
+            'project[firstName]' => 'firstName',
+            'project[lastName]' => 'lastName',
+            'project[company]' => 'company',
+            'project[address]' => 'address',
+            'project[postalCode]' => 'postalCode',
+            'project[city]' => 'city',
+            'project[phoneNumber]' => 'phoneNumber',
+            'project[email]' => 'test@gmail.com',
+            'project[masterJob]' => 'ARCHITECTE',
+            'project[projectType]' => 'CONSTRUCTION',
+            'project[cadastralReference]' => 'De 0 à 400m',
+            'project[projectLocation]' => 'RASE CAMPAGNE',
+            'project[constructionPlanDate][day]' => 01,
+            'project[constructionPlanDate][month]' => 01,
+            'project[constructionPlanDate][year]' => 2018,
         ]);
         $client->submit($form);
         $client->followRedirect();
-        self::assertRouteSame("homePage");
+        self::assertRouteSame('homePage');
     }
 
     /**
@@ -69,33 +69,33 @@ class ProjectTest extends WebTestCase
         self::assertRouteSame('homePage');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('project_create'));
         self::assertRouteSame('project_create');
-        $form = $crawler->filter("form[name=owner]")->form($formData);
+        $form = $crawler->filter('form[name=owner]')->form($formData);
         $client->submit($form);
     }
 
     public function provideFailedData(): iterable
     {
         $baseData = static fn (array $data) => $data + [
-                "owner[lastName]" => 'fzfzef',
-                "owner[firstName]" => 'firstName',
-                "owner[address]" => '21 rue Chamvalon',
-                "owner[postalCode]" => '25200',
-                "owner[city]" => 'Paris',
-                "project[firstName]" => 'firstName',
-                "project[lastName]" => 'lastName',
-                "project[company]" => 'company',
-                "project[address]" => 'address',
-                "project[postalCode]" => 'postalCode',
-                "project[city]" => "city",
-                "project[phoneNumber]" => "phoneNumber",
-                "project[email]" => "test@gmail.com",
-                "project[masterJob]" => "ARCHITECTE",
-                "project[projectType]" => "CONSTRUCTION",
-                "project[cadastralReference]" => "qsdqsdqsd",
-                "project[projectLocation]" => "RASE CAMPAGNE",
-                "project[constructionPlanDate][day]" => 01,
-                "project[constructionPlanDate][month]" => 01,
-                "project[constructionPlanDate][year]" => 2018,
+                'owner[lastName]' => 'fzfzef',
+                'owner[firstName]' => 'firstName',
+                'owner[address]' => '21 rue Chamvalon',
+                'owner[postalCode]' => '25200',
+                'owner[city]' => 'Paris',
+                'project[firstName]' => 'firstName',
+                'project[lastName]' => 'lastName',
+                'project[company]' => 'company',
+                'project[address]' => 'address',
+                'project[postalCode]' => 'postalCode',
+                'project[city]' => 'city',
+                'project[phoneNumber]' => 'phoneNumber',
+                'project[email]' => 'test@gmail.com',
+                'project[masterJob]' => 'ARCHITECTE',
+                'project[projectType]' => 'CONSTRUCTION',
+                'project[cadastralReference]' => 'qsdqsdqsd',
+                'project[projectLocation]' => 'RASE CAMPAGNE',
+                'project[constructionPlanDate][day]' => 01,
+                'project[constructionPlanDate][month]' => 01,
+                'project[constructionPlanDate][year]' => 2018,
             ];
 
         yield 'lastName owner is empty' => [$baseData(['owner[lastName]' => ''])];
@@ -123,5 +123,4 @@ class ProjectTest extends WebTestCase
         $client->followRedirect();
         self::assertRouteSame('security_login');
     }
-
 }
