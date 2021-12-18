@@ -259,4 +259,29 @@ class BuildingTest extends WebTestCase
         $client->submit($form);
     }
 
+    public function testEditBuildingNotPossesion(): void
+    {
+        $client = static::createClient();
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get('router');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('security_login'));
+        $form = $crawler->filter('form[name=login]')->form([
+            'email' => 'user+6@email.com',
+            'password' => 'password',
+        ]);
+
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+        $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
+        $projectRepository = $entityManager->getRepository(Project::class);
+        /** @var Project $project */
+        $project = $projectRepository->findOneByCompany('sdsdsdsdsd');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('building_edit', [
+            'idProject' => $project->getId()
+        ]));
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+    }
+
 }

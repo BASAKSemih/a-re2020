@@ -40,7 +40,7 @@ class BuildingController extends AbstractController
         }
         $user = $this->getUser();
         /** @phpstan-ignore-next-line */
-        if (!$project->getUser() === $user){
+        if ($project->getUser() !== $user){
             $this->addFlash('warning', "Ceci ne vous appartient pas");
             return $this->redirectToRoute('homePage');
         }
@@ -76,7 +76,7 @@ class BuildingController extends AbstractController
         }
         $user = $this->getUser();
         /** @phpstan-ignore-next-line */
-        if (!$project->getUser() === $user){
+        if ($project->getUser() !== $user){
             $this->addFlash('warning', "Ceci ne vous appartient pas");
             return $this->redirectToRoute('homePage');
         }
