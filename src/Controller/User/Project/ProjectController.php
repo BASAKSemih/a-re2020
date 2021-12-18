@@ -37,9 +37,6 @@ class ProjectController extends AbstractController
             /** @var User $user */
             $user = $this->getUser();
             $project->setUser($user);
-           if ($project == null){
-               dd("test");
-           }
             $project->setOwnerProject($ownerProject);
             $this->entityManager->persist($project);
             $this->entityManager->persist($ownerProject);
