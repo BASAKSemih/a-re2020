@@ -71,7 +71,7 @@ jobs:
         run: vendor/bin/phpcpd src/
       - name: PHP Mess Detector
         run: vendor/bin/phpmd src/ text .phpmd.xml
-      - name: Analyse Quality Code Php Insights
+      - name: Analyse Quality Code PHP Insights
         run: vendor/bin/phpinsights --no-interaction
-      - name: Analyse Static Code Php Insights
+      - name: Analyse Static Code PHP Stan
         run: php vendor/bin/phpstan analyse -c phpstan.neon src --no-progress
