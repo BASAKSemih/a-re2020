@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Home;
+namespace App\Tests\Security;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;

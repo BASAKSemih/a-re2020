@@ -44,11 +44,21 @@ class ProjectTest extends WebTestCase
             "project[projectLocation]" => "RASE CAMPAGNE",
             "project[constructionPlanDate][day]" => 01,
             "project[constructionPlanDate][month]" => 01,
-            "project[constructionPlanDate][year]" => 2016,
+            "project[constructionPlanDate][year]" => 2018,
         ]);
         $client->submit($form);
         $client->followRedirect();
         self::assertRouteSame("homePage");
+    }
+
+    public function testCreateProjectWithLoggedAccount(): void
+    {
+        $client = static::createClient();
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get('router');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('project_create'));
+        $client->followRedirect();
+        self::assertRouteSame('security_login');
     }
 
 }
