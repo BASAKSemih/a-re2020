@@ -23,6 +23,10 @@ class Carpentry
     #[ORM\Column(type: 'datetime_immutable')]
     private DateTimeImmutable $createdAt;
 
+    #[ORM\OneToOne(inversedBy: 'carpentry', targetEntity: Project::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private Project $project;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,5 +64,17 @@ class Carpentry
     public function setCreatedAt(DateTimeImmutable $createdAt): void
     {
         $this->createdAt = $createdAt;
+    }
+
+    public function getProject(): ?Project
+    {
+        return $this->project;
+    }
+
+    public function setProject(Project $project): self
+    {
+        $this->project = $project;
+
+        return $this;
     }
 }

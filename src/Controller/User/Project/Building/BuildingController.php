@@ -27,24 +27,20 @@ class BuildingController extends AbstractController
     {
         if (!$this->getUser()) {
             $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');
-
             return $this->redirectToRoute('security_login');
         }
         $project = $this->projectRepository->findOneById($idProject);
         if (!$project) {
             $this->addFlash('warning', "Ce projet n'existe pas");
-
             return $this->redirectToRoute('project_create');
         }
         if ($project->getBuilding()) {
             $this->addFlash('warning', 'Donné deja valider veuillez modifier building');
-
             return $this->redirectToRoute('homePage');
         }
         $user = $this->getUser();
         if ($project->getUser() !== $user) {
             $this->addFlash('warning', 'Ceci ne vous appartient pas');
-
             return $this->redirectToRoute('homePage');
         }
         $building = new Building();
@@ -54,7 +50,6 @@ class BuildingController extends AbstractController
             $this->entityManager->persist($building);
             $this->entityManager->flush();
             $this->addFlash('success', 'Ok create building');
-
             return $this->redirectToRoute('homePage');
         }
 
