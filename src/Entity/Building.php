@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\BuildingRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BuildingRepository::class)]
@@ -57,9 +58,17 @@ class Building
     #[ORM\Column(type: 'text')]
     private string $particularWalls;
 
+    #[ORM\Column(type: 'datetime_immutable')]
+    private DateTimeImmutable $createdAt;
+
     #[ORM\OneToOne(inversedBy: 'building', targetEntity: Project::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private Project $project;
+
+    public function __construct()
+    {
+        $this->createdAt = new DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -206,6 +215,18 @@ class Building
     public function setProject(Project $project): self
     {
         $this->project = $project;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }
