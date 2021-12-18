@@ -3,7 +3,6 @@
 namespace App\Controller\User\Project\Building;
 
 use App\Entity\Building;
-use App\Entity\User;
 use App\Form\BuildingType;
 use App\Repository\ProjectRepository;
 use App\Repository\UserRepository;
@@ -19,7 +18,8 @@ class BuildingController extends AbstractController
     public function __construct(
         protected EntityManagerInterface $entityManager,
         protected ProjectRepository $projectRepository,
-        protected UserRepository $userRepository) {
+        protected UserRepository $userRepository)
+    {
     }
 
     #[Route('/espace-client/crée/{idProject}', name: 'create')]
@@ -27,34 +27,39 @@ class BuildingController extends AbstractController
     {
         if (!$this->getUser()) {
             $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');
+
             return $this->redirectToRoute('security_login');
         }
         $project = $this->projectRepository->findOneById($idProject);
-        if (!$project){
+        if (!$project) {
             $this->addFlash('warning', "Ce projet n'existe pas");
+
             return $this->redirectToRoute('project_create');
         }
-        if ($project->getBuilding()){
-            $this->addFlash('warning', "Donné deja valider veuillez modifier building");
+        if ($project->getBuilding()) {
+            $this->addFlash('warning', 'Donné deja valider veuillez modifier building');
+
             return $this->redirectToRoute('homePage');
         }
         $user = $this->getUser();
-        /** @phpstan-ignore-next-line */
-        if ($project->getUser() !== $user){
-            $this->addFlash('warning', "Ceci ne vous appartient pas");
+        if ($project->getUser() !== $user) {
+            $this->addFlash('warning', 'Ceci ne vous appartient pas');
+
             return $this->redirectToRoute('homePage');
         }
         $building = new Building();
         $form = $this->createForm(BuildingType::class, $building)->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $building->setProject($project);
             $this->entityManager->persist($building);
             $this->entityManager->flush();
-            $this->addFlash('success', "Ok create building");
+            $this->addFlash('success', 'Ok create building');
+
             return $this->redirectToRoute('homePage');
-            }
+        }
+
         return $this->render('user/project/building/create.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -63,34 +68,37 @@ class BuildingController extends AbstractController
     {
         if (!$this->getUser()) {
             $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');
+
             return $this->redirectToRoute('security_login');
         }
         $project = $this->projectRepository->findOneById($idProject);
-        if (!$project){
+        if (!$project) {
             $this->addFlash('warning', "Ce projet n'existe pas");
+
             return $this->redirectToRoute('project_create');
         }
-        if (!$project->getBuilding()){
-            $this->addFlash('warning', "Donné inexistante");
+        if (!$project->getBuilding()) {
+            $this->addFlash('warning', 'Donné inexistante');
+
             return $this->redirectToRoute('homePage');
         }
         $user = $this->getUser();
-        /** @phpstan-ignore-next-line */
-        if ($project->getUser() !== $user){
-            $this->addFlash('warning', "Ceci ne vous appartient pas");
+        if ($project->getUser() !== $user) {
+            $this->addFlash('warning', 'Ceci ne vous appartient pas');
+
             return $this->redirectToRoute('homePage');
         }
         $building = $project->getBuilding();
         $form = $this->createForm(BuildingType::class, $building)->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
-            $this->addFlash('success', "Ok edit building");
+            $this->addFlash('success', 'Ok edit building');
+
             return $this->redirectToRoute('homePage');
         }
+
         return $this->render('user/project/building/edit.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
-
     }
-
 }

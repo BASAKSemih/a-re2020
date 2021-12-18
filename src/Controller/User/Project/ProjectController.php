@@ -55,23 +55,27 @@ final class ProjectController extends AbstractController
         ]);
     }
 
-    #[Route('/espace-client/modifier-un-projet', name: 'edit')]
-    public function editProject(int $idProject,Request $request): Response
+    #[Route('/espace-client/modifier-un-projet/{idProject}', name: 'edit')]
+    public function editProject(int $idProject, Request $request): Response
     {
         if (!$this->getUser()) {
             $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');
+
             return $this->redirectToRoute('security_login');
         }
+        /** @var Project $project */
         $project = $this->projectRepository->findOneById($idProject);
         $owner = $project->getOwnerProject();
         $user = $this->getUser();
-        if (!$project){
+        /* @phpstan-ignore-next-line */
+        if (!$project) {
             $this->addFlash('warning', "ce project n'existe pas");
+
             return $this->redirectToRoute('security_login');
         }
-        /** @phpstan-ignore-next-line */
-        if ($project->getUser() !== $user){
-            $this->addFlash('warning', "Ceci ne vous appartient pas");
+        if ($project->getUser() !== $user) {
+            $this->addFlash('warning', 'Ceci ne vous appartient pas');
+
             return $this->redirectToRoute('homePage');
         }
         $projectForm = $this->createForm(ProjectType::class, $project)->handleRequest($request);
@@ -79,8 +83,10 @@ final class ProjectController extends AbstractController
         if ($projectForm->isSubmitted() && $projectForm->isValid()) {
             $this->entityManager->flush();
             $this->addFlash('success', 'Le project à été crée');
+
             return $this->redirectToRoute('homePage');
         }
+
         return $this->render('user/project/create.html.twig', [
             'projectForm' => $projectForm->createView(),
             'ownerForm' => $ownerForm->createView(),

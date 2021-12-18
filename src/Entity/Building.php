@@ -14,47 +14,47 @@ class Building
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    # Surface plancher (m²)
+    // Surface plancher (m²)
     #[ORM\Column(type: 'text', length: 255)]
     private string $floorArea;
 
-    # Surface habitable (m²)
+    // Surface habitable (m²)
     #[ORM\Column(type: 'text', length: 255)]
     private string $livingArea;
 
-    # Surface plancher existant
+    // Surface plancher existant
     #[ORM\Column(type: 'string', length: 255)]
     private string $existingFloorArea;
 
-    # Plancher bas
+    // Plancher bas
     #[ORM\Column(type: 'text', length: 255)]
     private string $lowFloor;
 
-    # Plancher bas Traitement des ponts thermiques
+    // Plancher bas Traitement des ponts thermiques
     #[ORM\Column(type: 'string', length: 255)]
     private string $lowFloorThermal;
 
-    # Plancher haut
+    // Plancher haut
     #[ORM\Column(type: 'text', length: 255)]
     private string $highFloor;
 
-    # Plancher haut Traitement des ponts thermiques
+    // Plancher haut Traitement des ponts thermiques
     #[ORM\Column(type: 'string', length: 255)]
     private string $highFloorThermal;
 
-    # Plancher intermédiaire
+    // Plancher intermédiaire
     #[ORM\Column(type: 'text')]
     private string $intermediateFloor;
 
-    # Plancher intermédiaire Traitement des ponts thermiques
+    // Plancher intermédiaire Traitement des ponts thermiques
     #[ORM\Column(type: 'string', length: 255)]
     private string $intermediateFloorThermal;
 
-    # Façades
+    // Façades
     #[ORM\Column(type: 'text')]
     private string $facades;
 
-    # Parois particulières
+    // Parois particulières
     #[ORM\Column(type: 'text')]
     private string $particularWalls;
 
@@ -219,12 +219,12 @@ class Building
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
 

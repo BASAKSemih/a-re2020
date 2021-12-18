@@ -36,7 +36,7 @@ class BuildingTest extends WebTestCase
             'project[company]' => 'sdsdsdsdsd',
             'project[address]' => 'address',
             'project[postalCode]' => 'postalCode',
-            'project[city]' => 'city',
+            'project[city]' => 'citycitycitycitycity',
             'project[phoneNumber]' => 'phoneNumber',
             'project[email]' => 'test@build.com',
             'project[masterJob]' => 'ARCHITECTE',
@@ -109,12 +109,12 @@ class BuildingTest extends WebTestCase
         $client->submit($form);
         $client->followRedirect();
         self::assertRouteSame('homePage');
-        $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
         /** @var Project $project */
         $project = $projectRepository->findOneByCompany('sdsdsdsdsd');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('building_create', [
-            'idProject' => $project->getId()
+            'idProject' => $project->getId(),
         ]));
         self::assertRouteSame('building_create');
         $form = $crawler->filter('form[name=building]')->form([
@@ -152,12 +152,12 @@ class BuildingTest extends WebTestCase
         $client->submit($form);
         $client->followRedirect();
         self::assertRouteSame('homePage');
-        $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
         /** @var Project $project */
         $project = $projectRepository->findOneByCompany('forbuildingfailsss');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('building_create', [
-            'idProject' => $project->getId()
+            'idProject' => $project->getId(),
         ]));
         self::assertRouteSame('building_create');
         $form = $crawler->filter('form[name=building]')->form($formData);
@@ -204,12 +204,12 @@ class BuildingTest extends WebTestCase
         $client->submit($form);
         $client->followRedirect();
         self::assertRouteSame('homePage');
-        $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
         /** @var Project $project */
         $project = $projectRepository->findOneByCompany('sdsdsdsdsd');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('building_edit', [
-            'idProject' => $project->getId()
+            'idProject' => $project->getId(),
         ]));
         self::assertRouteSame('building_edit');
         $form = $crawler->filter('form[name=building]')->form([
@@ -247,12 +247,12 @@ class BuildingTest extends WebTestCase
         $client->submit($form);
         $client->followRedirect();
         self::assertRouteSame('homePage');
-        $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
         /** @var Project $project */
         $project = $projectRepository->findOneByCompany('sdsdsdsdsd');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('building_edit', [
-            'idProject' => $project->getId()
+            'idProject' => $project->getId(),
         ]));
         self::assertRouteSame('building_edit');
         $form = $crawler->filter('form[name=building]')->form($formData);
@@ -273,15 +273,14 @@ class BuildingTest extends WebTestCase
         $client->submit($form);
         $client->followRedirect();
         self::assertRouteSame('homePage');
-        $entityManager = $client->getContainer()->get("doctrine.orm.entity_manager");
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
         /** @var Project $project */
         $project = $projectRepository->findOneByCompany('sdsdsdsdsd');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('building_edit', [
-            'idProject' => $project->getId()
+            'idProject' => $project->getId(),
         ]));
         $client->followRedirect();
         self::assertRouteSame('homePage');
     }
-
 }

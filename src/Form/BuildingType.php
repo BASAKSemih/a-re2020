@@ -49,7 +49,7 @@ class BuildingType extends AbstractType
                 'label' => false,
                 'choices' => [
                     'Sans planelle ni rupture' => 'Sans planelle ni rupture',
-                    "Avec rupture thermique" => "Avec rupture thermique",
+                    'Avec rupture thermique' => 'Avec rupture thermique',
                     'Avec planelle' => 'Avec planelle',
                 ],
                 'attr' => [
@@ -68,7 +68,7 @@ class BuildingType extends AbstractType
                 'label' => false,
                 'choices' => [
                     'Sans planelle ni rupture' => 'Sans planelle ni rupture',
-                    "Avec rupture thermique" => "Avec rupture thermique",
+                    'Avec rupture thermique' => 'Avec rupture thermique',
                     'Avec planelle' => 'Avec planelle',
                 ],
                 'attr' => [
@@ -87,7 +87,7 @@ class BuildingType extends AbstractType
                 'label' => false,
                 'choices' => [
                     'Sans planelle ni rupture' => 'Sans planelle ni rupture',
-                    "Avec rupture thermique" => "Avec rupture thermique",
+                    'Avec rupture thermique' => 'Avec rupture thermique',
                     'Avec planelle' => 'Avec planelle',
                 ],
                 'attr' => [
