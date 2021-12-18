@@ -9,6 +9,7 @@ use App\Entity\Project;
 use App\Entity\User;
 use App\Form\OwnerType;
 use App\Form\ProjectType;
+use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route(name: 'project_')]
 final class ProjectController extends AbstractController
 {
-    public function __construct(protected EntityManagerInterface $entityManager)
+    public function __construct(protected EntityManagerInterface $entityManager, protected ProjectRepository $projectRepository)
     {
     }
 
@@ -42,6 +43,44 @@ final class ProjectController extends AbstractController
             $project->setOwnerProject($ownerProject);
             $this->entityManager->persist($project);
             $this->entityManager->persist($ownerProject);
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Le project à été crée');
+
+            return $this->redirectToRoute('homePage');
+        }
+
+        return $this->render('user/project/create.html.twig', [
+            'projectForm' => $projectForm->createView(),
+            'ownerForm' => $ownerForm->createView(),
+        ]);
+    }
+
+    #[Route('/espace-client/modifier-un-projet/{idProject}', name: 'edit')]
+    public function editProject(int $idProject, Request $request): Response
+    {
+        if (!$this->getUser()) {
+            $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');
+
+            return $this->redirectToRoute('security_login');
+        }
+        /** @var Project $project */
+        $project = $this->projectRepository->findOneById($idProject);
+        $owner = $project->getOwnerProject();
+        $user = $this->getUser();
+        /* @phpstan-ignore-next-line */
+        if (!$project) {
+            $this->addFlash('warning', "ce project n'existe pas");
+
+            return $this->redirectToRoute('security_login');
+        }
+        if ($project->getUser() !== $user) {
+            $this->addFlash('warning', 'Ceci ne vous appartient pas');
+
+            return $this->redirectToRoute('homePage');
+        }
+        $projectForm = $this->createForm(ProjectType::class, $project)->handleRequest($request);
+        $ownerForm = $this->createForm(OwnerType::class, $owner)->handleRequest($request);
+        if ($projectForm->isSubmitted() && $projectForm->isValid()) {
             $this->entityManager->flush();
             $this->addFlash('success', 'Le project à été crée');
 

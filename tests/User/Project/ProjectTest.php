@@ -2,6 +2,7 @@
 
 namespace App\Tests\User\Project;
 
+use App\Entity\Project;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -35,7 +36,7 @@ class ProjectTest extends WebTestCase
             'project[company]' => 'company',
             'project[address]' => 'address',
             'project[postalCode]' => 'postalCode',
-            'project[city]' => 'city',
+            'project[city]' => 'citytestedit',
             'project[phoneNumber]' => 'phoneNumber',
             'project[email]' => 'test@gmail.com',
             'project[masterJob]' => 'ARCHITECTE',
@@ -83,7 +84,7 @@ class ProjectTest extends WebTestCase
                 'owner[city]' => 'Paris',
                 'project[firstName]' => 'firstName',
                 'project[lastName]' => 'lastName',
-                'project[company]' => 'company',
+                'project[company]' => 'companytestedit',
                 'project[address]' => 'address',
                 'project[postalCode]' => 'postalCode',
                 'project[city]' => 'city',
@@ -114,6 +115,54 @@ class ProjectTest extends WebTestCase
         yield 'cadastralReference project is empty' => [$baseData(['project[cadastralReference]' => ''])];
     }
 
+    public function testEditProject(): void
+    {
+        $client = static::createClient();
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get('router');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('security_login'));
+        $form = $crawler->filter('form[name=login]')->form([
+            'email' => 'user@user.com',
+            'password' => 'password',
+        ]);
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+        $projectRepository = $entityManager->getRepository(Project::class);
+        /** @var Project $project */
+        $project = $projectRepository->findOneByCity('citytestedit');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('project_edit', [
+            'idProject' => $project->getId(),
+        ]));
+        self::assertRouteSame('project_edit');
+        $form = $crawler->filter('form[name=owner]')->form([
+            'owner[lastName]' => 'edited',
+            'owner[firstName]' => 'edited',
+            'owner[address]' => '21 rue edited',
+            'owner[postalCode]' => 'edited',
+            'owner[city]' => 'edited',
+            'project[firstName]' => 'edited',
+            'project[lastName]' => 'edited',
+            'project[company]' => 'company',
+            'project[address]' => 'address',
+            'project[postalCode]' => 'edited',
+            'project[city]' => 'edited',
+            'project[phoneNumber]' => 'edited',
+            'project[email]' => 'test@gmail.com',
+            'project[masterJob]' => 'ARCHITECTE',
+            'project[projectType]' => 'CONSTRUCTION',
+            'project[cadastralReference]' => 'De 0 à 400m',
+            'project[projectLocation]' => 'RASE CAMPAGNE',
+            'project[constructionPlanDate][day]' => 01,
+            'project[constructionPlanDate][month]' => 01,
+            'project[constructionPlanDate][year]' => 2018,
+        ]);
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+    }
+
     public function testCreateProjectWithLoggedAccount(): void
     {
         $client = static::createClient();
@@ -122,5 +171,33 @@ class ProjectTest extends WebTestCase
         $crawler = $client->request(Request::METHOD_GET, $router->generate('project_create'));
         $client->followRedirect();
         self::assertRouteSame('security_login');
+    }
+
+    /**
+     * @dataProvider provideFailedData
+     */
+    public function testEditProjectProvideFailData(array $formData): void
+    {
+        $client = static::createClient();
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get('router');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('security_login'));
+        $form = $crawler->filter('form[name=login]')->form([
+            'email' => 'user@user.com',
+            'password' => 'password',
+        ]);
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+        $projectRepository = $entityManager->getRepository(Project::class);
+        /** @var Project $project */
+        $project = $projectRepository->findOneByCity('citycitycitycitycity');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('project_edit', [
+            'idProject' => $project->getId(),
+        ]));
+        self::assertRouteSame('project_edit');
+        $form = $crawler->filter('form[name=owner]')->form($formData);
+        $client->submit($form);
     }
 }
