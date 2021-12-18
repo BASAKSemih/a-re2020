@@ -82,5 +82,4 @@ class CarpentryTest extends WebTestCase
         $client->followRedirect();
         self::assertRouteSame('homePage');
     }
-
 }
