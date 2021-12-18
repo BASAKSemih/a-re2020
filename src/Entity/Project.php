@@ -68,6 +68,9 @@ class Project
     #[ORM\OneToOne(mappedBy: 'project', targetEntity: Building::class, cascade: ['persist', 'remove'])]
     private ?Building $building;
 
+    #[ORM\OneToOne(mappedBy: 'project', targetEntity: Carpentry::class, cascade: ['persist', 'remove'])]
+    private ?Carpentry $carpentry;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -283,6 +286,23 @@ class Project
         }
 
         $this->building = $building;
+
+        return $this;
+    }
+
+    public function getCarpentry(): ?Carpentry
+    {
+        return $this->carpentry;
+    }
+
+    public function setCarpentry(Carpentry $carpentry): self
+    {
+        // set the owning side of the relation if necessary
+        if ($carpentry->getProject() !== $this) {
+            $carpentry->setProject($this);
+        }
+
+        $this->carpentry = $carpentry;
 
         return $this;
     }

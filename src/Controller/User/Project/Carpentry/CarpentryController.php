@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Controller\User\Project\Building;
+declare(strict_types=1);
 
-use App\Entity\Building;
-use App\Form\BuildingType;
+namespace App\Controller\User\Project\Carpentry;
+
+use App\Entity\Carpentry;
+use App\Form\CarpentryType;
 use App\Repository\ProjectRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,8 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @SuppressWarnings
  */
-#[Route(name: 'building_')]
-class BuildingController extends AbstractController
+#[Route(name: 'carpentry_')]
+final class CarpentryController extends AbstractController
 {
     public function __construct(
         protected EntityManagerInterface $entityManager,
@@ -25,8 +27,8 @@ class BuildingController extends AbstractController
     {
     }
 
-    #[Route('/espace-client/crée/{idProject}', name: 'create')]
-    public function createBuilding(int $idProject, Request $request): Response
+    #[Route('/espace-client/crée/carpentry/{idProject}', name: 'create')]
+    public function createCarpentry(int $idProject, Request $request): Response
     {
         if (!$this->getUser()) {
             $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');
@@ -39,9 +41,8 @@ class BuildingController extends AbstractController
 
             return $this->redirectToRoute('project_create');
         }
-        if ($project->getBuilding()) {
+        if ($project->getCarpentry()) {
             $this->addFlash('warning', 'Donné deja valider veuillez modifier building');
-
             return $this->redirectToRoute('homePage');
         }
         $user = $this->getUser();
@@ -50,24 +51,24 @@ class BuildingController extends AbstractController
 
             return $this->redirectToRoute('homePage');
         }
-        $building = new Building();
-        $form = $this->createForm(BuildingType::class, $building)->handleRequest($request);
+        $carpentry = new Carpentry();
+        $form = $this->createForm(CarpentryType::class, $carpentry)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $building->setProject($project);
-            $this->entityManager->persist($building);
+            $carpentry->setProject($project);
+            $this->entityManager->persist($carpentry);
             $this->entityManager->flush();
-            $this->addFlash('success', 'Ok create building');
+            $this->addFlash('success', 'Ok create carpentry');
 
             return $this->redirectToRoute('homePage');
         }
 
-        return $this->render('user/project/building/create.html.twig', [
+        return $this->render('user/project/carpentry/create.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/espace-client/modifier/{idProject}', name: 'edit')]
-    public function editBuilding(int $idProject, Request $request): Response
+    #[Route('/espace-client/edit/carpentry/{idProject}', name: 'edit')]
+    public function editCarpentry(int $idProject, Request $request): Response
     {
         if (!$this->getUser()) {
             $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');
@@ -80,9 +81,8 @@ class BuildingController extends AbstractController
 
             return $this->redirectToRoute('project_create');
         }
-        if (!$project->getBuilding()) {
-            $this->addFlash('warning', 'Donné inexistante');
-
+        if (!$project->getCarpentry()) {
+            $this->addFlash('warning', 'Donné pas valider veuillez crée carpentry');
             return $this->redirectToRoute('homePage');
         }
         $user = $this->getUser();
@@ -91,16 +91,15 @@ class BuildingController extends AbstractController
 
             return $this->redirectToRoute('homePage');
         }
-        $building = $project->getBuilding();
-        $form = $this->createForm(BuildingType::class, $building)->handleRequest($request);
+        $carpentry = $project->getCarpentry();
+        $form = $this->createForm(CarpentryType::class, $carpentry)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
-            $this->addFlash('success', 'Ok edit building');
-
+            $this->addFlash('success', 'Ok edit carpentry');
             return $this->redirectToRoute('homePage');
         }
 
-        return $this->render('user/project/building/edit.html.twig', [
+        return $this->render('user/project/carpentry/edit.html.twig', [
             'form' => $form->createView(),
         ]);
     }
