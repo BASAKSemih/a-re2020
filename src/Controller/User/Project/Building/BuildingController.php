@@ -16,11 +16,13 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route(name: 'building_')]
 class BuildingController extends AbstractController
 {
-    public function __construct(protected EntityManagerInterface $entityManager, protected ProjectRepository $projectRepository, protected UserRepository $userRepository)
-    {
+    public function __construct(
+        protected EntityManagerInterface $entityManager,
+        protected ProjectRepository $projectRepository,
+        protected UserRepository $userRepository) {
     }
 
-    #[Route('/espace-client/parois/{idProject}', name: 'create')]
+    #[Route('/espace-client/crée/{idProject}', name: 'create')]
     public function createBuilding(int $idProject, Request $request): Response
     {
         if (!$this->getUser()) {
@@ -52,6 +54,40 @@ class BuildingController extends AbstractController
             return $this->redirectToRoute('homePage');
             }
         return $this->render('user/project/building/create.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    #[Route('/espace-client/modifier/{idProject}', name: 'edit')]
+    public function editBuilding(int $idProject, Request $request): Response
+    {
+        if (!$this->getUser()) {
+            $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');
+            return $this->redirectToRoute('security_login');
+        }
+        $project = $this->projectRepository->findOneById($idProject);
+        if (!$project){
+            $this->addFlash('warning', "Ce projet n'existe pas");
+            return $this->redirectToRoute('project_create');
+        }
+        if (!$project->getBuilding()){
+            $this->addFlash('warning', "Donné inexistante");
+            return $this->redirectToRoute('homePage');
+        }
+        $user = $this->getUser();
+        /** @phpstan-ignore-next-line */
+        if (!$project->getUser() === $user){
+            $this->addFlash('warning', "Ceci ne vous appartient pas");
+            return $this->redirectToRoute('homePage');
+        }
+        $building = $project->getBuilding();
+        $form = $this->createForm(BuildingType::class, $building)->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $this->entityManager->flush();
+            $this->addFlash('success', "Ok edit building");
+            return $this->redirectToRoute('homePage');
+        }
+        return $this->render('user/project/building/edit.html.twig', [
             'form' => $form->createView()
         ]);
 
