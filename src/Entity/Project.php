@@ -74,6 +74,9 @@ class Project
     #[ORM\OneToOne(mappedBy: 'project', targetEntity: MainHeading::class, cascade: ['persist', 'remove'])]
     private ?MainHeading $mainHeading;
 
+    #[ORM\OneToOne(mappedBy: 'project', targetEntity: SecondaryHeading::class, cascade: ['persist', 'remove'])]
+    private ?SecondaryHeading $secondaryHeading;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -323,6 +326,23 @@ class Project
         }
 
         $this->mainHeading = $mainHeading;
+
+        return $this;
+    }
+
+    public function getSecondaryHeading(): ?SecondaryHeading
+    {
+        return $this->secondaryHeading;
+    }
+
+    public function setSecondaryHeading(SecondaryHeading $secondaryHeading): self
+    {
+        // set the owning side of the relation if necessary
+        if ($secondaryHeading->getProject() !== $this) {
+            $secondaryHeading->setProject($this);
+        }
+
+        $this->secondaryHeading = $secondaryHeading;
 
         return $this;
     }
