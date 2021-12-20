@@ -188,4 +188,73 @@ class SanitaryHotwaterTest extends WebTestCase
         self::assertRouteSame('homePage');
     }
 
+    /**
+     * @dataProvider provideFailedData
+     */
+    public function testCreateSanitaryHotWaterFailedData(array $formData): void
+    {
+        $client = static::createClient();
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get('router');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('security_login'));
+        $form = $crawler->filter('form[name=login]')->form([
+            'email' => 'user@user.com',
+            'password' => 'password',
+        ]);
+
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+        $projectRepository = $entityManager->getRepository(Project::class);
+        /** @var Project $project */
+        $project = $projectRepository->findOneByCompany('sdsdsdsdsd');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('sanitaryHotwater_create', [
+            'idProject' => $project->getId(),
+        ]));
+        self::assertRouteSame('sanitaryHotwater_create');
+        $form = $crawler->filter('form[name=sanitary_hotwater]')->form($formData);
+        $client->submit($form);
+    }
+
+    /**
+     * @dataProvider provideFailedData
+     */
+    public function testEditSanitaryHotwaterFailedData(array $formData): void
+    {
+        $client = static::createClient();
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get('router');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('security_login'));
+        $form = $crawler->filter('form[name=login]')->form([
+            'email' => 'user@user.com',
+            'password' => 'password',
+        ]);
+
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+        $projectRepository = $entityManager->getRepository(Project::class);
+        /** @var Project $project */
+        $project = $projectRepository->findOneByCompany('sanitaryHotwatercompany');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('sanitaryHotwater_edit', [
+            'idProject' => $project->getId(),
+        ]));
+        self::assertRouteSame('sanitaryHotwater_edit');
+        $form = $crawler->filter('form[name=sanitary_hotwater]')->form($formData);
+        $client->submit($form);
+    }
+
+
+    public function provideFailedData(): iterable
+    {
+        $baseData = static fn (array $data) => $data + [
+                'sanitary_hotwater[location]' => 'En volume chauffé',
+                'sanitary_hotwater[thermodynamicDHW]' => 'thermodynamicDHW',
+            ];
+
+        yield 'thermodynamicDHW is empty' => [$baseData(['sanitary_hotwater[thermodynamicDHW]' => ''])];
+    }
+
 }
