@@ -77,6 +77,9 @@ class Project
     #[ORM\OneToOne(mappedBy: 'project', targetEntity: SecondaryHeading::class, cascade: ['persist', 'remove'])]
     private ?SecondaryHeading $secondaryHeading;
 
+    #[ORM\OneToOne(mappedBy: 'project', targetEntity: SanitaryHotwater::class, cascade: ['persist', 'remove'])]
+    private ?SanitaryHotwater $sanitaryHotwater;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -343,6 +346,23 @@ class Project
         }
 
         $this->secondaryHeading = $secondaryHeading;
+
+        return $this;
+    }
+
+    public function getSanitaryHotwater(): ?SanitaryHotwater
+    {
+        return $this->sanitaryHotwater;
+    }
+
+    public function setSanitaryHotwater(SanitaryHotwater $sanitaryHotwater): self
+    {
+        // set the owning side of the relation if necessary
+        if ($sanitaryHotwater->getProject() !== $this) {
+            $sanitaryHotwater->setProject($this);
+        }
+
+        $this->sanitaryHotwater = $sanitaryHotwater;
 
         return $this;
     }
