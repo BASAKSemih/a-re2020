@@ -23,7 +23,7 @@ class SecondaryHeadingController extends AbstractController
     }
 
     #[Route('/espace-client/crée/secondaryHeading/{idProject}', name: 'create')]
-    public function createCarpentry(int $idProject, Request $request): Response
+    public function createSecondaryHeading(int $idProject, Request $request): Response
     {
         if (!$this->getUser()) {
             $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');
@@ -53,6 +53,41 @@ class SecondaryHeadingController extends AbstractController
             return $this->redirectToRoute('homePage');
         }
         return $this->render('user/project/secondaryHeading/create.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    #[Route('/espace-client/edit/secondaryHeading/{idProject}', name: 'edit')]
+    public function editSecondaryHeading(int $idProject, Request $request): Response
+    {
+        if (!$this->getUser()) {
+            $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');
+
+            return $this->redirectToRoute('security_login');
+        }
+        $project = $this->projectRepository->findOneById($idProject);
+        if (!$project) {
+            $this->addFlash('warning', "Ce projet n'existe pas");
+
+            return $this->redirectToRoute('project_create');
+        }
+        if (!$project->getSecondaryHeading()) {
+            $this->addFlash('warning', 'Donné pas valider veuillez crée carpentry');
+            return $this->redirectToRoute('homePage');
+        }
+        $user = $this->getUser();
+        if ($project->getUser() !== $user) {
+            $this->addFlash('warning', 'Ceci ne vous appartient pas');
+            return $this->redirectToRoute('homePage');
+        }
+        $secondaryHeading = $project->getSecondaryHeading();
+        $form = $this->createForm(SecondaryHeadingType::class, $secondaryHeading)->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Ok edit secondaryHeading');
+            return $this->redirectToRoute('homePage');
+        }
+        return $this->render('user/project/secondaryHeading/edit.html.twig', [
             'form' => $form->createView()
         ]);
     }

@@ -127,6 +127,67 @@ class SecondaryHeadingTest extends WebTestCase
         self::assertRouteSame('homePage');
     }
 
+    public function testEditSecondaryHeading(): void
+    {
+        $client = static::createClient();
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get('router');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('security_login'));
+        $form = $crawler->filter('form[name=login]')->form([
+            'email' => 'user@user.com',
+            'password' => 'password',
+        ]);
+
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+        $projectRepository = $entityManager->getRepository(Project::class);
+        /** @var Project $project */
+        $project = $projectRepository->findOneByCompany('secondaryHeadingcompany');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('secondaryHeading_edit', [
+            'idProject' => $project->getId(),
+        ]));
+        self::assertRouteSame('secondaryHeading_edit');
+        $form = $crawler->filter('form[name=secondary_heading]')->form([
+            'secondary_heading[location]' => 'En volume chauffé',
+            'secondary_heading[heatingAppliance]' => 'Radiateur',
+            'secondary_heading[information]' => 'informationmainheading edit',
+        ]);
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+    }
+
+    /**
+     * @dataProvider provideFailedData
+     */
+    public function testEditSecondaryHeadingFailedData(array $formData): void
+    {
+        $client = static::createClient();
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get('router');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('security_login'));
+        $form = $crawler->filter('form[name=login]')->form([
+            'email' => 'user@user.com',
+            'password' => 'password',
+        ]);
+
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+        $projectRepository = $entityManager->getRepository(Project::class);
+        /** @var Project $project */
+        $project = $projectRepository->findOneByCompany('secondaryHeadingcompany');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('secondaryHeading_edit', [
+            'idProject' => $project->getId(),
+        ]));
+        self::assertRouteSame('secondaryHeading_edit');
+        $form = $crawler->filter('form[name=secondary_heading]')->form($formData);
+        $client->submit($form);
+    }
+
     /**
      * @dataProvider provideFailedData
      */
