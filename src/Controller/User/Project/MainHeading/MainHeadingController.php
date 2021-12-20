@@ -58,4 +58,39 @@ class MainHeadingController extends AbstractController
         ]);
     }
 
+    #[Route('/espace-client/edit/mainHeading/{idProject}', name: 'edit')]
+    public function editCarpentry(int $idProject, Request $request): Response
+    {
+        if (!$this->getUser()) {
+            $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');
+
+            return $this->redirectToRoute('security_login');
+        }
+        $project = $this->projectRepository->findOneById($idProject);
+        if (!$project) {
+            $this->addFlash('warning', "Ce projet n'existe pas");
+
+            return $this->redirectToRoute('project_create');
+        }
+        if (!$project->getMainHeading()) {
+            $this->addFlash('warning', 'Donné pas valider veuillez crée carpentry');
+            return $this->redirectToRoute('homePage');
+        }
+        $user = $this->getUser();
+        if ($project->getUser() !== $user) {
+            $this->addFlash('warning', 'Ceci ne vous appartient pas');
+            return $this->redirectToRoute('homePage');
+        }
+        $mainHeading = $project->getMainHeading();
+        $form = $this->createForm(MainHeadingType::class, $mainHeading)->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Ok edit mainHeading');
+            return $this->redirectToRoute('homePage');
+        }
+        return $this->render('user/project/mainHeading/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
 }
