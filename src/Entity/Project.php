@@ -72,7 +72,7 @@ class Project
     private ?Carpentry $carpentry;
 
     #[ORM\OneToOne(mappedBy: 'project', targetEntity: MainHeading::class, cascade: ['persist', 'remove'])]
-    private $mainHeading;
+    private ?MainHeading $mainHeading;
 
     public function __construct()
     {

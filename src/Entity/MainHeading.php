@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MainHeadingRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MainHeadingRepository::class)]
@@ -11,26 +12,31 @@ class MainHeading
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private ?int $id = null;
 
-    #[ORM\Column(type: 'text')]
-    private $systems;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $location;
+    #[ORM\Column(type: 'string')]
+    private string $systems;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $heatingAppliance;
+    private string $location;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $heatingAppliance;
 
     #[ORM\Column(type: 'text')]
-    private $information;
+    private string $information;
 
     #[ORM\Column(type: 'datetime_immutable')]
-    private $createdAt;
+    private DateTimeImmutable $createdAt;
 
     #[ORM\OneToOne(inversedBy: 'mainHeading', targetEntity: Project::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private $project;
+    private Project $project;
+
+    public function __construct()
+    {
+        $this->createdAt = new DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
