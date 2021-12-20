@@ -76,12 +76,74 @@ class VentilationTest extends WebTestCase
         self::assertRouteSame('ventilation_create');
         $form = $crawler->filter('form[name=ventilation]')->form([
             'ventilation[systems]' => 'Double flux hydro',
-            'ventilation[information]' => 'texteeeeeeeee',
+            'ventilation[information]' => 'edit this',
         ]);
         $client->submit($form);
         $client->followRedirect();
         self::assertRouteSame('homePage');
     }
+
+    public function testEditVentilation(): void
+    {
+        $client = static::createClient();
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get('router');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('security_login'));
+        $form = $crawler->filter('form[name=login]')->form([
+            'email' => 'user@user.com',
+            'password' => 'password',
+        ]);
+
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+        $projectRepository = $entityManager->getRepository(Project::class);
+        /** @var Project $project */
+        $project = $projectRepository->findOneByCompany('forventilationcompany');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('ventilation_edit', [
+            'idProject' => $project->getId(),
+        ]));
+        self::assertRouteSame('ventilation_edit');
+        $form = $crawler->filter('form[name=ventilation]')->form([
+            'ventilation[systems]' => 'Double flux hydro',
+            'ventilation[information]' => 'edited',
+        ]);
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+    }
+
+    /**
+     * @dataProvider provideFailedData
+     */
+    public function testEditVentilationProvideFailedData(array $formData): void
+    {
+        $client = static::createClient();
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get('router');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('security_login'));
+        $form = $crawler->filter('form[name=login]')->form([
+            'email' => 'user@user.com',
+            'password' => 'password',
+        ]);
+
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+        $projectRepository = $entityManager->getRepository(Project::class);
+        /** @var Project $project */
+        $project = $projectRepository->findOneByCompany('forventilationcompany');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('ventilation_edit', [
+            'idProject' => $project->getId(),
+        ]));
+        self::assertRouteSame('ventilation_edit');
+        $form = $crawler->filter('form[name=ventilation]')->form($formData);
+        $client->submit($form);
+    }
+
+
 
     /**
      * @dataProvider provideFailedData
