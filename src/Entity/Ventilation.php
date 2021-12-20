@@ -27,6 +27,11 @@ class Ventilation
     #[ORM\JoinColumn(nullable: false)]
     private Project $project;
 
+    public function __construct()
+    {
+        $this->createdAt = new DateTimeImmutable();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
