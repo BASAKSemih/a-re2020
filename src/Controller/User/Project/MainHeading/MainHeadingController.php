@@ -1,11 +1,9 @@
 <?php
 
-declare(strict_types=1);
+namespace App\Controller\User\Project\MainHeading;
 
-namespace App\Controller\User\Project\Carpentry;
-
-use App\Entity\Carpentry;
-use App\Form\CarpentryType;
+use App\Entity\MainHeading;
+use App\Form\MainHeadingType;
 use App\Repository\ProjectRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,11 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @SuppressWarnings
- */
-#[Route(name: 'carpentry_')]
-final class CarpentryController extends AbstractController
+
+#[Route(name: 'mainHeading_')]
+class MainHeadingController extends AbstractController
 {
     public function __construct(
         protected EntityManagerInterface $entityManager,
@@ -27,7 +23,7 @@ final class CarpentryController extends AbstractController
     {
     }
 
-    #[Route('/espace-client/crée/carpentry/{idProject}', name: 'create')]
+    #[Route('/espace-client/crée/mainHeading/{idProject}', name: 'create')]
     public function createCarpentry(int $idProject, Request $request): Response
     {
         if (!$this->getUser()) {
@@ -39,8 +35,8 @@ final class CarpentryController extends AbstractController
             $this->addFlash('warning', "Ce projet n'existe pas");
             return $this->redirectToRoute('project_create');
         }
-        if ($project->getCarpentry()) {
-            $this->addFlash('warning', 'Donné deja valider veuillez modifier building');
+        if ($project->getMainHeading()) {
+            $this->addFlash('warning', 'Donné deja valider veuillez modifier mainHeading');
             return $this->redirectToRoute('homePage');
         }
         $user = $this->getUser();
@@ -48,23 +44,21 @@ final class CarpentryController extends AbstractController
             $this->addFlash('warning', 'Ceci ne vous appartient pas');
             return $this->redirectToRoute('homePage');
         }
-        $carpentry = new Carpentry();
-        $form = $this->createForm(CarpentryType::class, $carpentry)->handleRequest($request);
+        $mainHeading = new MainHeading();
+        $form = $this->createForm(MainHeadingType::class, $mainHeading)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $carpentry->setProject($project);
-            $this->entityManager->persist($carpentry);
+            $mainHeading->setProject($project);
+            $this->entityManager->persist($mainHeading);
             $this->entityManager->flush();
-            $this->addFlash('success', 'Ok create carpentry');
-
+            $this->addFlash('success', 'Ok create mainHeading');
             return $this->redirectToRoute('homePage');
         }
-
-        return $this->render('user/project/carpentry/create.html.twig', [
-            'form' => $form->createView(),
+        return $this->render('user/project/mainHeading/create.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 
-    #[Route('/espace-client/edit/carpentry/{idProject}', name: 'edit')]
+    #[Route('/espace-client/edit/mainHeading/{idProject}', name: 'edit')]
     public function editCarpentry(int $idProject, Request $request): Response
     {
         if (!$this->getUser()) {
@@ -78,26 +72,25 @@ final class CarpentryController extends AbstractController
 
             return $this->redirectToRoute('project_create');
         }
-        if (!$project->getCarpentry()) {
+        if (!$project->getMainHeading()) {
             $this->addFlash('warning', 'Donné pas valider veuillez crée carpentry');
             return $this->redirectToRoute('homePage');
         }
         $user = $this->getUser();
         if ($project->getUser() !== $user) {
             $this->addFlash('warning', 'Ceci ne vous appartient pas');
-
             return $this->redirectToRoute('homePage');
         }
-        $carpentry = $project->getCarpentry();
-        $form = $this->createForm(CarpentryType::class, $carpentry)->handleRequest($request);
+        $mainHeading = $project->getMainHeading();
+        $form = $this->createForm(MainHeadingType::class, $mainHeading)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
-            $this->addFlash('success', 'Ok edit carpentry');
+            $this->addFlash('success', 'Ok edit mainHeading');
             return $this->redirectToRoute('homePage');
         }
-
-        return $this->render('user/project/carpentry/edit.html.twig', [
-            'form' => $form->createView(),
+        return $this->render('user/project/mainHeading/edit.html.twig', [
+            'form' => $form->createView()
         ]);
     }
+
 }
