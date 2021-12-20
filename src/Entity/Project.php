@@ -80,6 +80,9 @@ class Project
     #[ORM\OneToOne(mappedBy: 'project', targetEntity: SanitaryHotwater::class, cascade: ['persist', 'remove'])]
     private ?SanitaryHotwater $sanitaryHotwater;
 
+    #[ORM\OneToOne(mappedBy: 'project', targetEntity: Ventilation::class, cascade: ['persist', 'remove'])]
+    private ?Ventilation $ventilation;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -363,6 +366,23 @@ class Project
         }
 
         $this->sanitaryHotwater = $sanitaryHotwater;
+
+        return $this;
+    }
+
+    public function getVentilation(): ?Ventilation
+    {
+        return $this->ventilation;
+    }
+
+    public function setVentilation(Ventilation $ventilation): self
+    {
+        // set the owning side of the relation if necessary
+        if ($ventilation->getProject() !== $this) {
+            $ventilation->setProject($this);
+        }
+
+        $this->ventilation = $ventilation;
 
         return $this;
     }
