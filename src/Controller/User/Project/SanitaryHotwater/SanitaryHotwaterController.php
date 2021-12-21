@@ -27,20 +27,24 @@ class SanitaryHotwaterController extends AbstractController
     {
         if (!$this->getUser()) {
             $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');
+
             return $this->redirectToRoute('security_login');
         }
         $project = $this->projectRepository->findOneById($idProject);
         if (!$project) {
             $this->addFlash('warning', "Ce projet n'existe pas");
+
             return $this->redirectToRoute('project_create');
         }
         if ($project->getSanitaryHotwater()) {
             $this->addFlash('warning', 'Donné deja valider veuillez modifier mainHeading');
+
             return $this->redirectToRoute('homePage');
         }
         $user = $this->getUser();
         if ($project->getUser() !== $user) {
             $this->addFlash('warning', 'Ceci ne vous appartient pas');
+
             return $this->redirectToRoute('homePage');
         }
         $sanitaryHotwater = new SanitaryHotwater();
@@ -50,10 +54,12 @@ class SanitaryHotwaterController extends AbstractController
             $this->entityManager->persist($sanitaryHotwater);
             $this->entityManager->flush();
             $this->addFlash('success', 'Ok create sanitaryHotwater');
+
             return $this->redirectToRoute('homePage');
         }
+
         return $this->render('user/project/sanitaryHotwater/create.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -73,11 +79,13 @@ class SanitaryHotwaterController extends AbstractController
         }
         if (!$project->getSanitaryHotwater()) {
             $this->addFlash('warning', 'Donné pas valider veuillez crée carpentry');
+
             return $this->redirectToRoute('homePage');
         }
         $user = $this->getUser();
         if ($project->getUser() !== $user) {
             $this->addFlash('warning', 'Ceci ne vous appartient pas');
+
             return $this->redirectToRoute('homePage');
         }
         $sanitaryHotwater = $project->getSanitaryHotwater();
@@ -85,11 +93,12 @@ class SanitaryHotwaterController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
             $this->addFlash('success', 'Ok edit sanitaryHotwater');
+
             return $this->redirectToRoute('homePage');
         }
+
         return $this->render('user/project/sanitaryHotwater/edit.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
-
 }

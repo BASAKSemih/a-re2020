@@ -227,5 +227,4 @@ class SecondaryHeadingTest extends WebTestCase
 
         yield 'information is empty' => [$baseData(['secondary_heading[information]' => ''])];
     }
-
 }

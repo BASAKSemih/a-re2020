@@ -246,7 +246,6 @@ class SanitaryHotwaterTest extends WebTestCase
         $client->submit($form);
     }
 
-
     public function provideFailedData(): iterable
     {
         $baseData = static fn (array $data) => $data + [
@@ -256,5 +255,4 @@ class SanitaryHotwaterTest extends WebTestCase
 
         yield 'thermodynamicDHW is empty' => [$baseData(['sanitary_hotwater[thermodynamicDHW]' => ''])];
     }
-
 }

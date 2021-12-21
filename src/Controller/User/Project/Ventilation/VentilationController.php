@@ -27,20 +27,24 @@ class VentilationController extends AbstractController
     {
         if (!$this->getUser()) {
             $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');
+
             return $this->redirectToRoute('security_login');
         }
         $project = $this->projectRepository->findOneById($idProject);
         if (!$project) {
             $this->addFlash('warning', "Ce projet n'existe pas");
+
             return $this->redirectToRoute('project_create');
         }
         if ($project->getVentilation()) {
             $this->addFlash('warning', 'Donné deja valider veuillez modifier ventilation');
+
             return $this->redirectToRoute('homePage');
         }
         $user = $this->getUser();
         if ($project->getUser() !== $user) {
             $this->addFlash('warning', 'Ceci ne vous appartient pas');
+
             return $this->redirectToRoute('homePage');
         }
         $ventilation = new Ventilation();
@@ -50,10 +54,12 @@ class VentilationController extends AbstractController
             $this->entityManager->persist($ventilation);
             $this->entityManager->flush();
             $this->addFlash('success', 'Ok create ventilation');
+
             return $this->redirectToRoute('homePage');
         }
+
         return $this->render('user/project/ventilation/create.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -73,11 +79,13 @@ class VentilationController extends AbstractController
         }
         if (!$project->getVentilation()) {
             $this->addFlash('warning', 'Donné pas valider veuillez crée Ventilation');
+
             return $this->redirectToRoute('homePage');
         }
         $user = $this->getUser();
         if ($project->getUser() !== $user) {
             $this->addFlash('warning', 'Ceci ne vous appartient pas');
+
             return $this->redirectToRoute('homePage');
         }
         $ventilation = $project->getVentilation();
@@ -85,11 +93,12 @@ class VentilationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
             $this->addFlash('success', 'Ok edit ventilation');
+
             return $this->redirectToRoute('homePage');
         }
+
         return $this->render('user/project/ventilation/edit.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
-
 }

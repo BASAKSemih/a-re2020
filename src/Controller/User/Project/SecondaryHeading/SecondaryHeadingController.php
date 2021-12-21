@@ -27,20 +27,24 @@ class SecondaryHeadingController extends AbstractController
     {
         if (!$this->getUser()) {
             $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');
+
             return $this->redirectToRoute('security_login');
         }
         $project = $this->projectRepository->findOneById($idProject);
         if (!$project) {
             $this->addFlash('warning', "Ce projet n'existe pas");
+
             return $this->redirectToRoute('project_create');
         }
         if ($project->getSecondaryHeading()) {
             $this->addFlash('warning', 'Donné deja valider veuillez modifier mainHeading');
+
             return $this->redirectToRoute('homePage');
         }
         $user = $this->getUser();
         if ($project->getUser() !== $user) {
             $this->addFlash('warning', 'Ceci ne vous appartient pas');
+
             return $this->redirectToRoute('homePage');
         }
         $secondaryHeading = new SecondaryHeading();
@@ -50,10 +54,12 @@ class SecondaryHeadingController extends AbstractController
             $this->entityManager->persist($secondaryHeading);
             $this->entityManager->flush();
             $this->addFlash('success', 'Ok create secondaryHeading');
+
             return $this->redirectToRoute('homePage');
         }
+
         return $this->render('user/project/secondaryHeading/create.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -73,11 +79,13 @@ class SecondaryHeadingController extends AbstractController
         }
         if (!$project->getSecondaryHeading()) {
             $this->addFlash('warning', 'Donné pas valider veuillez crée carpentry');
+
             return $this->redirectToRoute('homePage');
         }
         $user = $this->getUser();
         if ($project->getUser() !== $user) {
             $this->addFlash('warning', 'Ceci ne vous appartient pas');
+
             return $this->redirectToRoute('homePage');
         }
         $secondaryHeading = $project->getSecondaryHeading();
@@ -85,11 +93,12 @@ class SecondaryHeadingController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
             $this->addFlash('success', 'Ok edit secondaryHeading');
+
             return $this->redirectToRoute('homePage');
         }
+
         return $this->render('user/project/secondaryHeading/edit.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
-
 }

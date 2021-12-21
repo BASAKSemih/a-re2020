@@ -20,7 +20,7 @@ class SecondaryHeadingType extends AbstractType
                 'label' => false,
                 'choices' => [
                     'En volume chauffé' => 'En volume chauffé',
-                    "Hors volume chauffé = cave, garage, etc..." => "Hors volume chauffé = cave, garage, etc...",
+                    'Hors volume chauffé = cave, garage, etc...' => 'Hors volume chauffé = cave, garage, etc...',
                 ],
                 'attr' => [
                     'class' => 'form-control',
@@ -30,7 +30,7 @@ class SecondaryHeadingType extends AbstractType
                 'label' => false,
                 'choices' => [
                     'Plancher chauffant' => 'Plancher chauffant',
-                    "Radiateur" => "Radiateur",
+                    'Radiateur' => 'Radiateur',
                     'Poêle à bois + sèche serviette puissance 500W dans la salle de bain' => 'Poêle à bois + sèche serviette puissance 500W dans la salle de bain',
                 ],
                 'attr' => [

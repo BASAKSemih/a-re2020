@@ -32,20 +32,24 @@ final class CarpentryController extends AbstractController
     {
         if (!$this->getUser()) {
             $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');
+
             return $this->redirectToRoute('security_login');
         }
         $project = $this->projectRepository->findOneById($idProject);
         if (!$project) {
             $this->addFlash('warning', "Ce projet n'existe pas");
+
             return $this->redirectToRoute('project_create');
         }
         if ($project->getCarpentry()) {
             $this->addFlash('warning', 'Donné deja valider veuillez modifier building');
+
             return $this->redirectToRoute('homePage');
         }
         $user = $this->getUser();
         if ($project->getUser() !== $user) {
             $this->addFlash('warning', 'Ceci ne vous appartient pas');
+
             return $this->redirectToRoute('homePage');
         }
         $carpentry = new Carpentry();
@@ -80,6 +84,7 @@ final class CarpentryController extends AbstractController
         }
         if (!$project->getCarpentry()) {
             $this->addFlash('warning', 'Donné pas valider veuillez crée carpentry');
+
             return $this->redirectToRoute('homePage');
         }
         $user = $this->getUser();
@@ -93,6 +98,7 @@ final class CarpentryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
             $this->addFlash('success', 'Ok edit carpentry');
+
             return $this->redirectToRoute('homePage');
         }
 

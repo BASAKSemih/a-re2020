@@ -20,8 +20,8 @@ class VentilationType extends AbstractType
                 'label' => false,
                 'choices' => [
                     'Simple flux hydro basse consommation' => 'Simple flux hydro basse consommation',
-                    "Simple flux classique" => "Simple flux classique",
-                    "Double flux auto" => "Double flux auto",
+                    'Simple flux classique' => 'Simple flux classique',
+                    'Double flux auto' => 'Double flux auto',
                     'Double flux hydro' => 'Double flux hydro',
                 ],
                 'attr' => [

@@ -94,7 +94,7 @@ class MainHeadingTest extends WebTestCase
         $client->followRedirect();
         self::assertRouteSame('homePage');
     }
-    
+
     public function testCreateMainHeading(): void
     {
         $client = static::createClient();
@@ -228,5 +228,4 @@ class MainHeadingTest extends WebTestCase
 
         yield 'information is empty' => [$baseData(['main_heading[information]' => ''])];
     }
-
 }

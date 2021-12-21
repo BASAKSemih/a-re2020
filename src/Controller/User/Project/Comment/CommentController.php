@@ -27,20 +27,24 @@ class CommentController extends AbstractController
     {
         if (!$this->getUser()) {
             $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');
+
             return $this->redirectToRoute('security_login');
         }
         $project = $this->projectRepository->findOneById($idProject);
         if (!$project) {
             $this->addFlash('warning', "Ce projet n'existe pas");
+
             return $this->redirectToRoute('project_create');
         }
         if ($project->getComment()) {
             $this->addFlash('warning', 'Donné deja valider veuillez modifier Comment');
+
             return $this->redirectToRoute('homePage');
         }
         $user = $this->getUser();
         if ($project->getUser() !== $user) {
             $this->addFlash('warning', 'Ceci ne vous appartient pas');
+
             return $this->redirectToRoute('homePage');
         }
         $comment = new Comment();
@@ -50,10 +54,12 @@ class CommentController extends AbstractController
             $this->entityManager->persist($comment);
             $this->entityManager->flush();
             $this->addFlash('success', 'Ok create comment');
+
             return $this->redirectToRoute('homePage');
         }
+
         return $this->render('user/project/comment/create.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -73,11 +79,13 @@ class CommentController extends AbstractController
         }
         if (!$project->getComment()) {
             $this->addFlash('warning', 'Donné pas valider veuillez crée Ventilation');
+
             return $this->redirectToRoute('homePage');
         }
         $user = $this->getUser();
         if ($project->getUser() !== $user) {
             $this->addFlash('warning', 'Ceci ne vous appartient pas');
+
             return $this->redirectToRoute('homePage');
         }
         $comment = $project->getComment();
@@ -85,10 +93,12 @@ class CommentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
             $this->addFlash('success', 'Ok edit comment');
+
             return $this->redirectToRoute('homePage');
         }
+
         return $this->render('user/project/comment/edit.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 }
