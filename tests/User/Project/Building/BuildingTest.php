@@ -280,7 +280,6 @@ class BuildingTest extends WebTestCase
         $crawler = $client->request(Request::METHOD_GET, $router->generate('building_edit', [
             'idProject' => $project->getId(),
         ]));
-        $client->followRedirect();
-        self::assertRouteSame('homePage');
+        self::assertResponseStatusCodeSame(403);
     }
 }

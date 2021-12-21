@@ -96,7 +96,7 @@ return [
             'ignoreComments' => true,
         ],
         CyclomaticComplexityIsHigh::class => [
-            'maxComplexity' => 4,
+            'maxComplexity' => 10,
         ],
     ],
 

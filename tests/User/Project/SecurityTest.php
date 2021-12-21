@@ -219,5 +219,4 @@ class SecurityTest extends WebTestCase
         ]));
         self::assertResponseStatusCodeSame(403);
     }
-
 }
