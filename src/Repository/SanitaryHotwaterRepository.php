@@ -11,7 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method SanitaryHotwater|null find($id, $lockMode = null, $lockVersion = null)
  * @method SanitaryHotwater|null findOneBy(array $criteria, array $orderBy = null)
- * @method                       findAll()              array<int, SanitaryHotwater>
+ * @method                       findAll()                                                                     array<int, SanitaryHotwater>
  * @method                       findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null) array<array-key, SanitaryHotwater>
  *
  * @template T

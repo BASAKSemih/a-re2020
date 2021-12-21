@@ -11,7 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method MainHeading|null find($id, $lockMode = null, $lockVersion = null)
  * @method MainHeading|null findOneBy(array $criteria, array $orderBy = null)
- * @method                  findAll()                       array<int, MainHeading>
+ * @method                  findAll()                                                                     array<int, MainHeading>
  * @method                  findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null) array<array-key, MainHeading>
  *
  * @template T
