@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\User\Project\Comment;
 
 use App\Entity\Comment;
@@ -13,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(name: 'comment_')]
-class CommentController extends AbstractController
+final class CommentController extends AbstractController
 {
     public function __construct(
         protected EntityManagerInterface $entityManager,

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\User\Project\MainHeading;
 
 use App\Entity\MainHeading;
@@ -13,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(name: 'mainHeading_')]
-class MainHeadingController extends AbstractController
+final class MainHeadingController extends AbstractController
 {
     public function __construct(
         protected EntityManagerInterface $entityManager,
@@ -23,7 +25,7 @@ class MainHeadingController extends AbstractController
     }
 
     #[Route('/espace-client/crée/mainHeading/{idProject}', name: 'create')]
-    public function createCarpentry(int $idProject, Request $request): Response
+    public function createMainHeading(int $idProject, Request $request): Response
     {
         if (!$this->getUser()) {
             $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');
@@ -64,7 +66,7 @@ class MainHeadingController extends AbstractController
     }
 
     #[Route('/espace-client/edit/mainHeading/{idProject}', name: 'edit')]
-    public function editCarpentry(int $idProject, Request $request): Response
+    public function editMainHeading(int $idProject, Request $request): Response
     {
         if (!$this->getUser()) {
             $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');

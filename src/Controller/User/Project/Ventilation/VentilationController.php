@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\User\Project\Ventilation;
 
 use App\Entity\Ventilation;
@@ -13,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(name: 'ventilation_')]
-class VentilationController extends AbstractController
+final class VentilationController extends AbstractController
 {
     public function __construct(
         protected EntityManagerInterface $entityManager,

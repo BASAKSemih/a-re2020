@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\User\Project\SanitaryHotwater;
 
 use App\Entity\SanitaryHotwater;
@@ -13,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(name: 'sanitaryHotwater_')]
-class SanitaryHotwaterController extends AbstractController
+final class SanitaryHotwaterController extends AbstractController
 {
     public function __construct(
         protected EntityManagerInterface $entityManager,

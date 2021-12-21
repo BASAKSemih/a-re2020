@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\User\Project\Building;
 
 use App\Entity\Building;
@@ -16,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @SuppressWarnings
  */
 #[Route(name: 'building_')]
-class BuildingController extends AbstractController
+final class BuildingController extends AbstractController
 {
     public function __construct(
         protected EntityManagerInterface $entityManager,
