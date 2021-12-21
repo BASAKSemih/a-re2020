@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\MainHeading;
@@ -9,42 +11,17 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method MainHeading|null find($id, $lockMode = null, $lockVersion = null)
  * @method MainHeading|null findOneBy(array $criteria, array $orderBy = null)
- * @method MainHeading[]    findAll()
- * @method MainHeading[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method                  findAll()                                                                     array<int, MainHeading>
+ * @method                  findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null) array<array-key, MainHeading>
+ *
+ * @template T
+ *
+ * @extends ServiceEntityRepository<MainHeading>
  */
-class MainHeadingRepository extends ServiceEntityRepository
+final class MainHeadingRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, MainHeading::class);
     }
-
-    // /**
-    //  * @return MainHeading[] Returns an array of MainHeading objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?MainHeading
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

@@ -11,12 +11,14 @@ use App\Form\OwnerType;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(name: 'project_')]
+#[IsGranted('ROLE_USER')]
 final class ProjectController extends AbstractController
 {
     public function __construct(protected EntityManagerInterface $entityManager, protected ProjectRepository $projectRepository)
@@ -26,12 +28,6 @@ final class ProjectController extends AbstractController
     #[Route('/espace-client/cree-un-projet', name: 'create')]
     public function createProject(Request $request): Response
     {
-        if (!$this->getUser()) {
-            $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');
-
-            return $this->redirectToRoute('security_login');
-        }
-
         $project = new Project();
         $ownerProject = new Owner();
         $projectForm = $this->createForm(ProjectType::class, $project)->handleRequest($request);
@@ -58,11 +54,6 @@ final class ProjectController extends AbstractController
     #[Route('/espace-client/modifier-un-projet/{idProject}', name: 'edit')]
     public function editProject(int $idProject, Request $request): Response
     {
-        if (!$this->getUser()) {
-            $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');
-
-            return $this->redirectToRoute('security_login');
-        }
         /** @var Project $project */
         $project = $this->projectRepository->findOneById($idProject);
         $owner = $project->getOwnerProject();

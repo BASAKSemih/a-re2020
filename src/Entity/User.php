@@ -183,7 +183,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection|Project[]
+     * @return Collection<Project>
      */
     public function getProjects(): Collection
     {

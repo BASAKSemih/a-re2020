@@ -143,8 +143,6 @@ class VentilationTest extends WebTestCase
         $client->submit($form);
     }
 
-
-
     /**
      * @dataProvider provideFailedData
      */
@@ -183,5 +181,4 @@ class VentilationTest extends WebTestCase
 
         yield 'information is empty' => [$baseData(['ventilation[information]' => ''])];
     }
-
 }

@@ -27,7 +27,7 @@ class SanitaryHotwaterType extends AbstractType
                 'label' => false,
                 'choices' => [
                     'En volume chauffé' => 'En volume chauffé',
-                    "Hors volume chauffé = cave, garage, etc..." => "Hors volume chauffé = cave, garage, etc...",
+                    'Hors volume chauffé = cave, garage, etc...' => 'Hors volume chauffé = cave, garage, etc...',
                 ],
                 'attr' => [
                     'class' => 'form-control',

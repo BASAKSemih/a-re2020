@@ -20,12 +20,12 @@ class MainHeadingType extends AbstractType
                 'label' => false,
                 'choices' => [
                     'GAZ' => 'GAZ',
-                    "FIOUL" => "FIOUL",
+                    'FIOUL' => 'FIOUL',
                     'PAC EAU-GLYCOLEE' => 'PAC EAU-GLYCOLEE',
                     'PAC AIR-EAU' => 'PAC AIR-EAU',
-                    "PELLETS" => "PELLETS",
+                    'PELLETS' => 'PELLETS',
                     'BUCHES' => 'BUCHES',
-                    "PAC AIR-AIR" => "PAC AIR-AIR",
+                    'PAC AIR-AIR' => 'PAC AIR-AIR',
                     'PAC EAU-EAU' => 'PAC EAU-EAU',
                 ],
                 'attr' => [
@@ -36,7 +36,7 @@ class MainHeadingType extends AbstractType
                 'label' => false,
                 'choices' => [
                     'En volume chauffé' => 'En volume chauffé',
-                    "Hors volume chauffé = cave, garage, etc..." => "Hors volume chauffé = cave, garage, etc...",
+                    'Hors volume chauffé = cave, garage, etc...' => 'Hors volume chauffé = cave, garage, etc...',
                 ],
                 'attr' => [
                     'class' => 'form-control',
@@ -46,7 +46,7 @@ class MainHeadingType extends AbstractType
                 'label' => false,
                 'choices' => [
                     'Plancher chauffant' => 'Plancher chauffant',
-                    "Radiateur" => "Radiateur",
+                    'Radiateur' => 'Radiateur',
                     'Poêle à bois + sèche serviette puissance 500W dans la salle de bain' => 'Poêle à bois + sèche serviette puissance 500W dans la salle de bain',
                 ],
                 'attr' => [

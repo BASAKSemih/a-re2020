@@ -67,6 +67,7 @@ return [
         'migrations',
         'src/Form',
         'src/Security/WebAuthenticator',
+        'src/Entity/Project'
     ],
 
     'add' => [
@@ -96,7 +97,7 @@ return [
             'ignoreComments' => true,
         ],
         CyclomaticComplexityIsHigh::class => [
-            'maxComplexity' => 4,
+            'maxComplexity' => 10,
         ],
     ],
 
