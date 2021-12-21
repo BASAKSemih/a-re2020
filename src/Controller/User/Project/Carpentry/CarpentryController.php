@@ -23,8 +23,8 @@ final class CarpentryController extends AbstractController
     public function __construct(
         protected EntityManagerInterface $entityManager,
         protected ProjectRepository $projectRepository,
-        protected UserRepository $userRepository)
-    {
+        protected UserRepository $userRepository
+    ) {
     }
 
     #[Route('/espace-client/crée/carpentry/{idProject}', name: 'create')]

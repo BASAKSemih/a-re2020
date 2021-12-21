@@ -20,8 +20,8 @@ final class VentilationController extends AbstractController
     public function __construct(
         protected EntityManagerInterface $entityManager,
         protected ProjectRepository $projectRepository,
-        protected UserRepository $userRepository)
-    {
+        protected UserRepository $userRepository
+    ) {
     }
 
     #[Route('/espace-client/crée/ventilation/{idProject}', name: 'create')]
