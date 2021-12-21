@@ -83,6 +83,12 @@ class Project
     #[ORM\OneToOne(mappedBy: 'project', targetEntity: Ventilation::class, cascade: ['persist', 'remove'])]
     private ?Ventilation $ventilation;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    #[ORM\OneToOne(mappedBy: 'project', targetEntity: Comment::class, cascade: ['persist', 'remove'])]
+    private ?Comment $comment;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -383,6 +389,23 @@ class Project
         }
 
         $this->ventilation = $ventilation;
+
+        return $this;
+    }
+
+    public function getComment(): ?Comment
+    {
+        return $this->comment;
+    }
+
+    public function setComment(Comment $comment): self
+    {
+        // set the owning side of the relation if necessary
+        if ($comment->getProject() !== $this) {
+            $comment->setProject($this);
+        }
+
+        $this->comment = $comment;
 
         return $this;
     }
