@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 #[Route(name: 'mainHeading_')]
 final class MainHeadingController extends AbstractController
@@ -20,7 +21,8 @@ final class MainHeadingController extends AbstractController
     public function __construct(
         protected EntityManagerInterface $entityManager,
         protected ProjectRepository $projectRepository,
-        protected UserRepository $userRepository
+        protected UserRepository $userRepository,
+        protected Security $security
     ) {
     }
 
@@ -43,12 +45,8 @@ final class MainHeadingController extends AbstractController
 
             return $this->redirectToRoute('homePage');
         }
-        $user = $this->getUser();
-        if ($project->getUser() !== $user) {
-            $this->addFlash('warning', 'Ceci ne vous appartient pas');
-
-            return $this->redirectToRoute('homePage');
-        }
+        $this->security->isGranted('IS_OWNER', $project);
+        $this->denyAccessUnlessGranted('IS_OWNER', $project, 'Pas proprio');
         $mainHeading = new MainHeading();
         $form = $this->createForm(MainHeadingType::class, $mainHeading)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
