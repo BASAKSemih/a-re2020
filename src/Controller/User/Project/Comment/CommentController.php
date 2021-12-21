@@ -57,4 +57,38 @@ class CommentController extends AbstractController
         ]);
     }
 
+    #[Route('/espace-client/edit/comment/{idProject}', name: 'edit')]
+    public function editComment(int $idProject, Request $request): Response
+    {
+        if (!$this->getUser()) {
+            $this->addFlash('warning', 'Vous devez être connecter pour crée un projets');
+
+            return $this->redirectToRoute('security_login');
+        }
+        $project = $this->projectRepository->findOneById($idProject);
+        if (!$project) {
+            $this->addFlash('warning', "Ce projet n'existe pas");
+
+            return $this->redirectToRoute('project_create');
+        }
+        if (!$project->getComment()) {
+            $this->addFlash('warning', 'Donné pas valider veuillez crée Ventilation');
+            return $this->redirectToRoute('homePage');
+        }
+        $user = $this->getUser();
+        if ($project->getUser() !== $user) {
+            $this->addFlash('warning', 'Ceci ne vous appartient pas');
+            return $this->redirectToRoute('homePage');
+        }
+        $comment = $project->getComment();
+        $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->flush();
+            $this->addFlash('success', 'Ok edit comment');
+            return $this->redirectToRoute('homePage');
+        }
+        return $this->render('user/project/comment/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 }
