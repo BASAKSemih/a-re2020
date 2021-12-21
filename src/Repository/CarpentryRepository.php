@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Carpentry|null find($id, $lockMode = null, $lockVersion = null)
  * @method Carpentry|null findOneBy(array $criteria, array $orderBy = null)
  * @method                findAll()                                                                     array<int, Carpentry>
- * @method Carpentry[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null) array<array-key, Carpentry>
+ * @method                findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null) array<array-key, Carpentry>
  *
  * @template T
  *
