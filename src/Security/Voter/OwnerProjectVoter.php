@@ -21,7 +21,7 @@ final class OwnerProjectVoter extends Voter
     {
         /** @var User $user */
         $user = $token->getUser();
-        /* @var Project $subject */
+        /** @var Project $subject */
         return $subject->getUser() === $user;
     }
 }
