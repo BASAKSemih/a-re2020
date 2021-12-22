@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        <table class="table ">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Lorem</th>
+                <th scope="col">Ipsum</th>
+                <th scope="col">Dolor</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for projet in projects %}
+            <tr>
+                <th scope="row">{{ projet.id }}</th>
+                <td>{{ projet.firstName }}</td>
+                <td>Amet</td>
+                <td><a href="{{ path('project_show', {'idProject': projet.id}) }}" class="btn btn-info">Voir le projet</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+{% endblock %}
