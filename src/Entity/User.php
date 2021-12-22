@@ -51,10 +51,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Project::class)]
     private Collection $projects;
 
+    /**
+     * @var Collection<Billing>
+     */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Billing::class)]
+    private Collection $billings;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
         $this->projects = new ArrayCollection();
+        $this->billings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -211,4 +218,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 //
 //        return $this;
 //    }
+
+/**
+ * @return Collection|Billing[]
+ */
+public function getBillings(): Collection
+{
+    return $this->billings;
+}
+
+public function addBilling(Billing $billing): self
+{
+    if (!$this->billings->contains($billing)) {
+        $this->billings[] = $billing;
+        $billing->setUser($this);
+    }
+
+    return $this;
+}
+
+//public function removeBilling(Billing $billing): self
+//{
+//    if ($this->billings->removeElement($billing)) {
+//        // set the owning side to null (unless already changed)
+//        if ($billing->getUser() === $this) {
+//            $billing->setUser(null);
+//        }
+//    }
+//
+//    return $this;
+//}
 }
