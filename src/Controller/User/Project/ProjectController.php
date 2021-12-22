@@ -65,7 +65,6 @@ final class ProjectController extends AbstractController
         /* @phpstan-ignore-next-line */
         if (!$project) {
             $this->addFlash('warning', "ce project n'existe pas");
-
             return $this->redirectToRoute('security_login');
         }
         $this->security->isGranted('IS_OWNER', $project);
