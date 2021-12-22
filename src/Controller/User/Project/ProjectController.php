@@ -95,7 +95,7 @@ final class ProjectController extends AbstractController
         ]);
     }
 
-    #[Route('/espace-client/show/{idProject}', name: 'show')]
+    #[Route('/espace-client/showleproject/{idProject}', name: 'show')]
     public function showProject(int $idProject): Response
     {
         $project = $this->projectRepository->findOneById($idProject);

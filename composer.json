@@ -26,6 +26,7 @@
         "sebastian/phpcpd": "^6.0",
         "sempro/phpunit-pretty-print": "^1.4",
         "sensio/framework-extra-bundle": "^6.1",
+        "stripe/stripe-php": "^7.107",
         "symfony/asset": "5.4.*",
         "symfony/console": "5.4.*",
         "symfony/dotenv": "5.4.*",

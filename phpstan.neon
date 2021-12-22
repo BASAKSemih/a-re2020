@@ -16,3 +16,6 @@ parameters:
     paths:
         - src
     checkGenericClassInNonGenericObjectType: false
+    excludePaths:
+    		- src/Controller/User/Payment
+    		- src/Twig
