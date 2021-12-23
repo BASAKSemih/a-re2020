@@ -12,6 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 class Project
 {
+    public const STATUS_BILLING = 'En attente de séléction forfais';
+    public const STATUS_TO_COMPETE = "En Attente de remplissage d'informations";
+    public const STATUS_ERROR_PAID = "Erreur de paiement";
+    public const STATUS_FINISH = 'PROJECT FINIS';
+    public const STATUS_PAID = "Paiement effectué";
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -55,6 +61,9 @@ class Project
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $projectType;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $status = Project::STATUS_TO_COMPETE;
 
     #[ORM\Column(type: 'date')]
     private DateTime $constructionPlanDate;
@@ -431,4 +440,16 @@ class Project
 
         return $this;
     }
+
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): void
+    {
+        $this->status = $status;
+    }
+
+
 }
