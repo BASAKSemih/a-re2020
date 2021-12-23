@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\User\Payment;
 
 use App\Repository\OfferRepository;
@@ -11,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(name: 'offer_')]
 #[IsGranted('ROLE_USER')]
-class OfferController extends AbstractController
+final class OfferController extends AbstractController
 {
     #[Route('/espace-client/chosir-un-forfait/{idProject}', name: 'show')]
     public function showOffer(int $idProject, OfferRepository $offerRepository, ProjectRepository $projectRepository): Response

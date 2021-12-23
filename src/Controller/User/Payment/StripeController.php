@@ -15,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -81,7 +82,6 @@ final class StripeController extends AbstractController
         $curl->setEnableHttp2(false);
         \Stripe\ApiRequestor::setHttpClient($curl);
         $product_for_stripe = [];
-
         $YOUR_DOMAIN = 'https://127.0.0.1:8000';
         $productStripe[] = [
             'price_data' => [
@@ -95,7 +95,8 @@ final class StripeController extends AbstractController
             'quantity' => 1,
         ];
         Stripe::setApiKey($this->publicKey);
-        $checkout_session = Session::create([
+        $checkout_session = Session::create(
+            [
             'line_items' => [[
                 $productStripe,
             ]],
@@ -103,8 +104,8 @@ final class StripeController extends AbstractController
                 'card',
             ],
             'mode' => 'payment',
-            'success_url' => $YOUR_DOMAIN."/espace-client/projet/$idProject/paiement/succes",
-            'cancel_url' => $YOUR_DOMAIN."/espace-client/projet/$idProject/paiement/erreur",
+            'success_url' => $YOUR_DOMAIN."/espace-client/projet/{CHECKOUT_SESSION_ID}/paiement/succes",
+            'cancel_url' => $YOUR_DOMAIN."/espace-client/projet/{CHECKOUT_SESSION_ID}/erreur",
         ]);
         $billing->setStripeSessionId($checkout_session->id);
         $this->entityManager->flush();
