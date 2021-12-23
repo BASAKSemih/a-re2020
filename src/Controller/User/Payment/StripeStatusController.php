@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller\User\Payment;
 
-use App\Entity\Billing;
 use App\Repository\BillingRepository;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -39,6 +38,7 @@ final class StripeStatusController extends AbstractController
 
         $billing->setIsPaid(true);
         $this->entityManager->flush();
+
         return $this->render('user/payment/success.html.twig');
     }
 
@@ -53,6 +53,7 @@ final class StripeStatusController extends AbstractController
 
         $billing->setUser(null);
         $this->entityManager->flush();
+
         return $this->render('user/payment/error.html.twig');
     }
 }

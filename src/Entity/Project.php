@@ -14,9 +14,9 @@ class Project
 {
     public const STATUS_BILLING = 'En attente de séléction forfais';
     public const STATUS_TO_COMPETE = "En Attente de remplissage d'informations";
-    public const STATUS_ERROR_PAID = "Erreur de paiement";
+    public const STATUS_ERROR_PAID = 'Erreur de paiement';
     public const STATUS_FINISH = 'PROJECT FINIS';
-    public const STATUS_PAID = "Paiement effectué";
+    public const STATUS_PAID = 'Paiement effectué';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -450,6 +450,4 @@ class Project
     {
         $this->status = $status;
     }
-
-
 }

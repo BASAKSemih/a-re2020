@@ -17,7 +17,7 @@ class RouteTest extends WebTestCase
         $crawler = $client->request(Request::METHOD_GET, $router->generate('homePage'));
         self::assertRouteSame('homePage');
     }
-    
+
     public function testShowRegister(): void
     {
         $client = static::createClient();
@@ -55,7 +55,6 @@ class RouteTest extends WebTestCase
         /** @var Project $project */
         $crawler = $client->request(Request::METHOD_GET, $router->generate('project_create'));
         self::assertRouteSame('project_create');
-
     }
 
     public function testShowAllProject(): void
@@ -78,5 +77,4 @@ class RouteTest extends WebTestCase
         $crawler = $client->request(Request::METHOD_GET, $router->generate('project_showAll'));
         self::assertRouteSame('project_showAll');
     }
-
 }
