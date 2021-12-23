@@ -19,3 +19,4 @@ parameters:
     excludePaths:
     		- src/Controller/User/Payment
     		- src/Twig
+    		- src/Security/Voter
