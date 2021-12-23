@@ -21,7 +21,7 @@ class SecurityTest extends WebTestCase
         $client->submit($form);
         $client->followRedirect();
         self::assertRouteSame('homePage');
-        $crawler = $client->request(Request::METHOD_GET, $router->generate('security_register'));
+        $client->request(Request::METHOD_GET, $router->generate('security_register'));
         $client->followRedirect();
         self::assertRouteSame('homePage');
     }
@@ -39,7 +39,7 @@ class SecurityTest extends WebTestCase
         $client->submit($form);
         $client->followRedirect();
         self::assertRouteSame('homePage');
-        $crawler = $client->request(Request::METHOD_GET, $router->generate('security_login'));
+        $client->request(Request::METHOD_GET, $router->generate('security_login'));
         $client->followRedirect();
         self::assertRouteSame('homePage');
     }

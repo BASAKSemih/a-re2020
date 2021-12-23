@@ -16,13 +16,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 #[Route(name: 'project_')]
 #[IsGranted('ROLE_USER')]
 final class ProjectController extends AbstractController
 {
-    public function __construct(protected EntityManagerInterface $entityManager, protected ProjectRepository $projectRepository)
-    {
+    public function __construct(
+        protected EntityManagerInterface $entityManager,
+        protected ProjectRepository $projectRepository,
+        protected Security $security
+    ) {
     }
 
     #[Route('/espace-client/cree-un-projet', name: 'create')]
@@ -64,11 +68,9 @@ final class ProjectController extends AbstractController
 
             return $this->redirectToRoute('security_login');
         }
-        if ($project->getUser() !== $user) {
-            $this->addFlash('warning', 'Ceci ne vous appartient pas');
+        $this->security->isGranted('IS_OWNER', $project);
+        $this->denyAccessUnlessGranted('IS_OWNER', $project, 'Pas proprio');
 
-            return $this->redirectToRoute('homePage');
-        }
         $projectForm = $this->createForm(ProjectType::class, $project)->handleRequest($request);
         $ownerForm = $this->createForm(OwnerType::class, $owner)->handleRequest($request);
         if ($projectForm->isSubmitted() && $projectForm->isValid()) {
@@ -81,6 +83,28 @@ final class ProjectController extends AbstractController
         return $this->render('user/project/create.html.twig', [
             'projectForm' => $projectForm->createView(),
             'ownerForm' => $ownerForm->createView(),
+        ]);
+    }
+
+    #[Route('/espace-client/voir-mes-projets', name: 'showAll')]
+    public function showAllProjects(): Response
+    {
+        $projects = $this->projectRepository->findByUser($this->getUser());
+
+        return $this->render('user/project/show.html.twig', [
+            'projects' => $projects,
+        ]);
+    }
+
+    #[Route('/espace-client/showleproject/{idProject}', name: 'show')]
+    public function showProject(int $idProject): Response
+    {
+        $project = $this->projectRepository->findOneById($idProject);
+        $this->security->isGranted('IS_OWNER', $project);
+        $this->denyAccessUnlessGranted('IS_OWNER', $project, 'Pas proprio');
+
+        return $this->render('user/project/todo/show.html.twig', [
+            'project' => $project,
         ]);
     }
 }
