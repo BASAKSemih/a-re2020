@@ -102,6 +102,8 @@ final class StripeController extends AbstractController
             'success_url' => $YOUR_DOMAIN . "/espace-client/projet/$idProject/paiement/succes",
             'cancel_url' => $YOUR_DOMAIN . "/espace-client/projet/$idProject/paiement/erreur"
         ]);
+        $billing->setStripeSessionId($checkout_session->id);
+        $this->entityManager->flush();
         return $this->redirect($checkout_session->url);
     }
 }

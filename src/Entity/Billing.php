@@ -47,6 +47,9 @@ class Billing
     #[ORM\Column(type: 'boolean')]
     private bool $isPaid = false;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private string $stripeSessionId;
+
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'billings')]
     #[ORM\JoinColumn(nullable: false)]
     private User $user;
@@ -220,4 +223,16 @@ class Billing
 
         return $this;
     }
+
+    public function getStripeSessionId(): string
+    {
+        return $this->stripeSessionId;
+    }
+
+    public function setStripeSessionId(string $stripeSessionId): void
+    {
+        $this->stripeSessionId = $stripeSessionId;
+    }
+
+
 }
