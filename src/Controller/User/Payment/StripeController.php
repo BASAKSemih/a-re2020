@@ -12,29 +12,31 @@ use App\Repository\OfferRepository;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ *  @SuppressWarnings(PHPMD)
+ */
 #[Route(name: 'payment_')]
 #[IsGranted('ROLE_USER')]
 final class StripeController extends AbstractController
 {
-    protected string $publicKey = "sk_test_51HwXP2B2SeaKwUfJbzUaz94iABuD30I08sQ16YOlQoynYd3Udbgp9DsXk0zKOEJguUvLrVBTWCuqyP1cKIBSb7sP00lkPugdxQ";
+    protected string $publicKey;
 
     public function __construct(
         protected EntityManagerInterface $entityManager,
         protected ProjectRepository $projectRepository,
         protected OfferRepository $offerRepository,
         protected BillingRepository $billingRepository,
-
-    )
-    {
+        string $publicKey,
+    ) {
+        $this->publicKey = $publicKey;
     }
-
 
     #[Route('/espace-client/facture/{idOffer}/{idProject}', name: 'create')]
     public function createPayment(int $idOffer, int $idProject, Request $request): Response
@@ -58,26 +60,28 @@ final class StripeController extends AbstractController
             $billing->setProject($project);
             $this->entityManager->persist($billing);
             $this->entityManager->flush();
+
             return $this->redirectToRoute('payment_final', [
                 'idProject' => $idProject,
-                'idBilling' => $billing->getId()
+                'idBilling' => $billing->getId(),
             ]);
         }
+
         return $this->render('user/payment/create.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
     #[Route('/espace-client/payer/project/{idBilling}/{idProject}', name: 'final')]
     public function stripePayment(int $idProject, int $idBilling)
     {
-
         $billing = $this->billingRepository->findOneById($idBilling);
 
         $curl = new \Stripe\HttpClient\CurlClient([CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1]);
         $curl->setEnableHttp2(false);
         \Stripe\ApiRequestor::setHttpClient($curl);
         $product_for_stripe = [];
+
         $YOUR_DOMAIN = 'https://127.0.0.1:8000';
         $productStripe[] = [
             'price_data' => [
@@ -85,25 +89,26 @@ final class StripeController extends AbstractController
                 'unit_amount' => $billing->getPrice(),
                 'product_data' => [
                     'name' => $billing->getName(),
-                    'images' => null
+                    'images' => null,
                 ],
             ],
-            'quantity' => 1
+            'quantity' => 1,
         ];
         Stripe::setApiKey($this->publicKey);
         $checkout_session = Session::create([
             'line_items' => [[
-                $productStripe
+                $productStripe,
             ]],
             'payment_method_types' => [
                 'card',
             ],
             'mode' => 'payment',
-            'success_url' => $YOUR_DOMAIN . "/espace-client/projet/$idProject/paiement/succes",
-            'cancel_url' => $YOUR_DOMAIN . "/espace-client/projet/$idProject/paiement/erreur"
+            'success_url' => $YOUR_DOMAIN."/espace-client/projet/$idProject/paiement/succes",
+            'cancel_url' => $YOUR_DOMAIN."/espace-client/projet/$idProject/paiement/erreur",
         ]);
         $billing->setStripeSessionId($checkout_session->id);
         $this->entityManager->flush();
+
         return $this->redirect($checkout_session->url);
     }
 }

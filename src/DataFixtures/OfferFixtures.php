@@ -10,10 +10,9 @@ use Doctrine\Persistence\ObjectManager;
 
 final class OfferFixtures extends Fixture
 {
-
     public function load(ObjectManager $manager): void
     {
-        for ($o = 1;$o <= 10; $o++) {
+        for ($o = 1; $o <= 10; ++$o) {
             $offer = new Offer();
             $offer
                 ->setName("Offer n°$o")

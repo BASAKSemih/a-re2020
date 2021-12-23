@@ -67,7 +67,8 @@ return [
         'migrations',
         'src/Form',
         'src/Security/WebAuthenticator',
-        'src/Entity/Project'
+        'src/Entity/Project',
+        'src/Security/Voter'
     ],
 
     'add' => [

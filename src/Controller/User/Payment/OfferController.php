@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Controller\User\Payment;
 
 use App\Repository\OfferRepository;
@@ -19,10 +18,10 @@ class OfferController extends AbstractController
     {
         $project = $projectRepository->findOneById($idProject);
         $offers = $offerRepository->findAll();
+
         return $this->render('user/offer.html.twig', [
             'offers' => $offers,
-            'project' => $project
+            'project' => $project,
         ]);
     }
-
 }

@@ -5,9 +5,7 @@ namespace App\Controller\User\Payment;
 use App\Entity\Billing;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -26,6 +24,7 @@ class StripeStatusController extends AbstractController
         $billing = $project->getBilling();
         $billing->setIsPaid(true);
         $this->entityManager->flush();
+
         return $this->render('user/payment/success.html.twig');
     }
 
@@ -34,5 +33,4 @@ class StripeStatusController extends AbstractController
     {
         return $this->render('user/payment/error.html.twig');
     }
-
 }

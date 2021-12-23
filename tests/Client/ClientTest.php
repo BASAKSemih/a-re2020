@@ -335,7 +335,7 @@ class ClientTest extends WebTestCase
         $project = $projectRepository->findOneByCompany('Math BTP Pro');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('payment_create', [
             'idProject' => $project->getId(),
-            'idOffer' => 1
+            'idOffer' => 1,
         ]));
         self::assertRouteSame('payment_create');
         $form = $crawler->filter('form[name=billing]')->form([
@@ -349,5 +349,4 @@ class ClientTest extends WebTestCase
         $client->submit($form);
         $client->followRedirect();
     }
-
 }

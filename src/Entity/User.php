@@ -219,25 +219,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 //        return $this;
 //    }
 
-/**
- * @return Collection|Billing[]
- */
-public function getBillings(): Collection
-{
-    return $this->billings;
-}
-
-public function addBilling(Billing $billing): self
-{
-    if (!$this->billings->contains($billing)) {
-        $this->billings[] = $billing;
-        $billing->setUser($this);
+    /**
+     * @return Collection|Billing[]
+     */
+    public function getBillings(): Collection
+    {
+        return $this->billings;
     }
 
-    return $this;
-}
+    public function addBilling(Billing $billing): self
+    {
+        if (!$this->billings->contains($billing)) {
+            $this->billings[] = $billing;
+            $billing->setUser($this);
+        }
 
-//public function removeBilling(Billing $billing): self
+        return $this;
+    }
+
+    //public function removeBilling(Billing $billing): self
 //{
 //    if ($this->billings->removeElement($billing)) {
 //        // set the owning side to null (unless already changed)

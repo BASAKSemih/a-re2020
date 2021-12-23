@@ -48,7 +48,7 @@ class Billing
     private bool $isPaid = false;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private string $stripeSessionId;
+    private string|null $stripeSessionId = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'billings')]
     #[ORM\JoinColumn(nullable: false)]
@@ -200,12 +200,12 @@ class Billing
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -224,7 +224,7 @@ class Billing
         return $this;
     }
 
-    public function getStripeSessionId(): string
+    public function getStripeSessionId(): string|null
     {
         return $this->stripeSessionId;
     }
@@ -233,6 +233,4 @@ class Billing
     {
         $this->stripeSessionId = $stripeSessionId;
     }
-
-
 }

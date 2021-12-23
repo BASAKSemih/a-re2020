@@ -65,6 +65,7 @@ final class ProjectController extends AbstractController
         /* @phpstan-ignore-next-line */
         if (!$project) {
             $this->addFlash('warning', "ce project n'existe pas");
+
             return $this->redirectToRoute('security_login');
         }
         $this->security->isGranted('IS_OWNER', $project);
@@ -89,8 +90,9 @@ final class ProjectController extends AbstractController
     public function showAllProjects(): Response
     {
         $projects = $this->projectRepository->findByUser($this->getUser());
+
         return $this->render('user/project/show.html.twig', [
-            'projects' => $projects
+            'projects' => $projects,
         ]);
     }
 
@@ -102,7 +104,7 @@ final class ProjectController extends AbstractController
         $this->denyAccessUnlessGranted('IS_OWNER', $project, 'Pas proprio');
 
         return $this->render('user/project/todo/show.html.twig', [
-            'project' => $project
+            'project' => $project,
         ]);
     }
 }
