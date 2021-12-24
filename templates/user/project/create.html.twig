@@ -18,6 +18,8 @@
         </div>
         <div class="col-md-6">
             {{ form_start(projectForm) }}
+            <label for="">Nommez le projets</label>
+            {{ form_row(projectForm.projectName) }}
             <label for="">Votre Prénom</label>
             {{ form_row(projectForm.firstName) }}
             <label for="">Votre Nom Famille</label>

@@ -31,6 +31,7 @@ class SecurityTest extends WebTestCase
             'owner[address]' => '21 rue Chamvalon',
             'owner[postalCode]' => '25200',
             'owner[city]' => 'Paris',
+            'project[projectName]' => 'firstName',
             'project[firstName]' => 'firstName',
             'project[lastName]' => 'lastName',
             'project[company]' => 'securitytest',

@@ -31,6 +31,7 @@ class ProjectTest extends WebTestCase
             'owner[address]' => '21 rue Chamvalon',
             'owner[postalCode]' => '25200',
             'owner[city]' => 'Paris',
+            'project[projectName]' => 'test',
             'project[firstName]' => 'firstName',
             'project[lastName]' => 'lastName',
             'project[company]' => 'company',
@@ -82,6 +83,7 @@ class ProjectTest extends WebTestCase
                 'owner[address]' => '21 rue Chamvalon',
                 'owner[postalCode]' => '25200',
                 'owner[city]' => 'Paris',
+                'project[projectName]' => 'test',
                 'project[firstName]' => 'firstName',
                 'project[lastName]' => 'lastName',
                 'project[company]' => 'companytestedit',
@@ -104,6 +106,7 @@ class ProjectTest extends WebTestCase
         yield 'address owner is empty' => [$baseData(['owner[address]' => ''])];
         yield 'postalCode owner is empty' => [$baseData(['owner[postalCode]' => ''])];
         yield 'city owner is empty' => [$baseData(['owner[city]' => ''])];
+        yield 'projectName project is empty' => [$baseData(['project[projectName]' => ''])];
         yield 'lastName project is empty' => [$baseData(['project[firstName]' => ''])];
         yield 'firstName project is empty' => [$baseData(['project[lastName]' => ''])];
         yield 'company project is empty' => [$baseData(['project[company]' => ''])];
@@ -142,6 +145,7 @@ class ProjectTest extends WebTestCase
             'owner[address]' => '21 rue edited',
             'owner[postalCode]' => 'edited',
             'owner[city]' => 'edited',
+            'project[projectName]' => 'edited',
             'project[firstName]' => 'edited',
             'project[lastName]' => 'edited',
             'project[company]' => 'company',
