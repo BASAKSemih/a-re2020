@@ -63,6 +63,9 @@ class Project
     private string $projectType;
 
     #[ORM\Column(type: 'string', length: 255)]
+    private string $projectName;
+
+    #[ORM\Column(type: 'string', length: 255)]
     private string $status = Project::STATUS_TO_COMPETE;
 
     #[ORM\Column(type: 'date')]
@@ -450,4 +453,16 @@ class Project
     {
         $this->status = $status;
     }
+
+    public function getProjectName(): string
+    {
+        return $this->projectName;
+    }
+
+    public function setProjectName(string $projectName): void
+    {
+        $this->projectName = $projectName;
+    }
+
+
 }

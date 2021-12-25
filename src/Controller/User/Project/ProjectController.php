@@ -91,7 +91,7 @@ final class ProjectController extends AbstractController
     {
         $projects = $this->projectRepository->findByUser($this->getUser());
 
-        return $this->render('user/project/show.html.twig', [
+        return $this->render('user/project/showAll.html.twig', [
             'projects' => $projects,
         ]);
     }
@@ -103,7 +103,7 @@ final class ProjectController extends AbstractController
         $this->security->isGranted('IS_OWNER', $project);
         $this->denyAccessUnlessGranted('IS_OWNER', $project, 'Pas proprio');
 
-        return $this->render('user/project/todo/show.html.twig', [
+        return $this->render('user/project/show.html.twig', [
             'project' => $project,
         ]);
     }

@@ -31,6 +31,7 @@ class VentilationTest extends WebTestCase
             'owner[address]' => '21 rue Carpentry',
             'owner[postalCode]' => '25200',
             'owner[city]' => 'Paris',
+            'project[projectName]' => 'Carpentry',
             'project[firstName]' => 'Carpentry',
             'project[lastName]' => 'Carpentry',
             'project[company]' => 'forventilationcompany',

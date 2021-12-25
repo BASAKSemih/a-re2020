@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\User\Payment;
 
+use App\Entity\Project;
 use App\Repository\BillingRepository;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,7 +18,6 @@ use Symfony\Component\Security\Core\Security;
  *  @SuppressWarnings(PHPMD)
  */
 #[Route(name: 'status_')]
-#[IsGranted('ROLE_USER')]
 final class StripeStatusController extends AbstractController
 {
     public function __construct(
@@ -32,11 +32,13 @@ final class StripeStatusController extends AbstractController
     public function successPayment(string $CHECKOUT_SESSION_ID): Response
     {
         $billing = $this->billingRepository->findOneByStripeSessionId($CHECKOUT_SESSION_ID);
+        /** @var Project $project */
         $project = $billing->getProject();
         $this->security->isGranted('IS_OWNER', $project);
         $this->denyAccessUnlessGranted('IS_OWNER', $project, 'Pas proprio');
 
         $billing->setIsPaid(true);
+        $project->setStatus(Project::STATUS_PAID);
         $this->entityManager->flush();
 
         return $this->render('user/payment/success.html.twig');
@@ -46,12 +48,13 @@ final class StripeStatusController extends AbstractController
     public function errorPayment(string $CHECKOUT_SESSION_ID): Response
     {
         $billing = $this->billingRepository->findOneByStripeSessionId($CHECKOUT_SESSION_ID);
-
+        /** @var Project $project */
         $project = $billing->getProject();
         $this->security->isGranted('IS_OWNER', $project);
         $this->denyAccessUnlessGranted('IS_OWNER', $project, 'Pas proprio');
 
         $billing->setUser(null);
+        $project->setStatus(Project::STATUS_ERROR_PAID);
         $this->entityManager->flush();
 
         return $this->render('user/payment/error.html.twig');

@@ -66,6 +66,7 @@ class ClientTest extends WebTestCase
             'owner[address]' => '59 boulevard Michèle De Belfort',
             'owner[postalCode]' => '90000',
             'owner[city]' => 'Belfort',
+            'project[projectName]' => 'Mon super projet',
             'project[firstName]' => 'Math',
             'project[lastName]' => 'Smith',
             'project[company]' => 'Math BTP Pro',

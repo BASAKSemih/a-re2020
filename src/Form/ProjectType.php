@@ -78,6 +78,13 @@ class ProjectType extends AbstractType
                     'class' => 'form-control',
                 ],
             ])
+            ->add('projectName', TextType::class, [
+                'required' => true,
+                'label' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                ],
+            ])
             ->add('masterJob', ChoiceType::class, [
                 'required' => true,
                 'label' => false,
