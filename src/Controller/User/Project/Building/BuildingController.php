@@ -53,9 +53,12 @@ final class BuildingController extends AbstractController
         $form = $this->createForm(BuildingType::class, $building)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $pdfs = $form->get('plan')->getData();
+            /** @phpstan-ignore-next-line */
             foreach ($pdfs as $pdf) {
                 $projectName = str_replace(" ","", $project->getProjectName());
+                /** @phpstan-ignore-next-line */
                 $file = md5(uniqid()) . $projectName. $project->getId(). '.' . $pdf->guessExtension();
+                /** @phpstan-ignore-next-line */
                 $pdf->move(
                     $this->getParameter('pdf_directory'),
                     $file
