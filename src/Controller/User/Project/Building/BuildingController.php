@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\User\Project\Building;
 
 use App\Entity\Building;
+use App\Entity\Plan;
 use App\Form\BuildingType;
 use App\Repository\ProjectRepository;
 use App\Repository\UserRepository;
@@ -51,6 +52,19 @@ final class BuildingController extends AbstractController
         $building = new Building();
         $form = $this->createForm(BuildingType::class, $building)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $pdfs = $form->get('plan')->getData();
+            foreach ($pdfs as $pdf) {
+                $projectName = str_replace(" ","", $project->getProjectName());
+                $file = md5(uniqid()) . $projectName. $project->getId(). '.' . $pdf->guessExtension();
+                $pdf->move(
+                    $this->getParameter('pdf_directory'),
+                    $file
+                );
+                $plan = new Plan();
+                $plan->setName($file);
+                $building->addPlan($plan);
+                $this->entityManager->persist($plan);
+            }
             $building->setProject($project);
             $this->entityManager->persist($building);
             $this->entityManager->flush();
