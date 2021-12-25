@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\PlanRepository;
@@ -12,17 +14,17 @@ class Plan
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    private string $name;
 
     #[ORM\Column(type: 'datetime_immutable')]
-    private $createdAt;
+    private DateTimeImmutable $createdAt;
 
     #[ORM\ManyToOne(targetEntity: Building::class, inversedBy: 'plan')]
     #[ORM\JoinColumn(nullable: false)]
-    private $building;
+    private Building $building;
 
     public function __construct()
     {
@@ -63,7 +65,7 @@ class Plan
         return $this->building;
     }
 
-    public function setBuilding(?Building $building): self
+    public function setBuilding(Building $building): self
     {
         $this->building = $building;
 
