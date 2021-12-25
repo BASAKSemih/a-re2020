@@ -69,8 +69,11 @@ class Building
     #[ORM\JoinColumn(nullable: false)]
     private Project $project;
 
+    /**
+     * @var Collection<Plan>
+     */
     #[ORM\OneToMany(mappedBy: 'building', targetEntity: Plan::class)]
-    private $plan;
+    private Collection $plan;
 
     public function __construct()
     {
@@ -257,15 +260,15 @@ class Building
         return $this;
     }
 
-    public function removePlan(Plan $plan): self
-    {
-        if ($this->plan->removeElement($plan)) {
-            // set the owning side to null (unless already changed)
-            if ($plan->getBuilding() === $this) {
-                $plan->setBuilding(null);
-            }
-        }
-
-        return $this;
-    }
+//    public function removePlan(Plan $plan): self
+//    {
+//        if ($this->plan->removeElement($plan)) {
+//            // set the owning side to null (unless already changed)
+//            if ($plan->getBuilding() === $this) {
+//                $plan->setBuilding(null);
+//            }
+//        }
+//
+//        return $this;
+//    }
 }
