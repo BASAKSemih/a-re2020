@@ -102,7 +102,10 @@ final class BuildingController extends AbstractController
 
         /** @var Building $building */
         $building = $project->getBuilding();
-        $plans = $building->getPlan();
+        $plans = null;
+        if ($building->getPlan()) {
+            $plans = $building->getPlan();
+        }
         $form = $this->createForm(BuildingType::class, $building)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
