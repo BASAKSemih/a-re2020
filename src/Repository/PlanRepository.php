@@ -9,8 +9,12 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method Plan|null find($id, $lockMode = null, $lockVersion = null)
  * @method Plan|null findOneBy(array $criteria, array $orderBy = null)
- * @method Plan[]    findAll()
- * @method Plan[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method           findAll()                    array<int, Plan>
+ * @method           findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null) array<array-key, Plan>
+ *
+ * @template T
+ *
+ * @extends ServiceEntityRepository<Plan>
  */
 class PlanRepository extends ServiceEntityRepository
 {
