@@ -4,6 +4,7 @@ namespace App\Tests\User\Project\Building;
 
 use App\Entity\Project;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 

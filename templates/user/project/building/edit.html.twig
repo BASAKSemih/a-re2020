@@ -26,8 +26,34 @@
         {{ form_row(form.facades) }}
         <label for=""> Parois particulières</label>
         {{ form_row(form.particularWalls) }}
-        {{ form_widget(form.submit, {'label': 'Modifier le building'}) }}
+        <label for="">Les plans</label>
+        {{ form_row(form.plan) }}
+        {% if plans %}
+            <table class="table ">
+                <thead>
+                <tr>
+                    <th scope="col">Nom du plan chiffré</th>
+                    <th scope="col">Voir</th>
+                    <th scope="col">Supprimer</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for plan in plans %}
+                    <tr>
+                        <th scope="row">{{ plan.name }}</th>
+                        <td><a class="btn btn-info" href="/uploads/pdf/{{ plan.name }}" target="_blank">{{ plan.name }}</a></td>
+                        <td><a class="btn btn-danger" href="{{ path('building_planDelete', {'namePlan': plan.name}) }}">Supprimer</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+
+        {% endif %}
+
+        {{ form_widget(form.submit, {'label': 'Crée le building'}) }}
         {{ form_end(form) }}
     </div>
 
 {% endblock %}
+

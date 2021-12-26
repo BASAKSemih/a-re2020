@@ -6,6 +6,8 @@ namespace App\Entity;
 
 use App\Repository\BuildingRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BuildingRepository::class)]
@@ -67,9 +69,16 @@ class Building
     #[ORM\JoinColumn(nullable: false)]
     private Project $project;
 
+    /**
+     * @var Collection<Plan>
+     */
+    #[ORM\OneToMany(mappedBy: 'building', targetEntity: Plan::class)]
+    private Collection $plan;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
+        $this->plan = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -232,4 +241,34 @@ class Building
 
         return $this;
     }
+
+    /**
+     * @return Collection|Plan[]
+     */
+    public function getPlan(): Collection
+    {
+        return $this->plan;
+    }
+
+    public function addPlan(Plan $plan): self
+    {
+        if (!$this->plan->contains($plan)) {
+            $this->plan[] = $plan;
+            $plan->setBuilding($this);
+        }
+
+        return $this;
+    }
+
+//    public function removePlan(Plan $plan): self
+//    {
+//        if ($this->plan->removeElement($plan)) {
+//            // set the owning side to null (unless already changed)
+//            if ($plan->getBuilding() === $this) {
+//                $plan->setBuilding(null);
+//            }
+//        }
+//
+//        return $this;
+//    }
 }
