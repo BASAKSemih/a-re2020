@@ -50,6 +50,9 @@
             </table>
 
         {% endif %}
+
+        {{ form_widget(form.submit, {'label': 'Crée le building'}) }}
+        {{ form_end(form) }}
     </div>
 
 {% endblock %}

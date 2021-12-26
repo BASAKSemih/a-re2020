@@ -193,45 +193,45 @@ class BuildingTest extends WebTestCase
         yield 'particularWalls is empty' => [$baseData(['building[particularWalls]' => ''])];
     }
 
-//    public function testEditBuilding(): void
-//    {
-//        $client = static::createClient();
-//        /** @var RouterInterface $router */
-//        $router = $client->getContainer()->get('router');
-//        $crawler = $client->request(Request::METHOD_GET, $router->generate('security_login'));
-//        $form = $crawler->filter('form[name=login]')->form([
-//            'email' => 'user@user.com',
-//            'password' => 'password',
-//        ]);
-//
-//        $client->submit($form);
-//        $client->followRedirect();
-//        self::assertRouteSame('homePage');
-//        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
-//        $projectRepository = $entityManager->getRepository(Project::class);
-//        /** @var Project $project */
-//        $project = $projectRepository->findOneByCompany('sdsdsdsdsd');
-//        $crawler = $client->request(Request::METHOD_GET, $router->generate('building_edit', [
-//            'idProject' => $project->getId(),
-//        ]));
-//        self::assertRouteSame('building_edit');
-//        $form = $crawler->filter('form[name=building]')->form([
-//            'building[floorArea]' => 'edited',
-//            'building[livingArea]' => 'edited',
-//            'building[existingFloorArea]' => 'edited',
-//            'building[lowFloor]' => 'edited',
-//            'building[lowFloorThermal]' => 'Avec planelle',
-//            'building[highFloor]' => 'edited',
-//            'building[highFloorThermal]' => 'Avec planelle',
-//            'building[intermediateFloor]' => 'edited',
-//            'building[intermediateFloorThermal]' => 'Avec planelle',
-//            'building[facades]' => 'edited',
-//            'building[particularWalls]' => 'edited',
-//        ]);
-//        $client->submit($form);
-//        $client->followRedirect();
-//        self::assertRouteSame('homePage');
-//    }
+    public function testEditBuilding(): void
+    {
+        $client = static::createClient();
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get('router');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('security_login'));
+        $form = $crawler->filter('form[name=login]')->form([
+            'email' => 'user@user.com',
+            'password' => 'password',
+        ]);
+
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+        $projectRepository = $entityManager->getRepository(Project::class);
+        /** @var Project $project */
+        $project = $projectRepository->findOneByCompany('sdsdsdsdsd');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('building_edit', [
+            'idProject' => $project->getId(),
+        ]));
+        self::assertRouteSame('building_edit');
+        $form = $crawler->filter('form[name=building]')->form([
+            'building[floorArea]' => 'edited',
+            'building[livingArea]' => 'edited',
+            'building[existingFloorArea]' => 'edited',
+            'building[lowFloor]' => 'edited',
+            'building[lowFloorThermal]' => 'Avec planelle',
+            'building[highFloor]' => 'edited',
+            'building[highFloorThermal]' => 'Avec planelle',
+            'building[intermediateFloor]' => 'edited',
+            'building[intermediateFloorThermal]' => 'Avec planelle',
+            'building[facades]' => 'edited',
+            'building[particularWalls]' => 'edited',
+        ]);
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+    }
 
     /**
      * @dataProvider provideFailedData

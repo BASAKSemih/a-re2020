@@ -103,6 +103,7 @@ final class BuildingController extends AbstractController
         /** @var Building $building */
         $building = $project->getBuilding();
         $plans = null;
+        /** @phpstan-ignore-next-line */
         if ($building->getPlan()) {
             $plans = $building->getPlan();
         }
