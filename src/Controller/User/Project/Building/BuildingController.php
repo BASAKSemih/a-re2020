@@ -56,12 +56,12 @@ final class BuildingController extends AbstractController
         $form = $this->createForm(BuildingType::class, $building)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $pdfs = $form->get('plan')->getData();
-            /** @phpstan-ignore-next-line */
+            /* @phpstan-ignore-next-line */
             foreach ($pdfs as $pdf) {
-                $projectName = str_replace(" ","", $project->getProjectName());
+                $projectName = str_replace(' ', '', $project->getProjectName());
                 /** @phpstan-ignore-next-line */
-                $file = md5(uniqid()) . $projectName. $project->getId(). '.' . $pdf->guessExtension();
-                /** @phpstan-ignore-next-line */
+                $file = md5(uniqid()).$projectName.$project->getId().'.'.$pdf->guessExtension();
+                /* @phpstan-ignore-next-line */
                 $pdf->move(
                     $this->getParameter('pdf_directory'),
                     $file
@@ -90,6 +90,7 @@ final class BuildingController extends AbstractController
         $project = $this->projectRepository->findOneById($idProject);
         if (!$project) {
             $this->addFlash('warning', "Ce projet n'existe pas");
+
             return $this->redirectToRoute('project_create');
         }
         if (!$project->getBuilding()) {
@@ -103,7 +104,7 @@ final class BuildingController extends AbstractController
         /** @var Building $building */
         $building = $project->getBuilding();
         $plans = null;
-        /** @phpstan-ignore-next-line */
+        /* @phpstan-ignore-next-line */
         if ($building->getPlan()) {
             $plans = $building->getPlan();
         }
@@ -111,13 +112,13 @@ final class BuildingController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
             $this->addFlash('success', 'Ok edit building');
+
             return $this->redirectToRoute('homePage');
         }
 
-
         return $this->render('user/project/building/edit.html.twig', [
             'form' => $form->createView(),
-            'plans' => $plans
+            'plans' => $plans,
         ]);
     }
 
@@ -131,9 +132,10 @@ final class BuildingController extends AbstractController
         $project = $building->getProject();
         $this->entityManager->remove($plan);
         $this->entityManager->flush();
-        $this->addFlash('success', "Le plan à été supprimer du projet");
+        $this->addFlash('success', 'Le plan à été supprimer du projet');
+
         return $this->redirectToRoute('building_edit', [
-            'idProject' => $project->getId()
+            'idProject' => $project->getId(),
         ]);
     }
 }
