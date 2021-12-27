@@ -38,6 +38,7 @@ final class RegistrationController extends AbstractController
             if (!$checkEmail) {
                 $passwordHash = $this->passwordHasher->hashPassword($user, $user->getPassword());
                 $user->setPassword($passwordHash);
+                $user->setValidationToken($this->generateToken());
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
                 $this->addFlash('success', 'Votre compte à bien été crée');
@@ -55,5 +56,10 @@ final class RegistrationController extends AbstractController
         return $this->render('security/register.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    private function generateToken(): string
+    {
+        return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
     }
 }

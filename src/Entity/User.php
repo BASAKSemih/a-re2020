@@ -57,6 +57,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Billing::class)]
     private Collection $billings;
 
+    #[ORM\Column(type: 'boolean')]
+    private bool $isVerified = false;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private string $validationToken;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -248,4 +254,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 //
 //    return $this;
 //}
+
+public function getIsVerified(): ?bool
+{
+    return $this->isVerified;
+}
+
+public function setIsVerified(bool $isVerified): self
+{
+    $this->isVerified = $isVerified;
+
+    return $this;
+}
+
+public function getValidationToken(): ?string
+{
+    return $this->validationToken;
+}
+
+public function setValidationToken(string $validationToken): self
+{
+    $this->validationToken = $validationToken;
+
+    return $this;
+}
 }
