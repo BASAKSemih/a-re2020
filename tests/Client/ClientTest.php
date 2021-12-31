@@ -3,6 +3,7 @@
 namespace App\Tests\Client;
 
 use App\Entity\Project;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -26,6 +27,22 @@ class ClientTest extends WebTestCase
         $client->submit($form);
         $client->followRedirect();
         self::assertRouteSame('homePage');
+    }
+
+    public function testClientVerifyEmail(): void
+    {
+        $client = static::createClient();
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get('router');
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+        $userRepository = $entityManager->getRepository(User::class);
+        /** @var User $user */
+        $user = $userRepository->findOneByEmail('client@client.com');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('security_valid', [
+            'token' => $user->getEmailToken(),
+        ]));
+        $client->followRedirect();
+        self::assertRouteSame('security_login');
     }
 
     public function testClientLogin(): void

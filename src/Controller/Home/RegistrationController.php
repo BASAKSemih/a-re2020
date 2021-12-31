@@ -8,9 +8,12 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -20,6 +23,7 @@ final class RegistrationController extends AbstractController
         protected EntityManagerInterface $entityManager,
         protected UserRepository $userRepository,
         protected UserPasswordHasherInterface $passwordHasher,
+        protected MailerInterface $mailer
     ) {
     }
 
@@ -40,6 +44,20 @@ final class RegistrationController extends AbstractController
                 $user->setPassword($passwordHash);
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
+                $user->setEmailToken($this->generateToken());
+                $this->entityManager->flush();
+                $email = (new TemplatedEmail())
+                    ->from('semihbasak25@gmail.com')
+                    /* @phpstan-ignore-next-line */
+                    ->to($user->getEmail())
+                    ->subject('Inscription réussite')
+                    ->htmlTemplate('mail/validation.html.twig')
+                    ->context(
+                        [
+                            'user' => $user,
+                            'token' => $user->getEmailToken(),
+                        ]);
+                $this->mailer->send($email);
                 $this->addFlash('success', 'Votre compte à bien été crée');
 
                 return $this->redirectToRoute('homePage');
@@ -55,5 +73,32 @@ final class RegistrationController extends AbstractController
         return $this->render('security/register.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    #[Route('/inscription/vérifier-mon-compte/{token}', name: 'security_valid')]
+    public function verifyUser(string $token): RedirectResponse
+    {
+        $user = $this->userRepository->findOneByEmailToken($token);
+        if (!$user) {
+            $this->addFlash('warning', 'Erreur compte existe pas ou lien erreur');
+
+            return $this->redirectToRoute('homePage');
+        }
+        if (true === $user->getIsVerified()) {
+            $this->addFlash('warning', 'Compte déjà valide');
+
+            return $this->redirectToRoute('homePage');
+        }
+        $user->setIsVerified(true);
+        $user->setRoles(['ROLE_USER']);
+        $this->entityManager->flush();
+        $this->addFlash('warning', 'Votre compte à bien été valider');
+
+        return $this->redirectToRoute('security_login');
+    }
+
+    private function generateToken(): string
+    {
+        return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Tests\Security;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -25,6 +26,22 @@ class RegisterTest extends WebTestCase
         $client->submit($form);
         $client->followRedirect();
         self::assertRouteSame('homePage');
+    }
+
+    public function testUserVerifyEmail(): void
+    {
+        $client = static::createClient();
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get('router');
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+        $userRepository = $entityManager->getRepository(User::class);
+        /** @var User $user */
+        $user = $userRepository->findOneByEmail('user@user.com');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('security_valid', [
+            'token' => $user->getEmailToken(),
+        ]));
+        $client->followRedirect();
+        self::assertRouteSame('security_login');
     }
 
     public function testSameEmailRegistration(): void

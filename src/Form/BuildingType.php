@@ -115,8 +115,8 @@ class BuildingType extends AbstractType
                 'mapped' => false,
                 'required' => false,
                 'attr' => [
-                    'class' => 'form-control'
-                ]
+                    'class' => 'form-control',
+                ],
             ])
             ->add('submit', SubmitType::class, [
                 'label' => false,

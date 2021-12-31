@@ -31,7 +31,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var array<array-key, string>
      */
     #[ORM\Column(type: 'json')]
-    private array $roles = ['ROLE_USER'];
+    private array $roles = ['NEED_VERIFIED'];
 
     #[ORM\Column(type: 'string')]
     private string $password;
@@ -56,6 +56,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Billing::class)]
     private Collection $billings;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $isVerified = false;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $emailToken;
 
     public function __construct()
     {
@@ -113,12 +119,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
-//    public function setRoles(array $roles): self
-//    {
-//        $this->roles = $roles;
-//
-//        return $this;
-//    }
+    /**
+     * @phpstan-ignore-next-line
+     */
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
 
     /**
      * @see PasswordAuthenticatedUserInterface
@@ -238,7 +247,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     //public function removeBilling(Billing $billing): self
-//{
+    //{
 //    if ($this->billings->removeElement($billing)) {
 //        // set the owning side to null (unless already changed)
 //        if ($billing->getUser() === $this) {
@@ -247,5 +256,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 //    }
 //
 //    return $this;
-//}
+    //}
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getEmailToken(): ?string
+    {
+        return $this->emailToken;
+    }
+
+    public function setEmailToken(string $emailToken): self
+    {
+        $this->emailToken = $emailToken;
+
+        return $this;
+    }
 }

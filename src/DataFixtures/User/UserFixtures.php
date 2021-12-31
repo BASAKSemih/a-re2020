@@ -24,6 +24,7 @@ final class UserFixtures extends Fixture
                 ->setFirstName(sprintf('firstname+%d', $index))
                 ->setLastName(sprintf('firstname+%d', $index))
                 ->setPassword($this->userPasswordHasher->hashPassword($user, 'password'));
+            $user->setRoles(['ROLE_USER']);
             $manager->persist($user);
         }
         $manager->flush();
