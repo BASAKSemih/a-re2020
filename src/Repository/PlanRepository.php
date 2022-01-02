@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\Plan;
@@ -16,7 +18,7 @@ use Doctrine\Persistence\ManagerRegistry;
  *
  * @extends ServiceEntityRepository<Plan>
  */
-class PlanRepository extends ServiceEntityRepository
+final class PlanRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

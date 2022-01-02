@@ -69,6 +69,8 @@ return [
         'src/Security/WebAuthenticator',
         'src/Entity/Project',
         'src/Security/Voter',
+        'src/Twig',
+        'src/Controller/User/Payment/StripeController',
     ],
 
     'add' => [
@@ -98,7 +100,10 @@ return [
             'ignoreComments' => true,
         ],
         CyclomaticComplexityIsHigh::class => [
-            'maxComplexity' => 10,
+            'maxComplexity' => 14,
+        ],
+        SlevomatCodingStandard\Sniffs\Functions\FunctionLengthSniff::class => [
+            'maxLinesLength' => 60,
         ],
     ],
 

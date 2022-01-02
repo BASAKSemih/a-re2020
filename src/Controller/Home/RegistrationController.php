@@ -55,8 +55,8 @@ final class RegistrationController extends AbstractController
                     ->context(
                         [
                             'user' => $user,
-                            'token' => $user->getEmailToken(),
-                        ]);
+                            'token' => $user->getEmailToken(), ]
+                    );
                 $this->mailer->send($email);
                 $this->addFlash('success', 'Votre compte à bien été crée');
 
