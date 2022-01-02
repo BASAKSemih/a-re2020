@@ -22,6 +22,7 @@ final class UserFixtures extends Fixture
             $user
                 ->setEmail(sprintf('user+%d@email.com', $index))
                 ->setFirstName(sprintf('firstname+%d', $index))
+                ->setIsVerified(true)
                 ->setLastName(sprintf('firstname+%d', $index))
                 ->setPassword($this->userPasswordHasher->hashPassword($user, 'password'));
             $user->setRoles(['ROLE_USER']);

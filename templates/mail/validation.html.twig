@@ -68,20 +68,10 @@
                 Get started on your first article and connect with the space bar community.
             </p>
             <h1>{{ token }}</h1>
-            <p class="block text-center">
-                <a href="#new" class="btn">Get writing!</a>
-            </p>
             <p class="block">
                 Check out our existing articles and share your thoughts in the comments!
             </p>
-            <p class="block text-center">
-                <a href="{{ url('homePage') }}" class="btn">Get reading!</a>
-            </p>
-            <p class="block">
-                We're so excited that you've decided to join us in our corner of the universe,
-                it's a friendly one with other creative and insightful writers just like you!
-                Need help from a friend? We're always just a message away.
-            </p>
+                <a href="{{ url('security_valid', {'token': token}) }}" class="btn">Get reading!</a>
         </div>
         <div class="footer">
             <p class="block">
