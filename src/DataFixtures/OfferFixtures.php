@@ -15,7 +15,7 @@ final class OfferFixtures extends Fixture
         for ($o = 1; $o <= 10; ++$o) {
             $offer = new Offer();
             $offer
-                ->setName("Offer n°$o")
+                ->setName("Offer n°${o}")
                 ->setDescription('texte')
                 ->setPrice(10000);
             $manager->persist($offer);

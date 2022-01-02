@@ -73,14 +73,14 @@ final class StripeController extends AbstractController
     }
 
     #[Route('/espace-client/payer/project/{idBilling}/{idProject}', name: 'final')]
-    public function stripePayment(int $idProject, int $idBilling)
+    public function stripePayment(int $idBilling, int $idProject)
     {
+        $project = $this->projectRepository->findOneById($idProject);
         $billing = $this->billingRepository->findOneById($idBilling);
 
         $curl = new \Stripe\HttpClient\CurlClient([CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1]);
         $curl->setEnableHttp2(false);
         \Stripe\ApiRequestor::setHttpClient($curl);
-        $product_for_stripe = [];
         $YOUR_DOMAIN = 'https://127.0.0.1:8000';
         $productStripe[] = [
             'price_data' => [

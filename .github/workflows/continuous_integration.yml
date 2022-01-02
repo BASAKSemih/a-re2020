@@ -67,6 +67,8 @@ jobs:
         run: php bin/console lint:container
       - name: PHP Metrics
         run: php ./vendor/bin/phpmetrics ./src
+      - name: PHP Mess Detector
+        run: vendor/bin/phpmd src/ text .phpmd.xml
       - name: Analyse Quality Code PHP Insights
         run: vendor/bin/phpinsights --no-interaction
       - name: Analyse Static Code PHP Stan
