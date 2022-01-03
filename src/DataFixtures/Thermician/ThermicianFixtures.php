@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures\Thermician;
 
+use App\Entity\Thermician;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -22,8 +23,14 @@ class ThermicianFixtures extends Fixture
             ->setIsVerified(true)
             ->setLastName('Basak')
             ->setPassword($this->userPasswordHasher->hashPassword($user, '12'));
-        $user->setRoles(['THERMICIAN']);
+        $user->setRoles(['ROLE_THERMICIAN']);
         $manager->persist($user);
+        $manager->flush();
+        $thermician = new Thermician();
+        $thermician
+            ->setUser($user)
+            ->setEmail($user->getEmail());
+        $manager->persist($thermician);
         $manager->flush();
     }
 }

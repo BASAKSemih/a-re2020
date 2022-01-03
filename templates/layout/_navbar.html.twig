@@ -20,6 +20,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('security_logout') }}">Déconnexion</a>
                     </li>
+                    {% if app.user.thermician %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('thermician_home') }}">Page Accueil Thermician</a>
+                        </li>
+                    {% endif %}
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('security_register') }}">Inscription</a>

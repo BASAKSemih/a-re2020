@@ -33,6 +33,9 @@ doctrine:
 	symfony console doctrine:schema:validate
 	symfony console doctrine:mapping:info
 
+fixtures:
+	php bin/console d:f:l --no-interaction
+
 analyse:
 	make composer
 	make container

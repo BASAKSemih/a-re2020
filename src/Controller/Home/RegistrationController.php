@@ -48,7 +48,6 @@ final class RegistrationController extends AbstractController
                 $this->entityManager->flush();
                 $email = (new TemplatedEmail())
                     ->from('semihbasak25@gmail.com')
-                    /* @phpstan-ignore-next-line */
                     ->to($user->getEmail())
                     ->subject('Inscription réussite')
                     ->htmlTemplate('mail/validation.html.twig')

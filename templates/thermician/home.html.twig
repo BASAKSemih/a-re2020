@@ -4,7 +4,26 @@
 {% block body %}
 
     <div class="container">
-        <h3>Bienvenue a l'espace thermicien</h3>
+        <h5>Bienvenue a l'espace thermicien</h5>
+        <table class="table ">
+            <thead>
+            <tr>
+                <th scope="col">Ticket Fait</th>
+                <th scope="col">Ticket En Attente</th>
+                <th scope="col">Ticket Actif</th>
+                <th scope="col">Ticket Inactif</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">{{ app.user.thermician.finishedTicket }}</th>
+                <td>{{ app.user.thermician.pendingTicket }}</td>
+                <td>{{ app.user.thermician.activeTicket }}</td>
+                <td>{{ app.user.thermician.inactiveTicket }}</td>
+            </tr>
+            </tbody>
+
+        </table>
     </div>
 
 {% endblock %}

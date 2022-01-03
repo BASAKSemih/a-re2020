@@ -63,6 +63,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $emailToken;
 
+    #[ORM\OneToOne(mappedBy: 'user', targetEntity: Thermician::class, cascade: ['persist', 'remove'])]
+    private ?Thermician $thermician;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -75,7 +78,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -274,6 +277,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmailToken(string $emailToken): self
     {
         $this->emailToken = $emailToken;
+
+        return $this;
+    }
+
+    public function getThermician(): ?Thermician
+    {
+        return $this->thermician;
+    }
+
+    public function setThermician(Thermician $thermician): self
+    {
+        // set the owning side of the relation if necessary
+        if ($thermician->getUser() !== $this) {
+            $thermician->setUser($this);
+        }
+
+        $this->thermician = $thermician;
 
         return $this;
     }
