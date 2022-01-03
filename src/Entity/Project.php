@@ -107,7 +107,7 @@ class Project
     private ?Billing $billing;
 
     #[ORM\OneToOne(mappedBy: 'project', targetEntity: Ticket::class, cascade: ['persist', 'remove'])]
-    private $ticket;
+    private ?Ticket $ticket;
 
     public function __construct()
     {

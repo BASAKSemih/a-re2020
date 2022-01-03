@@ -31,7 +31,7 @@ class Thermician
     private int $finishedTicket = 0;
 
     #[ORM\OneToOne(inversedBy: 'activeThermician', targetEntity: Ticket::class, cascade: ['persist', 'remove'])]
-    private $activeTicket;
+    private ?Ticket $activeTicket;
 
     public function __construct()
     {

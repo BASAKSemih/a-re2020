@@ -11,14 +11,14 @@ class Ticket
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private ?int $id = null;
 
     #[ORM\OneToOne(inversedBy: 'ticket', targetEntity: Project::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private $project;
+    private Project $project;
 
     #[ORM\OneToOne(mappedBy: 'activeTicket', targetEntity: Thermician::class, cascade: ['persist', 'remove'])]
-    private $activeThermician;
+    private ?Thermician $activeThermician;
 
     public function getId(): ?int
     {
