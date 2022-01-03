@@ -17,9 +17,6 @@ class Thermician
     #[ORM\Column(type: 'integer')]
     private int $pendingTicket = 0;
 
-    #[ORM\Column(type: 'integer')]
-    private int $activeTicket = 0;
-
     #[ORM\Column(type: 'string', length: 255)]
     private string $email;
 
@@ -31,10 +28,10 @@ class Thermician
     private User $user;
 
     #[ORM\Column(type: 'integer')]
-    private int $inactiveTicket = 0;
-
-    #[ORM\Column(type: 'integer')]
     private int $finishedTicket = 0;
+
+    #[ORM\OneToOne(inversedBy: 'activeThermician', targetEntity: Ticket::class, cascade: ['persist', 'remove'])]
+    private $activeTicket;
 
     public function __construct()
     {
@@ -54,18 +51,6 @@ class Thermician
     public function setPendingTicket(int $pendingTicket): self
     {
         $this->pendingTicket = $pendingTicket;
-
-        return $this;
-    }
-
-    public function getActiveTicket(): ?int
-    {
-        return $this->activeTicket;
-    }
-
-    public function setActiveTicket(int $activeTicket): self
-    {
-        $this->activeTicket = $activeTicket;
 
         return $this;
     }
@@ -104,18 +89,6 @@ class Thermician
         return $this;
     }
 
-    public function getInactiveTicket(): ?int
-    {
-        return $this->inactiveTicket;
-    }
-
-    public function setInactiveTicket(int $inactiveTicket): self
-    {
-        $this->inactiveTicket = $inactiveTicket;
-
-        return $this;
-    }
-
     public function getFinishedTicket(): ?int
     {
         return $this->finishedTicket;
@@ -124,6 +97,18 @@ class Thermician
     public function setFinishedTicket(int $finishedTicket): self
     {
         $this->finishedTicket = $finishedTicket;
+
+        return $this;
+    }
+
+    public function getActiveTicket(): ?Ticket
+    {
+        return $this->activeTicket;
+    }
+
+    public function setActiveTicket(?Ticket $activeTicket): self
+    {
+        $this->activeTicket = $activeTicket;
 
         return $this;
     }

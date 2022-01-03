@@ -78,9 +78,6 @@ final class StripeController extends AbstractController
         $project = $this->projectRepository->findOneById($idProject);
         $billing = $this->billingRepository->findOneById($idBilling);
 
-        $curl = new \Stripe\HttpClient\CurlClient([CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1]);
-        $curl->setEnableHttp2(false);
-        \Stripe\ApiRequestor::setHttpClient($curl);
         $YOUR_DOMAIN = 'https://127.0.0.1:8000';
         $productStripe[] = [
             'price_data' => [

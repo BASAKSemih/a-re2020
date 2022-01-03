@@ -106,6 +106,9 @@ class Project
     #[ORM\OneToOne(mappedBy: 'project', targetEntity: Billing::class, cascade: ['persist', 'remove'])]
     private ?Billing $billing;
 
+    #[ORM\OneToOne(mappedBy: 'project', targetEntity: Ticket::class, cascade: ['persist', 'remove'])]
+    private $ticket;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -462,5 +465,22 @@ class Project
     public function setProjectName(string $projectName): void
     {
         $this->projectName = $projectName;
+    }
+
+    public function getTicket(): ?Ticket
+    {
+        return $this->ticket;
+    }
+
+    public function setTicket(Ticket $ticket): self
+    {
+        // set the owning side of the relation if necessary
+        if ($ticket->getProject() !== $this) {
+            $ticket->setProject($this);
+        }
+
+        $this->ticket = $ticket;
+
+        return $this;
     }
 }
