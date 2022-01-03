@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(name: 'thermician_')]
-#[IsGranted('THERMICIAN')]
+#[IsGranted('ROLE_THERMICIAN')]
 final class ThermicianController extends AbstractController
 {
     #[Route('/espace-thermicien/accueil', name: 'home')]
