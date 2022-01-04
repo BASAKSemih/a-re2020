@@ -1,9 +1,38 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div class="container mt-5">
+        {% if project %}
+            <div class="row">
+                <h3>Propriétaire du projet</h3>
+                <label for="">Prénom: {{ project.ownerProject.firstName }}</label>
+                <label for="">Nom de Famille: {{ project.ownerProject.lastName }}</label>
+                <label for="">Ville(habite actuellement): {{ project.ownerProject.city }}</label>
+                <label for="">code postale (same): {{ project.ownerProject.postalCode }}</label>
+                <label for="">adresse (same): {{ project.ownerProject.address }}</label>
+                <h3>Partie Utilisateur</h3>
+                <label for="">Prénom: {{ project.firstName }}</label>
+                <label for="">Nom: {{ project.lastName }}</label>
+                <label for="">Entreprise: {{ project.company }}</label>
+                <label for="">Téléphone: {{ project.phoneNumber }}</label>
+                <label for="">Email: {{ project.email }}</label>
+                <label for="">{{ project.masterJob }}</label>
+                <h3>Donnée Projet & Localisation</h3>
+                <label for="">Adresse: {{ project.address }}</label>
+                <label for="">Code Postale:{{ project.postalCode }}</label>
+                <label for="">Ville: {{ project.city }}</label>
+                <label for="">Ref Cadastra: {{ project.cadastralReference }}</label>
+                <h3>Partie Projet</h3>
+                <label for="">Projet location type: {{ project.projectLocation }}</label>
+                <label for="">Project type: {{ project.projectType }}</label>
+                <label for="">Project Name:{{ project.projectName }}</label>
+                <label for="">Project status: {{ project.status }}</label>
+                <label for="">Date de construction du projet: {{ project.constructionPlanDate|date('d/m/Y') }}</label>
+                <label for="">Date de création dans l'espace client: {{ project.createdAt|date('d/m/Y') }}</label>
+            </div>
 
-    {% if project %}
-        {{ project.projectName }}
-    {% endif %}
+        {% endif %}
+    </div>
+
 
 {% endblock %}
