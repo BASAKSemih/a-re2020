@@ -7,6 +7,8 @@ namespace App\Entity;
 use App\Repository\ProjectRepository;
 use DateTime;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
@@ -109,9 +111,13 @@ class Project
     #[ORM\OneToOne(mappedBy: 'project', targetEntity: Ticket::class, cascade: ['persist', 'remove'])]
     private ?Ticket $ticket;
 
+    #[ORM\OneToMany(mappedBy: 'project', targetEntity: Remark::class)]
+    private $remarks;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
+        $this->remarks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -480,6 +486,36 @@ class Project
         }
 
         $this->ticket = $ticket;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Remark[]
+     */
+    public function getRemarks(): Collection
+    {
+        return $this->remarks;
+    }
+
+    public function addRemark(Remark $remark): self
+    {
+        if (!$this->remarks->contains($remark)) {
+            $this->remarks[] = $remark;
+            $remark->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRemark(Remark $remark): self
+    {
+        if ($this->remarks->removeElement($remark)) {
+            // set the owning side to null (unless already changed)
+            if ($remark->getProject() === $this) {
+                $remark->setProject(null);
+            }
+        }
 
         return $this;
     }

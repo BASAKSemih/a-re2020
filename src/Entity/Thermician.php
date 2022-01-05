@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ThermicianRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -40,9 +42,13 @@ class Thermician implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'activeThermician', targetEntity: Ticket::class, cascade: ['persist', 'remove'])]
     private ?Ticket $activeTicket;
 
+    #[ORM\OneToMany(mappedBy: 'thermician', targetEntity: Remark::class)]
+    private $remarks;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
+        $this->remarks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -190,6 +196,36 @@ class Thermician implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->activeTicket = $activeTicket;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Remark[]
+     */
+    public function getRemarks(): Collection
+    {
+        return $this->remarks;
+    }
+
+    public function addRemark(Remark $remark): self
+    {
+        if (!$this->remarks->contains($remark)) {
+            $this->remarks[] = $remark;
+            $remark->setThermician($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRemark(Remark $remark): self
+    {
+        if ($this->remarks->removeElement($remark)) {
+            // set the owning side to null (unless already changed)
+            if ($remark->getThermician() === $this) {
+                $remark->setThermician(null);
+            }
+        }
 
         return $this;
     }
