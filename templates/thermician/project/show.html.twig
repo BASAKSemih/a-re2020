@@ -55,6 +55,12 @@
                 {% endif %}
 
             </div>
+            {% if project.ticket.activeThermician %}
+                <h4>Ce ticket est déjà pris</h4>
+            {% else %}
+                <a href="{{ path('thermician_ticket_take', {'idProject': project.id }) }}" class="btn btn-success">Prendre le ticket</a>
+            {% endif %}
+
 
         {% endif %}
     </div>

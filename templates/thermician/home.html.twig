@@ -29,14 +29,35 @@
                         <td><a href="{{ path('thermician_show_project', {'idProject': ticket.project.id}) }}" class="btn btn-info">Voir le projets</a></td>
                     </tr>
                 {% endfor %}
-
                 </tbody>
-
             </table>
-
         {% endif %}
+        {% if activeTicket %}
+            <table class="table ">
+                <thead>
+                <tr>
+                    <th scope="col">Nom du Projets</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">IsThermician</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">{{ activeTicket.activeThermician.email }}</th>
+                        <td>{{ activeTicket.project.status }}</td>
+                        <th scope="col">
+                            {% if activeTicket.activeThermician %}
+                                Projets pris
 
-
-
+                            {% else %}
+                                Projet dispo
+                            {% endif %}
+                        </th>
+                        <td><a href="{{ path('thermician_show_project', {'idProject': activeTicket.project.id}) }}" class="btn btn-info">Voir le projets</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endif %}
     </div>
 {% endblock %}

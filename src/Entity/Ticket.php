@@ -51,7 +51,7 @@ class Ticket
         return $this->activeThermician;
     }
 
-    public function setActiveThermician(?Thermician $activeThermician): self
+    public function setActiveThermician(Thermician $activeThermician): self
     {
         $this->activeThermician = $activeThermician;
 

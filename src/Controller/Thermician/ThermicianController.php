@@ -3,6 +3,7 @@
 namespace App\Controller\Thermician;
 
 use App\Entity\Project;
+use App\Entity\Thermician;
 use App\Entity\User;
 use App\Repository\ProjectRepository;
 use App\Repository\TicketRepository;
@@ -20,12 +21,18 @@ class ThermicianController extends AbstractController
     #[Route('/thermician/accueil', name: 'home')]
     public function home(): Response
     {
-        /** @var User $user */
-        $user = $this->getUser();
+        /** @var Thermician $thermician */
+        $thermician = $this->getUser();
         $tickets = $this->ticketRepository->findAll();
-
+        $thermicianTicket = $this->ticketRepository->findOneByActiveThermician($thermician);
+        if (!$thermicianTicket) {
+            return $this->render('thermician/home.html.twig', [
+                'tickets' => $tickets
+            ]);
+        }
         return $this->render('thermician/home.html.twig', [
-            'tickets' => $tickets
+            'tickets' => $tickets,
+            'activeTicket' => $thermicianTicket
         ]);
     }
 
