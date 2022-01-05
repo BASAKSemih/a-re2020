@@ -65,12 +65,12 @@ final class RegistrationController extends AbstractController
             $form = $this->createForm(UserType::class, $user)->handleRequest($request);
             $this->addFlash('warning', 'Cette adresse email est déjà utiliser');
 
-            return $this->render('security/register.html.twig', [
+            return $this->render('user/register.html.twig', [
                 'form' => $form->createView(),
             ]);
         }
 
-        return $this->render('security/register.html.twig', [
+        return $this->render('user/register.html.twig', [
             'form' => $form->createView(),
         ]);
     }

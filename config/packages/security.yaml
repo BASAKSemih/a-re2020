@@ -13,10 +13,22 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
+        app_thermician_provider:
+            entity:
+                class: App\Entity\Thermician
+                property: email
     firewalls:
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
+          pattern: ^/(_(profiler|wdt)|css|images|js)/
+          security: false
+        admin:
+            lazy: true
+            pattern: ^/thermician
+            provider: app_thermician_provider
+            custom_authenticator:
+                    - App\Security\ThermicianAuthenticator
+            logout:
+                path: thermician_security_logout
         main:
             lazy: true
             pattern: ^/

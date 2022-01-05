@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataFixtures\User;
 
+use App\Entity\Thermician;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -28,6 +29,23 @@ final class UserFixtures extends Fixture
             $user->setRoles(['ROLE_USER']);
             $manager->persist($user);
         }
+        $manager->flush();
+        $user = new User();
+        $user
+            ->setEmail('semihbasak25@gmail.com')
+            ->setFirstName('Semih')
+            ->setIsVerified(true)
+            ->setLastName('Basak')
+            ->setPassword($this->userPasswordHasher->hashPassword($user, '12'));
+        $manager->persist($user);
+        $manager->flush();
+        $thermician = new Thermician();
+        $thermician
+            ->setEmail('admin@test.com')
+            ->setFirstName("test")
+            ->setLastName('test')
+            ->setPassword($this->userPasswordHasher->hashPassword($user, '12'));
+        $manager->persist($thermician);
         $manager->flush();
     }
 }
