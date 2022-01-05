@@ -45,6 +45,14 @@
                 <label for="">Façades: {{ project.building.facades }}</label>
                 <label for="">Parois particulières :{{ project.building.particularWalls }}</label>
                 <label for="">crée le :{{ project.building.createdAt|date('d/m/y') }}</label>
+                {% if project.building.plan %}
+                    {% for plan in project.building.plan %}
+                        <a class="btn btn-info" href="/uploads/pdf/{{ plan.name }}" target="_blank">{{ plan.name }}</a>
+
+                    {% endfor %}
+                {% else %}
+                    <h4>Pas de plan</h4>
+                {% endif %}
 
             </div>
 
