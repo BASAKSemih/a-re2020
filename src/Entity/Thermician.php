@@ -37,6 +37,9 @@ class Thermician implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime_immutable')]
     private DateTimeImmutable $createdAt;
 
+    #[ORM\OneToOne(mappedBy: 'activeThermician', targetEntity: Ticket::class, cascade: ['persist', 'remove'])]
+    private ?Ticket $activeTicket;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -165,6 +168,28 @@ class Thermician implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getActiveTicket(): ?Ticket
+    {
+        return $this->activeTicket;
+    }
+
+    public function setActiveTicket(?Ticket $activeTicket): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($activeTicket === null && $this->activeTicket !== null) {
+            $this->activeTicket->setActiveThermician(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($activeTicket !== null && $activeTicket->getActiveThermician() !== $this) {
+            $activeTicket->setActiveThermician($this);
+        }
+
+        $this->activeTicket = $activeTicket;
 
         return $this;
     }
