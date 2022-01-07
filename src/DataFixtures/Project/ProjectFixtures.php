@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures\Project;
 
+use App\Entity\Billing;
 use App\Entity\Owner;
 use App\Entity\Project;
 use App\Entity\Ticket;
@@ -64,6 +65,24 @@ class ProjectFixtures extends Fixture
                 $ticket = new Ticket();
                 $ticket->setProject($project);
                 $manager->persist($ticket);
+                $manager->flush();
+
+                $billing = new Billing();
+                $billing
+                    ->setProject($project)
+                    ->setUser($user)
+                    ->setIsPaid(true)
+                    ->setAddress(sprintf('adress+%d', $p))
+                    ->setCity(sprintf('city+%d', $p))
+                    ->setPostalCode(sprintf('postal+%d', $p))
+                    ->setPhoneNumber('052023')
+                    ->setFirstName(sprintf('firstName+%d', $p))
+                    ->setLastName(sprintf('lastName+%d', $p))
+                    ->setDescription('description')
+                    ->setName('Name')
+                    ->setPrice(1)
+                    ->setStripeSessionId(sprintf('stripesession+%d', $p));
+                $manager->persist($billing);
                 $manager->flush();
 
             }
