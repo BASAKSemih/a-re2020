@@ -45,6 +45,9 @@ class Thermician implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'thermician', targetEntity: Remark::class)]
     private $remarks;
 
+    #[ORM\OneToOne(mappedBy: 'oldThermician', targetEntity: Ticket::class, cascade: ['persist', 'remove'])]
+    private $pendingTicket;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -226,6 +229,28 @@ class Thermician implements UserInterface, PasswordAuthenticatedUserInterface
                 $remark->setThermician(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPendingTicket(): ?Ticket
+    {
+        return $this->pendingTicket;
+    }
+
+    public function setPendingTicket(?Ticket $pendingTicket): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($pendingTicket === null && $this->pendingTicket !== null) {
+            $this->pendingTicket->setOldThermician(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($pendingTicket !== null && $pendingTicket->getOldThermician() !== $this) {
+            $pendingTicket->setOldThermician($this);
+        }
+
+        $this->pendingTicket = $pendingTicket;
 
         return $this;
     }

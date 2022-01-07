@@ -22,7 +22,7 @@ final class TicketStatusController extends AbstractController
     {
     }
 
-    #[Route('/thermician/projets/{idProject}/show/ticket', name: 'create_remark_ticket')]
+    #[Route('/thermician/projets/{idProject}/create/remark/ticket', name: 'create_remark_ticket')]
     public function createRemark(int $idProject, Request $request)
     {
         /** @var Project $project */
@@ -46,6 +46,8 @@ final class TicketStatusController extends AbstractController
             $remark->setProject($project);
             $remark->setThermician($thermician);
             $remark->setProject($project);
+            $thermician->setActiveTicket(null);
+            $thermician->setPendingTicket($ticket);
             $this->entityManager->persist($remark);
             $this->entityManager->flush();
             $this->addFlash('success', "La remarque à été envoyer a l'utilisateur, le ticket à été mis en pause vous pouvez séléctionner un autre ticket");

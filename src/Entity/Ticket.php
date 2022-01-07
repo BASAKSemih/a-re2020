@@ -24,6 +24,9 @@ class Ticket
     #[ORM\Column(type: 'datetime_immutable')]
     private DateTimeImmutable $createdAt;
 
+    #[ORM\OneToOne(inversedBy: 'pendingTicket', targetEntity: Thermician::class, cascade: ['persist', 'remove'])]
+    private $oldThermician;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -51,7 +54,7 @@ class Ticket
         return $this->activeThermician;
     }
 
-    public function setActiveThermician(Thermician $activeThermician): self
+    public function setActiveThermician(null|Thermician $activeThermician): self
     {
         $this->activeThermician = $activeThermician;
 
@@ -66,6 +69,18 @@ class Ticket
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getOldThermician(): ?Thermician
+    {
+        return $this->oldThermician;
+    }
+
+    public function setOldThermician(?Thermician $oldThermician): self
+    {
+        $this->oldThermician = $oldThermician;
 
         return $this;
     }
