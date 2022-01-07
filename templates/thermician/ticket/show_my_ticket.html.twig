@@ -48,20 +48,12 @@
                 {% if project.building.plan %}
                     {% for plan in project.building.plan %}
                         <a class="btn btn-info" href="/uploads/pdf/{{ plan.name }}" target="_blank">{{ plan.name }}</a>
-
                     {% endfor %}
                 {% else %}
                     <h4>Pas de plan</h4>
                 {% endif %}
 
             </div>
-            {% if project.ticket.activeThermician %}
-                <h4>Ce ticket est déjà pris</h4>
-            {% else %}
-                <a href="{{ path('thermician_ticket_take', {'idProject': project.id }) }}" class="btn btn-success">Prendre le ticket</a>
-            {% endif %}
-
-
         {% endif %}
     </div>
 

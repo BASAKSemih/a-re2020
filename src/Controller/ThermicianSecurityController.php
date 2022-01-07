@@ -21,7 +21,7 @@ class ThermicianSecurityController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('thermician/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('thermician/security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
     #[Route('/thermician/deconnexion', name: 'logout')]

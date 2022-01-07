@@ -48,22 +48,20 @@
                 {% if project.building.plan %}
                     {% for plan in project.building.plan %}
                         <a class="btn btn-info" href="/uploads/pdf/{{ plan.name }}" target="_blank">{{ plan.name }}</a>
+
                     {% endfor %}
                 {% else %}
                     <h4>Pas de plan</h4>
                 {% endif %}
 
             </div>
-            <div class="container">
-                <h1 class="h3 mb-3 font-weight-normal mt-5 pt-5">Inscription</h1>
-                {{ form_start(form) }}
-                <label for="">Votre Email</label>
-                {{ form_row(form.title) }}
-                <label for="">Votre Nom</label>
-                {{ form_row(form.content) }}
-                {{ form_widget(form.submit, {'label': 'Crée sont compte'}) }}
-                {{ form_end(form) }}
-            </div>
+            {% if project.ticket.activeThermician %}
+                <h4>Ce ticket est déjà pris</h4>
+            {% else %}
+                <a href="{{ path('thermician_take_ticket', {'idProject': project.id }) }}" class="btn btn-success">Prendre le ticket</a>
+            {% endif %}
+
+
         {% endif %}
     </div>
 

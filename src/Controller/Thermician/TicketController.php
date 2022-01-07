@@ -10,20 +10,51 @@ use App\Entity\Thermician;
 use App\Entity\Ticket;
 use App\Form\RemarkType;
 use App\Repository\ProjectRepository;
+use App\Repository\TicketRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route(name: 'thermician_ticket_')]
+#[Route(name: 'thermician_')]
 final class TicketController extends AbstractController
 {
-    public function __construct(protected EntityManagerInterface $entityManager, protected ProjectRepository $projectRepository)
+    public function __construct(protected EntityManagerInterface $entityManager, protected ProjectRepository
+    $projectRepository, protected TicketRepository $ticketRepository)
     {
     }
 
-    #[Route('/thermician/projets/{idProject}/prendre', name: 'take')]
+    #[Route('/thermician/accueil', name: 'home')]
+    public function home(): Response
+    {
+        /** @var Thermician $thermician */
+        $thermician = $this->getUser();
+        $tickets = $this->ticketRepository->findByActiveThermician(null);
+        $thermicianTicket = $this->ticketRepository->findOneByActiveThermician($thermician);
+
+        return $this->render('thermician/home.html.twig', [
+            'tickets' => $tickets,
+            'activeTicket' => $thermicianTicket
+        ]);
+    }
+
+    #[Route('/thermician/projets/{idProject}', name: 'show_ticket')]
+    public function showProject(int $idProject): Response
+    {
+        /** @var Project $project */
+        $project = $this->projectRepository->findOneById($idProject);
+        /* @phpstan-ignore-next-line */
+        if (!$project) {
+            $this->addFlash('warning', "ce project n'existe pas");
+            return $this->redirectToRoute('thermician_home');
+        }
+        return $this->render('show_ticket.html.twig', [
+            'project' => $project
+        ]);
+    }
+
+    #[Route('/thermician/projets/{idProject}/prendre', name: 'take_ticket')]
     public function takeTicket(int $idProject): Response
     {
         /** @var Project $project */
@@ -47,8 +78,8 @@ final class TicketController extends AbstractController
         return $this->redirectToRoute('thermician_home');
     }
 
-    #[Route('/thermician/projets/{idProject}/show/ticket', name: 'show')]
-    public function showTicket(int $idProject, Request $request): Response
+    #[Route('/thermician/projets/{idProject}/show/ticket', name: 'show_my_ticket')]
+    public function showMyTicket(int $idProject, Request $request): Response
     {
         /** @var Project $project */
         $project = $this->projectRepository->findOneById($idProject);
@@ -65,19 +96,8 @@ final class TicketController extends AbstractController
             $this->addFlash('warning', "Ce ticket ne vous appartient pas ");
             return $this->redirectToRoute('thermician_home');
         }
-        $remark = new Remark();
-        $form = $this->createForm(RemarkType::class, $remark)->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $remark->setProject($project);
-            $remark->setThermician($thermician);
-            $this->entityManager->persist($remark);
-            $this->entityManager->flush();
-            $this->addFlash('success', "La remarque à été ajouter");
-            return $this->redirectToRoute('thermician_ticket_show', ['idProject' => $idProject]);
-        }
-        return $this->render('thermician/ticket/show.html.twig', [
+        return $this->render('thermician/ticket/show_my_ticket.html.twig', [
             'project' => $project,
-            'form' => $form->createView()
         ]);
     }
 }
