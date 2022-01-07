@@ -42,7 +42,7 @@ final class UserFixtures extends Fixture
         $thermician = new Thermician();
         $thermician
             ->setEmail('admin@test.com')
-            ->setFirstName("test")
+            ->setFirstName('test')
             ->setLastName('test')
             ->setPassword($this->userPasswordHasher->hashPassword($user, '12'));
         $manager->persist($thermician);

@@ -30,6 +30,7 @@ final class TicketStatusController extends AbstractController
         /* @phpstan-ignore-next-line */
         if (!$project) {
             $this->addFlash('warning', "ce project n'existe pas");
+
             return $this->redirectToRoute('thermician_home');
         }
         /** @var Thermician $thermician */
@@ -37,7 +38,8 @@ final class TicketStatusController extends AbstractController
         /** @var Ticket $ticket */
         $ticket = $project->getTicket();
         if (!$ticket->getActiveThermician() === $thermician) {
-            $this->addFlash('warning', "Ce ticket ne vous appartient pas ");
+            $this->addFlash('warning', 'Ce ticket ne vous appartient pas ');
+
             return $this->redirectToRoute('thermician_home');
         }
         $remark = new Remark();
@@ -52,12 +54,12 @@ final class TicketStatusController extends AbstractController
             $this->entityManager->persist($remark);
             $this->entityManager->flush();
             $this->addFlash('success', "La remarque à été envoyer a l'utilisateur, le ticket à été mis en pause vous pouvez séléctionner un autre ticket");
+
             return $this->redirectToRoute('thermician_home');
         }
+
         return $this->render('thermician/ticket/status/remark.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
-
     }
-
 }

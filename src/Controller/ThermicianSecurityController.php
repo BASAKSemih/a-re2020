@@ -16,6 +16,7 @@ class ThermicianSecurityController extends AbstractController
     {
         if ($this->getUser()) {
             $this->addFlash('warning', 'Vous êtes déjà connecter');
+
             return $this->redirectToRoute('homePage');
         }
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -28,6 +29,7 @@ class ThermicianSecurityController extends AbstractController
     public function logout(): RedirectResponse
     {
         $this->addFlash('success', 'Vous avez été déconnecter');
+
         return $this->redirectToRoute('homePage');
     }
 }

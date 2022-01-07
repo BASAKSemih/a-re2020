@@ -31,7 +31,7 @@ class ProjectFixtures extends Fixture
             $user->setRoles(['ROLE_USER']);
             $manager->persist($user);
             $manager->flush();
-            for ($p = 0;$p <=1; ++$p) {
+            for ($p = 0; $p <= 1; ++$p) {
                 $project = new Project();
                 $project
                     ->setFirstName(sprintf('firstName+%d', $u))
@@ -84,7 +84,6 @@ class ProjectFixtures extends Fixture
                     ->setStripeSessionId(sprintf('stripesession+%d', $p));
                 $manager->persist($billing);
                 $manager->flush();
-
             }
             $manager->flush();
         }

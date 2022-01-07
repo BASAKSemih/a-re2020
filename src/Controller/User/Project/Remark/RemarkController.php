@@ -30,7 +30,6 @@ final class RemarkController extends AbstractController
     ) {
     }
 
-
     #[Route('/espace-client/showAll/remark/{idProject}', name: 'show_all')]
     public function showAllRemark(int $idProject): Response
     {
@@ -53,8 +52,9 @@ final class RemarkController extends AbstractController
         }
         $this->security->isGranted('IS_OWNER', $project);
         $this->denyAccessUnlessGranted('IS_OWNER', $project, 'Pas proprio');
+
         return $this->render('user/project/remark/show_all.html.twig', [
-            'remarks' => $remarks
+            'remarks' => $remarks,
         ]);
     }
 
@@ -75,13 +75,14 @@ final class RemarkController extends AbstractController
         $remark = $this->remarkRepository->findOneById($idRemark);
         if (!$remark) {
             $this->addFlash('warning', 'Erreur pas de remarques');
+
             return $this->redirectToRoute('homePage');
         }
         $this->security->isGranted('IS_OWNER', $project);
         $this->denyAccessUnlessGranted('IS_OWNER', $project, 'Pas proprio');
+
         return $this->render('user/project/remark/show.html.twig', [
-            'remark' => $remark
+            'remark' => $remark,
         ]);
     }
-
 }

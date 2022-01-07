@@ -170,12 +170,12 @@ class Thermician implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -190,12 +190,12 @@ class Thermician implements UserInterface, PasswordAuthenticatedUserInterface
     public function setActiveTicket(?Ticket $activeTicket): self
     {
         // unset the owning side of the relation if necessary
-        if ($activeTicket === null && $this->activeTicket !== null) {
+        if (null === $activeTicket && null !== $this->activeTicket) {
             $this->activeTicket->setActiveThermician(null);
         }
 
         // set the owning side of the relation if necessary
-        if ($activeTicket !== null && $activeTicket->getActiveThermician() !== $this) {
+        if (null !== $activeTicket && $activeTicket->getActiveThermician() !== $this) {
             $activeTicket->setActiveThermician($this);
         }
 

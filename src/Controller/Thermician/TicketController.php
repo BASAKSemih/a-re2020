@@ -18,8 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route(name: 'thermician_')]
 final class TicketController extends AbstractController
 {
-    public function __construct(protected EntityManagerInterface $entityManager, protected ProjectRepository
-    $projectRepository, protected TicketRepository $ticketRepository)
+    public function __construct(protected EntityManagerInterface $entityManager, protected ProjectRepository $projectRepository, protected TicketRepository $ticketRepository)
     {
     }
 
@@ -33,7 +32,7 @@ final class TicketController extends AbstractController
 
         return $this->render('thermician/home.html.twig', [
             'tickets' => $tickets,
-            'activeTicket' => $thermicianTicket
+            'activeTicket' => $thermicianTicket,
         ]);
     }
 
@@ -45,10 +44,12 @@ final class TicketController extends AbstractController
         /* @phpstan-ignore-next-line */
         if (!$project) {
             $this->addFlash('warning', "ce project n'existe pas");
+
             return $this->redirectToRoute('thermician_home');
         }
+
         return $this->render('thermician/ticket/show_ticket.html.twig', [
-            'project' => $project
+            'project' => $project,
         ]);
     }
 
@@ -62,26 +63,31 @@ final class TicketController extends AbstractController
         /* @phpstan-ignore-next-line */
         if (!$project) {
             $this->addFlash('warning', "ce project n'existe pas");
+
             return $this->redirectToRoute('thermician_home');
         }
         /** @var Ticket $ticket */
         $ticket = $project->getTicket();
         if ($ticket->getActiveThermician()) {
-            $this->addFlash('warning', "ce ticket est déjà pris");
+            $this->addFlash('warning', 'ce ticket est déjà pris');
+
             return $this->redirectToRoute('thermician_home');
         }
-        if ($ticket->getIsActive() === false) {
+        if (false === $ticket->getIsActive()) {
             $this->addFlash('warning', "Ce ticket est en attente d'information remark create");
+
             return $this->redirectToRoute('thermician_home');
         }
         if ($thermician->getActiveTicket()) {
-            $this->addFlash('warning', "Vous avez déjà un ticket");
+            $this->addFlash('warning', 'Vous avez déjà un ticket');
+
             return $this->redirectToRoute('thermician_home');
         }
         $ticket->setActiveThermician($thermician);
         $ticket->setIsActive(false);
         $this->entityManager->flush();
-        $this->addFlash('success', "Vous avez pris le ticket");
+        $this->addFlash('success', 'Vous avez pris le ticket');
+
         return $this->redirectToRoute('thermician_home');
     }
 
@@ -93,6 +99,7 @@ final class TicketController extends AbstractController
         /* @phpstan-ignore-next-line */
         if (!$project) {
             $this->addFlash('warning', "ce project n'existe pas");
+
             return $this->redirectToRoute('thermician_home');
         }
         /** @var Thermician $thermician */
@@ -100,9 +107,11 @@ final class TicketController extends AbstractController
         /** @var Ticket $ticket */
         $ticket = $project->getTicket();
         if (!$ticket->getActiveThermician() === $thermician) {
-            $this->addFlash('warning', "Ce ticket ne vous appartient pas ");
+            $this->addFlash('warning', 'Ce ticket ne vous appartient pas ');
+
             return $this->redirectToRoute('thermician_home');
         }
+
         return $this->render('thermician/ticket/show_my_ticket.html.twig', [
             'project' => $project,
         ]);
