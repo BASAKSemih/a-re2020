@@ -45,13 +45,14 @@ class Thermician implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'thermician', targetEntity: Remark::class)]
     private $remarks;
 
-    #[ORM\OneToOne(mappedBy: 'oldThermician', targetEntity: Ticket::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'oldThermician', targetEntity: Ticket::class)]
     private $pendingTicket;
 
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
         $this->remarks = new ArrayCollection();
+        $this->pendingTicket = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -233,24 +234,32 @@ class Thermician implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPendingTicket(): ?Ticket
+    /**
+     * @return Collection|Ticket[]
+     */
+    public function getPendingTicket(): Collection
     {
         return $this->pendingTicket;
     }
 
-    public function setPendingTicket(?Ticket $pendingTicket): self
+    public function addPendingTicket(Ticket $pendingTicket): self
     {
-        // unset the owning side of the relation if necessary
-        if ($pendingTicket === null && $this->pendingTicket !== null) {
-            $this->pendingTicket->setOldThermician(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($pendingTicket !== null && $pendingTicket->getOldThermician() !== $this) {
+        if (!$this->pendingTicket->contains($pendingTicket)) {
+            $this->pendingTicket[] = $pendingTicket;
             $pendingTicket->setOldThermician($this);
         }
 
-        $this->pendingTicket = $pendingTicket;
+        return $this;
+    }
+
+    public function removePendingTicket(Ticket $pendingTicket): self
+    {
+        if ($this->pendingTicket->removeElement($pendingTicket)) {
+            // set the owning side to null (unless already changed)
+            if ($pendingTicket->getOldThermician() === $this) {
+                $pendingTicket->setOldThermician(null);
+            }
+        }
 
         return $this;
     }

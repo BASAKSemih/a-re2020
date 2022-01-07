@@ -24,7 +24,10 @@ class Ticket
     #[ORM\Column(type: 'datetime_immutable')]
     private DateTimeImmutable $createdAt;
 
-    #[ORM\OneToOne(inversedBy: 'pendingTicket', targetEntity: Thermician::class, cascade: ['persist', 'remove'])]
+    #[ORM\Column(type: 'boolean')]
+    private bool $isActive = true;
+
+    #[ORM\ManyToOne(targetEntity: Thermician::class, inversedBy: 'pendingTicket')]
     private $oldThermician;
 
     public function __construct()
@@ -69,6 +72,18 @@ class Ticket
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }

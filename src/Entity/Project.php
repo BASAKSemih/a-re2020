@@ -19,6 +19,7 @@ class Project
     public const STATUS_ERROR_PAID = 'Erreur de paiement';
     public const STATUS_FINISH = 'PROJECT FINIS';
     public const STATUS_PAID = 'Paiement effectué';
+    public const STATUS_ERROR_INFORMATION = 'Erreur il manque des informations';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

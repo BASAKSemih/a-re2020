@@ -47,7 +47,8 @@ final class TicketStatusController extends AbstractController
             $remark->setThermician($thermician);
             $remark->setProject($project);
             $thermician->setActiveTicket(null);
-            $thermician->setPendingTicket($ticket);
+            $ticket->setOldThermician($thermician);
+            $project->setStatus(Project::STATUS_ERROR_INFORMATION);
             $this->entityManager->persist($remark);
             $this->entityManager->flush();
             $this->addFlash('success', "La remarque à été envoyer a l'utilisateur, le ticket à été mis en pause vous pouvez séléctionner un autre ticket");

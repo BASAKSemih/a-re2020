@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace App\Controller\Thermician;
 
 use App\Entity\Project;
-use App\Entity\Remark;
 use App\Entity\Thermician;
 use App\Entity\Ticket;
-use App\Form\RemarkType;
 use App\Repository\ProjectRepository;
 use App\Repository\TicketRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,7 +28,7 @@ final class TicketController extends AbstractController
     {
         /** @var Thermician $thermician */
         $thermician = $this->getUser();
-        $tickets = $this->ticketRepository->findByActiveThermician(null);
+        $tickets = $this->ticketRepository->findByIsActive(true);
         $thermicianTicket = $this->ticketRepository->findOneByActiveThermician($thermician);
 
         return $this->render('thermician/home.html.twig', [
@@ -57,6 +55,8 @@ final class TicketController extends AbstractController
     #[Route('/thermician/projets/{idProject}/prendre', name: 'take_ticket')]
     public function takeTicket(int $idProject): Response
     {
+        /** @var Thermician $thermician */
+        $thermician = $this->getUser();
         /** @var Project $project */
         $project = $this->projectRepository->findOneById($idProject);
         /* @phpstan-ignore-next-line */
@@ -70,9 +70,16 @@ final class TicketController extends AbstractController
             $this->addFlash('warning', "ce ticket est déjà pris");
             return $this->redirectToRoute('thermician_home');
         }
-        /** @var Thermician $thermician */
-        $thermician = $this->getUser();
+        if ($ticket->getIsActive() === false) {
+            $this->addFlash('warning', "Ce ticket est en attente d'information remark create");
+            return $this->redirectToRoute('thermician_home');
+        }
+        if ($thermician->getActiveTicket()) {
+            $this->addFlash('warning', "Vous avez déjà un ticket");
+            return $this->redirectToRoute('thermician_home');
+        }
         $ticket->setActiveThermician($thermician);
+        $ticket->setIsActive(false);
         $this->entityManager->flush();
         $this->addFlash('success', "Vous avez pris le ticket");
         return $this->redirectToRoute('thermician_home');
