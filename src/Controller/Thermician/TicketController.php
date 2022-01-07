@@ -49,7 +49,7 @@ final class TicketController extends AbstractController
             $this->addFlash('warning', "ce project n'existe pas");
             return $this->redirectToRoute('thermician_home');
         }
-        return $this->render('show_ticket.html.twig', [
+        return $this->render('thermician/ticket/show_ticket.html.twig', [
             'project' => $project
         ]);
     }
