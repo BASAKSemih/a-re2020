@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\User\Project\SanitaryHotwater;
+namespace App\Tests\Security\User\Project;
 
 use App\Entity\Project;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
