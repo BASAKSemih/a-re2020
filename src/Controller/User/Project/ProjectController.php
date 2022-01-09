@@ -61,7 +61,6 @@ final class ProjectController extends AbstractController
         /** @var Project $project */
         $project = $this->projectRepository->findOneById($idProject);
         $owner = $project->getOwnerProject();
-        $user = $this->getUser();
         /* @phpstan-ignore-next-line */
         if (!$project) {
             $this->addFlash('warning', "ce project n'existe pas");
