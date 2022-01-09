@@ -112,8 +112,11 @@ class Project
     #[ORM\OneToOne(mappedBy: 'project', targetEntity: Ticket::class, cascade: ['persist', 'remove'])]
     private ?Ticket $ticket;
 
+    /**
+     * @var Collection<Remark>
+     */
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: Remark::class)]
-    private $remarks;
+    private Collection $remarks;
 
     public function __construct()
     {
@@ -509,15 +512,15 @@ class Project
         return $this;
     }
 
-    public function removeRemark(Remark $remark): self
-    {
-        if ($this->remarks->removeElement($remark)) {
-            // set the owning side to null (unless already changed)
-            if ($remark->getProject() === $this) {
-                $remark->setProject(null);
-            }
-        }
-
-        return $this;
-    }
+//    public function removeRemark(Remark $remark): self
+//    {
+//        if ($this->remarks->removeElement($remark)) {
+//            // set the owning side to null (unless already changed)
+//            if ($remark->getProject() === $this) {
+//                $remark->setProject(null);
+//            }
+//        }
+//
+//        return $this;
+//    }
 }

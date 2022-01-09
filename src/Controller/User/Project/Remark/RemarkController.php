@@ -39,6 +39,7 @@ final class RemarkController extends AbstractController
 
             return $this->redirectToRoute('project_create');
         }
+        /* @phpstan-ignore-next-line */
         if (!$project->getRemarks()) {
             $this->addFlash('warning', 'Erreur pas de remarques');
 
@@ -67,6 +68,7 @@ final class RemarkController extends AbstractController
 
             return $this->redirectToRoute('project_create');
         }
+        /* @phpstan-ignore-next-line */
         if (!$project->getRemarks()) {
             $this->addFlash('warning', 'Erreur pas de remarques');
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\Ticket;
@@ -9,42 +11,17 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method Ticket|null find($id, $lockMode = null, $lockVersion = null)
  * @method Ticket|null findOneBy(array $criteria, array $orderBy = null)
- * @method Ticket[]    findAll()
- * @method Ticket[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method             findAll()                                                                     array<int, Ticket>
+ * @method             findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null) array<array-key, Ticket>
+ *
+ * @template T
+ *
+ * @extends ServiceEntityRepository<Ticket>
  */
-class TicketRepository extends ServiceEntityRepository
+final class TicketRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Ticket::class);
     }
-
-    // /**
-    //  * @return Ticket[] Returns an array of Ticket objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Ticket
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

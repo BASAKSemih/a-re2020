@@ -9,8 +9,12 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method Remark|null find($id, $lockMode = null, $lockVersion = null)
  * @method Remark|null findOneBy(array $criteria, array $orderBy = null)
- * @method Remark[]    findAll()
- * @method Remark[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method             findAll()                                                                     array<int, Remark>
+ * @method             findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null) array<array-key, Remark>
+ *
+ * @template T
+ *
+ * @extends ServiceEntityRepository<Remark>
  */
 class RemarkRepository extends ServiceEntityRepository
 {
@@ -18,33 +22,4 @@ class RemarkRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Remark::class);
     }
-
-    // /**
-    //  * @return Remark[] Returns an array of Remark objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Remark
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

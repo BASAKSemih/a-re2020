@@ -20,7 +20,7 @@ class ProjectFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        for ($u = 0; $u <= 3; $u++) {
+        for ($u = 0; $u <= 3; ++$u) {
             $user = new User();
             $user
                 ->setEmail(sprintf('userticket+%d@email.com', $u))

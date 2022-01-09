@@ -13,6 +13,7 @@ use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route(name: 'thermician_')]
@@ -23,7 +24,7 @@ final class TicketStatusController extends AbstractController
     }
 
     #[Route('/thermician/projets/{idProject}/create/remark/ticket', name: 'create_remark_ticket')]
-    public function createRemark(int $idProject, Request $request)
+    public function createRemark(int $idProject, Request $request): Response
     {
         /** @var Project $project */
         $project = $this->projectRepository->findOneById($idProject);

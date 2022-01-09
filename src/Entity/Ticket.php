@@ -28,7 +28,7 @@ class Ticket
     private bool $isActive = true;
 
     #[ORM\ManyToOne(targetEntity: Thermician::class, inversedBy: 'pendingTicket')]
-    private $oldThermician;
+    private ?Thermician $oldThermician;
 
     public function __construct()
     {

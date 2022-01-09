@@ -89,7 +89,7 @@ final class TicketController extends AbstractController
         $this->addFlash('success', 'Vous avez pris le ticket');
 
         return $this->redirectToRoute('thermician_show_my_ticket', [
-            'idProject' => $project->getId()
+            'idProject' => $project->getId(),
         ]);
     }
 

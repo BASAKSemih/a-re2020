@@ -82,7 +82,7 @@ class Remark
         return $this->project;
     }
 
-    public function setProject(?Project $project): self
+    public function setProject(Project $project): self
     {
         $this->project = $project;
 
@@ -94,7 +94,7 @@ class Remark
         return $this->thermician;
     }
 
-    public function setThermician(?Thermician $thermician): self
+    public function setThermician(Thermician $thermician): self
     {
         $this->thermician = $thermician;
 

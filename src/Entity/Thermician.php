@@ -42,11 +42,17 @@ class Thermician implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'activeThermician', targetEntity: Ticket::class, cascade: ['persist', 'remove'])]
     private ?Ticket $activeTicket;
 
+    /**
+     * @var Collection<Remark>
+     */
     #[ORM\OneToMany(mappedBy: 'thermician', targetEntity: Remark::class)]
-    private $remarks;
+    private Collection $remarks;
 
+    /**
+     * @var Collection<Ticket>
+     */
     #[ORM\OneToMany(mappedBy: 'oldThermician', targetEntity: Ticket::class)]
-    private $pendingTicket;
+    private Collection $pendingTicket;
 
     public function __construct()
     {
@@ -222,17 +228,17 @@ class Thermician implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeRemark(Remark $remark): self
-    {
-        if ($this->remarks->removeElement($remark)) {
-            // set the owning side to null (unless already changed)
-            if ($remark->getThermician() === $this) {
-                $remark->setThermician(null);
-            }
-        }
-
-        return $this;
-    }
+//    public function removeRemark(Remark $remark): self
+//    {
+//        if ($this->remarks->removeElement($remark)) {
+//            // set the owning side to null (unless already changed)
+//            if ($remark->getThermician() === $this) {
+//                $remark->setThermician(null);
+//            }
+//        }
+//
+//        return $this;
+//    }
 
     /**
      * @return Collection|Ticket[]
