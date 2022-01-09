@@ -88,7 +88,9 @@ final class TicketController extends AbstractController
         $this->entityManager->flush();
         $this->addFlash('success', 'Vous avez pris le ticket');
 
-        return $this->redirectToRoute('thermician_home');
+        return $this->redirectToRoute('thermician_show_my_ticket', [
+            'idProject' => $project->getId()
+        ]);
     }
 
     #[Route('/thermician/projets/{idProject}/show/ticket', name: 'show_my_ticket')]
@@ -106,7 +108,7 @@ final class TicketController extends AbstractController
         $thermician = $this->getUser();
         /** @var Ticket $ticket */
         $ticket = $project->getTicket();
-        if (!$ticket->getActiveThermician() === $thermician) {
+        if ($ticket->getActiveThermician() !== $thermician) {
             $this->addFlash('warning', 'Ce ticket ne vous appartient pas ');
 
             return $this->redirectToRoute('thermician_home');

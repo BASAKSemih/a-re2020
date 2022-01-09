@@ -47,5 +47,14 @@ final class UserFixtures extends Fixture
             ->setPassword($this->userPasswordHasher->hashPassword($user, '12'));
         $manager->persist($thermician);
         $manager->flush();
+
+        $thermician2 = new Thermician();
+        $thermician2
+            ->setEmail('admin2@test.com')
+            ->setFirstName('test')
+            ->setLastName('test')
+            ->setPassword($this->userPasswordHasher->hashPassword($user, '12'));
+        $manager->persist($thermician2);
+        $manager->flush();
     }
 }

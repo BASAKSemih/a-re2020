@@ -37,7 +37,7 @@ final class TicketStatusController extends AbstractController
         $thermician = $this->getUser();
         /** @var Ticket $ticket */
         $ticket = $project->getTicket();
-        if (!$ticket->getActiveThermician() === $thermician) {
+        if ($ticket->getActiveThermician() !== $thermician) {
             $this->addFlash('warning', 'Ce ticket ne vous appartient pas ');
 
             return $this->redirectToRoute('thermician_home');

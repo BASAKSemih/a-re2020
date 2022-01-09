@@ -20,7 +20,7 @@ class ProjectFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        for ($u = 0; $u <= 3; ++$u) {
+        for ($u = 0; $u <= 3; $u++) {
             $user = new User();
             $user
                 ->setEmail(sprintf('userticket+%d@email.com', $u))
@@ -39,7 +39,7 @@ class ProjectFixtures extends Fixture
                     ->setAddress(sprintf('adress+%d', $p))
                     ->setCity(sprintf('city+%d', $p))
                     ->setPostalCode(sprintf('postal+%d', $p))
-                    ->setCompany(sprintf('company+%d', $p))
+                    ->setCompany(sprintf('company+%d', $u++))
                     ->setPhoneNumber(sprintf('phoneNumber+%d', $p))
                     ->setEmail($user->getEmail())
                     ->setMasterJob('ARCHITECTE')
