@@ -24,36 +24,6 @@ class AuthenticationTest extends WebTestCase
         self::assertRouteSame('homePage');
     }
 
-    public function testLoginInThermicianLoginWithoutThermicianAccount(): void
-    {
-        $client = static::createClient();
-        /** @var RouterInterface $router */
-        $router = $client->getContainer()->get('router');
-        $crawler = $client->request(Request::METHOD_GET, $router->generate('thermician_security_login'));
-        $form = $crawler->filter('form[name=login]')->form([
-            'email' => 'user+1@email.com',
-            'password' => 'password',
-        ]);
-
-        $client->submit($form);
-        self::assertRouteSame('thermician_security_login');
-    }
-
-    public function testLoginThermicianWithThermicianAccount(): void
-    {
-        $client = static::createClient();
-        /** @var RouterInterface $router */
-        $router = $client->getContainer()->get('router');
-        $crawler = $client->request(Request::METHOD_GET, $router->generate('thermician_security_login'));
-        $form = $crawler->filter('form[name=login]')->form([
-            'email' => 'admin@test.com',
-            'password' => '12',
-        ]);
-
-        $client->submit($form);
-        $client->followRedirect();
-        self::assertRouteSame('homePage');
-    }
 
     public function testLoginInUserLoginWithThermicianAccount(): void
     {
