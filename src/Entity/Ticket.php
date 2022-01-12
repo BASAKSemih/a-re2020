@@ -32,6 +32,9 @@ class Ticket
     #[ORM\ManyToOne(targetEntity: Thermician::class, inversedBy: 'pendingTicket')]
     private ?Thermician $oldThermician;
 
+    #[ORM\OneToOne(mappedBy: 'ticket', targetEntity: Document::class, cascade: ['persist', 'remove'])]
+    private ?Document $document;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -98,6 +101,23 @@ class Ticket
     public function setOldThermician(?Thermician $oldThermician): self
     {
         $this->oldThermician = $oldThermician;
+
+        return $this;
+    }
+
+    public function getDocument(): ?Document
+    {
+        return $this->document;
+    }
+
+    public function setDocument(Document $document): self
+    {
+        // set the owning side of the relation if necessary
+        if ($document->getTicket() !== $this) {
+            $document->setTicket($this);
+        }
+
+        $this->document = $document;
 
         return $this;
     }

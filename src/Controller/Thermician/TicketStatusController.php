@@ -63,4 +63,10 @@ final class TicketStatusController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/thermician/projets/{idProject}/send/document/ticket', name: 'send_document')]
+    public function sendDocument(): void
+    {
+
+    }
 }
