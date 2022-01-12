@@ -58,7 +58,11 @@
                         <a class="btn btn-info" href="/uploads/document/{{ document.certificate }}" target="_blank">{{ document.name }}</a>
                     {% endfor %}
                 {% else %}
-                    <h4>Pas de plan</h4>
+                    <h4>Pas de document thermician impossible de valider le projet</h4>
+                {% endif %}
+                {% if project.ticket.documents %}
+                    <a href="{{ path('thermician_finish_ticket', {'idProject': project.id}) }}" class="btn btn-success">Finir le projet</a>
+
                 {% endif %}
 
 

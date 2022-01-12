@@ -14,6 +14,7 @@ use App\Form\RemarkType;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -114,7 +115,7 @@ final class TicketStatusController extends AbstractController
         ]);
     }
 
-    #[Route('/thermician/projets/{idProject}/finish/ticket', name: 'validation_ticket')]
+    #[Route('/thermician/projets/{idProject}/validation/ticket', name: 'validation_ticket')]
     public function validationTicket(int $idProject): Response
     {
         /** @var Project $project */
@@ -140,5 +141,32 @@ final class TicketStatusController extends AbstractController
         return $this->render('thermician/ticket/status/finish.html.twig', [
             'project' => $project
         ]);
+    }
+
+    #[Route('/thermician/projets/{idProject}/finish/ticket', name: 'finish_ticket')]
+    public function finishTicket(int $idProject): RedirectResponse
+    {
+        /** @var Project $project */
+        $project = $this->projectRepository->findOneById($idProject);
+        /* @phpstan-ignore-next-line */
+        if (!$project) {
+            $this->addFlash('warning', "ce project n'existe pas");
+
+            return $this->redirectToRoute('thermician_home');
+        }
+        /** @var Thermician $thermician */
+        $thermician = $this->getUser();
+        /** @var Ticket $ticket */
+        $ticket = $project->getTicket();
+        if ($ticket->getActiveThermician() !== $thermician) {
+            $this->addFlash('warning', 'Ce ticket ne vous appartient pas ');
+            return $this->redirectToRoute('thermician_home');
+        }
+        if (!$project->getTicket()->getDocuments()) {
+            $this->addFlash('warning', "Vous n'avez pas ajouter de document vous ne pouvez pas finir le projet");
+            return $this->redirectToRoute('thermician_send_document', ['idProject' => $project->getId()]);
+        }
+        $this->addFlash('success', 'Le ticket est cloturé et finis félicitation ');
+        return $this->redirectToRoute('thermician_home');
     }
 }
