@@ -56,7 +56,7 @@ class Document
         return $this->ticket;
     }
 
-    public function setTicket(?Ticket $ticket): self
+    public function setTicket(Ticket $ticket): self
     {
         $this->ticket = $ticket;
 
