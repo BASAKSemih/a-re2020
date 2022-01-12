@@ -108,7 +108,37 @@ final class TicketStatusController extends AbstractController
             }
         }
         return $this->render('thermician/ticket/document/send.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'ticket' => $ticket,
+            'project' => $project
+        ]);
+    }
+
+    #[Route('/thermician/projets/{idProject}/finish/ticket', name: 'validation_ticket')]
+    public function validationTicket(int $idProject): Response
+    {
+        /** @var Project $project */
+        $project = $this->projectRepository->findOneById($idProject);
+        /* @phpstan-ignore-next-line */
+        if (!$project) {
+            $this->addFlash('warning', "ce project n'existe pas");
+
+            return $this->redirectToRoute('thermician_home');
+        }
+        /** @var Thermician $thermician */
+        $thermician = $this->getUser();
+        /** @var Ticket $ticket */
+        $ticket = $project->getTicket();
+        if ($ticket->getActiveThermician() !== $thermician) {
+            $this->addFlash('warning', 'Ce ticket ne vous appartient pas ');
+            return $this->redirectToRoute('thermician_home');
+        }
+        if (!$project->getTicket()->getDocuments()) {
+            $this->addFlash('warning', "Vous n'avez pas ajouter de document vous ne pouvez pas finir le projet");
+            return $this->redirectToRoute('thermician_send_document', ['idProject' => $project->getId()]);
+        }
+        return $this->render('thermician/ticket/status/finish.html.twig', [
+            'project' => $project
         ]);
     }
 }

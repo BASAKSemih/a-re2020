@@ -13,6 +13,10 @@
 
         {{ form_widget(form.submit, {'label': 'Envoyer les document'}) }}
         {{ form_end(form) }}
+        {% if ticket.documents %}
+            <a class="btn btn-success" href="{{ path('thermician_validation_ticket', {'idProject': project.id}) }}">Valider et vérifier</a>
+
+        {% endif %}
     </div>
 
 {% endblock %}
