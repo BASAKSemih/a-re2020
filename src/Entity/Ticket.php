@@ -6,6 +6,8 @@ namespace App\Entity;
 
 use App\Repository\TicketRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TicketRepository::class)]
@@ -32,12 +34,17 @@ class Ticket
     #[ORM\ManyToOne(targetEntity: Thermician::class, inversedBy: 'pendingTicket')]
     private ?Thermician $oldThermician;
 
-    #[ORM\OneToOne(mappedBy: 'ticket', targetEntity: Document::class, cascade: ['persist', 'remove'])]
-    private ?Document $document;
+
+    /**
+     * @var Collection<Document>
+     */
+    #[ORM\OneToMany(mappedBy: 'ticket', targetEntity: Document::class)]
+    private Collection $documents;
 
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
+        $this->documents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -105,19 +112,32 @@ class Ticket
         return $this;
     }
 
-    public function getDocument(): ?Document
+    /**
+     * @return Collection|Document[]
+     */
+    public function getDocuments(): Collection
     {
-        return $this->document;
+        return $this->documents;
     }
 
-    public function setDocument(Document $document): self
+    public function addDocument(Document $document): self
     {
-        // set the owning side of the relation if necessary
-        if ($document->getTicket() !== $this) {
+        if (!$this->documents->contains($document)) {
+            $this->documents[] = $document;
             $document->setTicket($this);
         }
 
-        $this->document = $document;
+        return $this;
+    }
+
+    public function removeDocument(Document $document): self
+    {
+        if ($this->documents->removeElement($document)) {
+            // set the owning side to null (unless already changed)
+            if ($document->getTicket() === $this) {
+                $document->setTicket(null);
+            }
+        }
 
         return $this;
     }

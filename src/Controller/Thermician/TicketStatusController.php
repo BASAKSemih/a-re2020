@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller\Thermician;
 
+use App\Entity\Document;
 use App\Entity\Project;
 use App\Entity\Remark;
 use App\Entity\Thermician;
 use App\Entity\Ticket;
+use App\Form\DocumentType;
 use App\Form\RemarkType;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -65,8 +67,48 @@ final class TicketStatusController extends AbstractController
     }
 
     #[Route('/thermician/projets/{idProject}/send/document/ticket', name: 'send_document')]
-    public function sendDocument(): void
+    public function sendDocument(int $idProject, Request $request): Response
     {
+        /** @var Project $project */
+        $project = $this->projectRepository->findOneById($idProject);
+        /* @phpstan-ignore-next-line */
+        if (!$project) {
+            $this->addFlash('warning', "ce project n'existe pas");
 
+            return $this->redirectToRoute('thermician_home');
+        }
+        /** @var Thermician $thermician */
+        $thermician = $this->getUser();
+        /** @var Ticket $ticket */
+        $ticket = $project->getTicket();
+        if ($ticket->getActiveThermician() !== $thermician) {
+            $this->addFlash('warning', 'Ce ticket ne vous appartient pas ');
+
+            return $this->redirectToRoute('thermician_home');
+        }
+        $form = $this->createForm(DocumentType::class)->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $name = $form->get('name')->getData();
+            $certificates = $form->get('certificate')->getData();
+            foreach ($certificates as $certificate) {
+                $projectName = str_replace(' ', '', $project->getProjectName());
+                $file = md5(uniqid()).$projectName.$project->getId().'.'.$certificate->guessExtension();
+                $certificate->move(
+                    $this->getParameter('document_directory'),
+                    $file
+                );
+                $document = new Document();
+                $document->setName($name);
+                $document->setCertificate($file);
+                $document->setTicket($ticket);
+                $this->entityManager->persist($document);
+                $this->entityManager->flush();
+                $this->addFlash('success', 'le document à bien été ajouter');
+                return $this->redirectToRoute('thermician_send_document', ['idProject' => $project->getId()]);
+            }
+        }
+        return $this->render('thermician/ticket/document/send.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }

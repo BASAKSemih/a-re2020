@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+    <div class="container">
+        <h1 class="h3 mb-3 font-weight-normal mt-5 pt-5">Crée une remarque</h1>
+        {{ form_start(form) }}
+        <label for="">Nom du document 1</label>
+        {{ form_row(form.name) }}
+        <label for="">Document 1</label>
+        {{ form_row(form.certificate) }}
+
+        {{ form_widget(form.submit, {'label': 'Envoyer les document'}) }}
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
