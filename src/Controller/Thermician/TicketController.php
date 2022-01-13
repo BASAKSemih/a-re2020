@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Thermician;
 
 use App\Entity\Project;
+use App\Entity\Remark;
 use App\Entity\Thermician;
 use App\Entity\Ticket;
 use App\Repository\ProjectRepository;
@@ -29,10 +30,24 @@ final class TicketController extends AbstractController
         $thermician = $this->getUser();
         $tickets = $this->ticketRepository->findByIsActive(true);
         $thermicianTicket = $this->ticketRepository->findOneByActiveThermician($thermician);
+        /** @var Ticket $pendingTickets */
+        $pendingTickets = $this->ticketRepository->findByOldThermician($thermician);
 
+        foreach ($pendingTickets as $pendingTicket) {
+            /** @var Project $project */
+            $project = $pendingTicket->getProject();
+            $remarks = $project->getRemarks();
+            /** @var Remark $remark */
+            foreach ($remarks as $remark) {
+                if ($remark->getIsActive() === false) {
+                    $priorityTickets[] = $remark->getProject()->getTicket();
+                }
+            }
+        }
         return $this->render('thermician/home.html.twig', [
             'tickets' => $tickets,
             'activeTicket' => $thermicianTicket,
+            'priorityTickets' => $priorityTickets
         ]);
     }
 
@@ -73,10 +88,14 @@ final class TicketController extends AbstractController
 
             return $this->redirectToRoute('thermician_home');
         }
-        if (false === $ticket->getIsActive()) {
-            $this->addFlash('warning', "Ce ticket est en attente d'information remark create");
+        if ($ticket->getProject()->getRemarks()) {
+            foreach ($ticket->getProject()->getRemarks() as $remark) {
+                if ($remark->getIsActive() === true) {
+                    $this->addFlash('warning', "Ce ticket a une remark");
 
-            return $this->redirectToRoute('thermician_home');
+                    return $this->redirectToRoute('thermician_home');
+                }
+            }
         }
         if ($thermician->getActiveTicket()) {
             $this->addFlash('warning', 'Vous avez déjà un ticket');

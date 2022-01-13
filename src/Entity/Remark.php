@@ -20,6 +20,9 @@ class Remark
     #[ORM\Column(type: 'text')]
     private string $content;
 
+    #[ORM\Column(type: 'boolean')]
+    private bool $isActive = true;
+
     #[ORM\Column(type: 'datetime_immutable')]
     private DateTimeImmutable $createdAt;
 
@@ -97,6 +100,18 @@ class Remark
     public function setThermician(Thermician $thermician): self
     {
         $this->thermician = $thermician;
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }

@@ -36,10 +36,10 @@ class Ticket
 
 
     /**
-     * @var Collection<Document>
+     * @var ?Collection<Document>
      */
     #[ORM\OneToMany(mappedBy: 'ticket', targetEntity: Document::class)]
-    private Collection $documents;
+    private ?Collection $documents;
 
     public function __construct()
     {
@@ -112,10 +112,7 @@ class Ticket
         return $this;
     }
 
-    /**
-     * @return Collection|Document[]
-     */
-    public function getDocuments(): Collection
+    public function getDocuments(): ?Collection
     {
         return $this->documents;
     }
@@ -130,15 +127,15 @@ class Ticket
         return $this;
     }
 
-    public function removeDocument(Document $document): self
-    {
-        if ($this->documents->removeElement($document)) {
-            // set the owning side to null (unless already changed)
-            if ($document->getTicket() === $this) {
-                $document->setTicket(null);
-            }
-        }
-
-        return $this;
-    }
+//    public function removeDocument(Document $document): self
+//    {
+//        if ($this->documents->removeElement($document)) {
+//            // set the owning side to null (unless already changed)
+//            if ($document->getTicket() === $this) {
+//                $document->setTicket(null);
+//            }
+//        }
+//
+//        return $this;
+//    }
 }

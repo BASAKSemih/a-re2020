@@ -18,20 +18,24 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 #[Route(name: 'thermician_')]
 final class TicketStatusController extends AbstractController
 {
-    public function __construct(protected ProjectRepository $projectRepository, protected EntityManagerInterface $entityManager)
+    public function __construct(protected ProjectRepository $projectRepository, protected EntityManagerInterface
+    $entityManager, protected Security $security)
     {
     }
 
     #[Route('/thermician/projets/{idProject}/create/remark/ticket', name: 'create_remark_ticket')]
     public function createRemark(int $idProject, Request $request): Response
     {
-        /** @var Project $project */
+        /**
+         * @return Project|null
+         * @var Project $project
+         */
         $project = $this->projectRepository->findOneById($idProject);
-        /* @phpstan-ignore-next-line */
         if (!$project) {
             $this->addFlash('warning', "ce project n'existe pas");
 
@@ -41,11 +45,13 @@ final class TicketStatusController extends AbstractController
         $thermician = $this->getUser();
         /** @var Ticket $ticket */
         $ticket = $project->getTicket();
-        if ($ticket->getActiveThermician() !== $thermician) {
-            $this->addFlash('warning', 'Ce ticket ne vous appartient pas ');
 
-            return $this->redirectToRoute('thermician_home');
-        }
+         $access = $this->isGranted('CAN_EDIT', $ticket);
+         if ($access === false) {
+             $this->addFlash('warning', "Ce ticket ne vous apartietn pas");
+             return $this->redirectToRoute('thermician_home');
+         }
+
         $remark = new Remark();
         $form = $this->createForm(RemarkType::class, $remark)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -58,10 +64,8 @@ final class TicketStatusController extends AbstractController
             $this->entityManager->persist($remark);
             $this->entityManager->flush();
             $this->addFlash('success', "La remarque à été envoyer a l'utilisateur, le ticket à été mis en pause vous pouvez séléctionner un autre ticket");
-
             return $this->redirectToRoute('thermician_home');
         }
-
         return $this->render('thermician/ticket/status/remark.html.twig', [
             'form' => $form->createView(),
         ]);
@@ -70,21 +74,21 @@ final class TicketStatusController extends AbstractController
     #[Route('/thermician/projets/{idProject}/send/document/ticket', name: 'send_document')]
     public function sendDocument(int $idProject, Request $request): Response
     {
-        /** @var Project $project */
+        /**
+         * @return Project|null
+         * @var Project $project
+         */
         $project = $this->projectRepository->findOneById($idProject);
-        /* @phpstan-ignore-next-line */
         if (!$project) {
             $this->addFlash('warning', "ce project n'existe pas");
 
             return $this->redirectToRoute('thermician_home');
         }
-        /** @var Thermician $thermician */
-        $thermician = $this->getUser();
         /** @var Ticket $ticket */
         $ticket = $project->getTicket();
-        if ($ticket->getActiveThermician() !== $thermician) {
-            $this->addFlash('warning', 'Ce ticket ne vous appartient pas ');
-
+        $access = $this->isGranted('CAN_EDIT', $ticket);
+        if ($access === false) {
+            $this->addFlash('warning', "Ce ticket ne vous apartietn pas");
             return $this->redirectToRoute('thermician_home');
         }
         $form = $this->createForm(DocumentType::class)->handleRequest($request);
@@ -118,25 +122,17 @@ final class TicketStatusController extends AbstractController
     #[Route('/thermician/projets/{idProject}/validation/ticket', name: 'validation_ticket')]
     public function validationTicket(int $idProject): Response
     {
-        /** @var Project $project */
         $project = $this->projectRepository->findOneById($idProject);
-        /* @phpstan-ignore-next-line */
         if (!$project) {
             $this->addFlash('warning', "ce project n'existe pas");
-
             return $this->redirectToRoute('thermician_home');
         }
-        /** @var Thermician $thermician */
-        $thermician = $this->getUser();
         /** @var Ticket $ticket */
         $ticket = $project->getTicket();
-        if ($ticket->getActiveThermician() !== $thermician) {
-            $this->addFlash('warning', 'Ce ticket ne vous appartient pas ');
+        $access = $this->isGranted('CAN_EDIT', $ticket);
+        if ($access === false) {
+            $this->addFlash('warning', "Ce ticket ne vous appartient pas");
             return $this->redirectToRoute('thermician_home');
-        }
-        if (!$project->getTicket()->getDocuments()) {
-            $this->addFlash('warning', "Vous n'avez pas ajouter de document vous ne pouvez pas finir le projet");
-            return $this->redirectToRoute('thermician_send_document', ['idProject' => $project->getId()]);
         }
         return $this->render('thermician/ticket/status/finish.html.twig', [
             'project' => $project
@@ -146,12 +142,13 @@ final class TicketStatusController extends AbstractController
     #[Route('/thermician/projets/{idProject}/finish/ticket', name: 'finish_ticket')]
     public function finishTicket(int $idProject): RedirectResponse
     {
-        /** @var Project $project */
+        /**
+         * @return Project|null
+         * @var Project $project
+         */
         $project = $this->projectRepository->findOneById($idProject);
-        /* @phpstan-ignore-next-line */
         if (!$project) {
             $this->addFlash('warning', "ce project n'existe pas");
-
             return $this->redirectToRoute('thermician_home');
         }
         /** @var Thermician $thermician */
@@ -162,7 +159,7 @@ final class TicketStatusController extends AbstractController
             $this->addFlash('warning', 'Ce ticket ne vous appartient pas ');
             return $this->redirectToRoute('thermician_home');
         }
-        if (!$project->getTicket()->getDocuments()) {
+        if (!$ticket->getDocuments()) {
             $this->addFlash('warning', "Vous n'avez pas ajouter de document vous ne pouvez pas finir le projet");
             return $this->redirectToRoute('thermician_send_document', ['idProject' => $project->getId()]);
         }
