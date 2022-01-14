@@ -20,3 +20,7 @@ parameters:
     		- src/Controller/User/Payment
     		- src/Twig
     		- src/Security/Voter
+    		- src/DataFixtures
+    		- src/Entity/Ticket
+    		- src/Controller/Thermician/TicketStatusController
+    		- src/Controller/Thermician/TicketController

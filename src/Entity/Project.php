@@ -7,6 +7,8 @@ namespace App\Entity;
 use App\Repository\ProjectRepository;
 use DateTime;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
@@ -17,6 +19,7 @@ class Project
     public const STATUS_ERROR_PAID = 'Erreur de paiement';
     public const STATUS_FINISH = 'PROJECT FINIS';
     public const STATUS_PAID = 'Paiement effectué';
+    public const STATUS_ERROR_INFORMATION = 'Erreur il manque des informations';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -106,9 +109,19 @@ class Project
     #[ORM\OneToOne(mappedBy: 'project', targetEntity: Billing::class, cascade: ['persist', 'remove'])]
     private ?Billing $billing;
 
+    #[ORM\OneToOne(mappedBy: 'project', targetEntity: Ticket::class, cascade: ['persist', 'remove'])]
+    private ?Ticket $ticket;
+
+    /**
+     * @var Collection<Remark>
+     */
+    #[ORM\OneToMany(mappedBy: 'project', targetEntity: Remark::class)]
+    private Collection $remarks;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
+        $this->remarks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -463,4 +476,51 @@ class Project
     {
         $this->projectName = $projectName;
     }
+
+    public function getTicket(): ?Ticket
+    {
+        return $this->ticket;
+    }
+
+    public function setTicket(Ticket $ticket): self
+    {
+        // set the owning side of the relation if necessary
+        if ($ticket->getProject() !== $this) {
+            $ticket->setProject($this);
+        }
+
+        $this->ticket = $ticket;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Remark[]
+     */
+    public function getRemarks(): Collection
+    {
+        return $this->remarks;
+    }
+
+    public function addRemark(Remark $remark): self
+    {
+        if (!$this->remarks->contains($remark)) {
+            $this->remarks[] = $remark;
+            $remark->setProject($this);
+        }
+
+        return $this;
+    }
+
+//    public function removeRemark(Remark $remark): self
+//    {
+//        if ($this->remarks->removeElement($remark)) {
+//            // set the owning side to null (unless already changed)
+//            if ($remark->getProject() === $this) {
+//                $remark->setProject(null);
+//            }
+//        }
+//
+//        return $this;
+//    }
 }

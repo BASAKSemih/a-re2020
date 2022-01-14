@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\User\Payment;
 
 use App\Entity\Project;
+use App\Entity\Ticket;
 use App\Repository\BillingRepository;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -38,6 +39,9 @@ final class StripeStatusController extends AbstractController
 
         $billing->setIsPaid(true);
         $project->setStatus(Project::STATUS_PAID);
+        $ticket = new Ticket();
+        $ticket->setProject($project);
+        $this->entityManager->persist($ticket);
         $this->entityManager->flush();
 
         return $this->render('user/payment/success.html.twig');
