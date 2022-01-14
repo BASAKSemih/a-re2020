@@ -98,20 +98,16 @@ final class TicketController extends AbstractController
             foreach ($ticket->getProject()->getRemarks() as $remark) {
                 if ($remark->getIsActive() === true) {
                     $this->addFlash('warning', "Ce ticket a une remark");
-
                     return $this->redirectToRoute('thermician_home');
                 }
             }
-            if ($ticket->getOldThermician()) {
-                /** @var Thermician $oldThermician */
-                $oldThermician = $ticket->getOldThermician();
-                if ($oldThermician !== $thermician) {
-                    $this->addFlash('warning', 'le ticket est prioriaitre a l ancien thermicien dessus');
-
-                    return $this->redirectToRoute('thermician_home');
-                }
+        }
+        if ($ticket->getOldThermician()) {
+            $priority = $this->isGranted('IS_PRIORITY', $ticket);
+            if ($priority === false) {
+                $this->addFlash('warning', 'le ticket est prioriaitre a l ancien thermicien dessus');
+                return $this->redirectToRoute('thermician_home');
             }
-
         }
         if ($thermician->getActiveTicket()) {
             $this->addFlash('warning', 'Vous avez déjà un ticket');
