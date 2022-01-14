@@ -31,14 +31,9 @@ final class TicketStatusController extends AbstractController
     #[Route('/thermician/projets/{idProject}/create/remark/ticket', name: 'create_remark_ticket')]
     public function createRemark(int $idProject, Request $request): Response
     {
-        /**
-         * @return Project|null
-         * @var Project $project
-         */
         $project = $this->projectRepository->findOneById($idProject);
         if (!$project) {
             $this->addFlash('warning', "ce project n'existe pas");
-
             return $this->redirectToRoute('thermician_home');
         }
         /** @var Thermician $thermician */
@@ -74,14 +69,9 @@ final class TicketStatusController extends AbstractController
     #[Route('/thermician/projets/{idProject}/send/document/ticket', name: 'send_document')]
     public function sendDocument(int $idProject, Request $request): Response
     {
-        /**
-         * @return Project|null
-         * @var Project $project
-         */
         $project = $this->projectRepository->findOneById($idProject);
         if (!$project) {
             $this->addFlash('warning', "ce project n'existe pas");
-
             return $this->redirectToRoute('thermician_home');
         }
         /** @var Ticket $ticket */
@@ -142,21 +132,16 @@ final class TicketStatusController extends AbstractController
     #[Route('/thermician/projets/{idProject}/finish/ticket', name: 'finish_ticket')]
     public function finishTicket(int $idProject): RedirectResponse
     {
-        /**
-         * @return Project|null
-         * @var Project $project
-         */
         $project = $this->projectRepository->findOneById($idProject);
         if (!$project) {
             $this->addFlash('warning', "ce project n'existe pas");
             return $this->redirectToRoute('thermician_home');
         }
-        /** @var Thermician $thermician */
-        $thermician = $this->getUser();
         /** @var Ticket $ticket */
         $ticket = $project->getTicket();
-        if ($ticket->getActiveThermician() !== $thermician) {
-            $this->addFlash('warning', 'Ce ticket ne vous appartient pas ');
+        $access = $this->isGranted('CAN_EDIT', $ticket);
+        if ($access === false) {
+            $this->addFlash('warning', "Ce ticket ne vous appartient pas");
             return $this->redirectToRoute('thermician_home');
         }
         if (!$ticket->getDocuments()) {

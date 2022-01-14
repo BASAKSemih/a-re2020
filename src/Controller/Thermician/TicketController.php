@@ -32,22 +32,28 @@ final class TicketController extends AbstractController
         $thermicianTicket = $this->ticketRepository->findOneByActiveThermician($thermician);
         /** @var Ticket $pendingTickets */
         $pendingTickets = $this->ticketRepository->findByOldThermician($thermician);
-
-        foreach ($pendingTickets as $pendingTicket) {
-            /** @var Project $project */
-            $project = $pendingTicket->getProject();
-            $remarks = $project->getRemarks();
-            /** @var Remark $remark */
-            foreach ($remarks as $remark) {
-                if ($remark->getIsActive() === false) {
-                    $priorityTickets[] = $remark->getProject()->getTicket();
+        if ($pendingTickets) {
+            foreach ($pendingTickets as $pendingTicket) {
+                /** @var Project $project */
+                $project = $pendingTicket->getProject();
+                $remarks = $project->getRemarks();
+                /** @var Remark $remark */
+                foreach ($remarks as $remark) {
+                    if ($remark->getIsActive() === false) {
+                        $priorityTickets[] = $remark->getProject()->getTicket();
+                    }
                 }
             }
+            return $this->render('thermician/home.html.twig', [
+                'tickets' => $tickets,
+                'activeTicket' => $thermicianTicket,
+                'priorityTickets' => $priorityTickets
+            ]);
         }
+
         return $this->render('thermician/home.html.twig', [
             'tickets' => $tickets,
             'activeTicket' => $thermicianTicket,
-            'priorityTickets' => $priorityTickets
         ]);
     }
 
@@ -96,6 +102,16 @@ final class TicketController extends AbstractController
                     return $this->redirectToRoute('thermician_home');
                 }
             }
+            if ($ticket->getOldThermician()) {
+                /** @var Thermician $oldThermician */
+                $oldThermician = $ticket->getOldThermician();
+                if ($oldThermician !== $thermician) {
+                    $this->addFlash('warning', 'le ticket est prioriaitre a l ancien thermicien dessus');
+
+                    return $this->redirectToRoute('thermician_home');
+                }
+            }
+
         }
         if ($thermician->getActiveTicket()) {
             $this->addFlash('warning', 'Vous avez déjà un ticket');

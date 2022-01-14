@@ -56,7 +56,12 @@
 
             </div>
             {% if project.ticket.activeThermician %}
-                <h4>Ce ticket est déjà pris</h4>
+                {% if project.ticket.activeThermician == app.user %}
+                    <h4>Ce ticket vous appartient</h4>
+
+                 {% else %}
+                     <h4>Ce ticket est déjà pris</h4>
+                {% endif %}
             {% else %}
                 <a href="{{ path('thermician_take_ticket', {'idProject': project.id}) }}" class="btn btn-success">Prendre le ticket</a>
             {% endif %}
