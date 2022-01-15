@@ -263,6 +263,7 @@ class BuildingTest extends WebTestCase
             'building[intermediateFloorThermal]' => 'Avec planelle',
             'building[facades]' => 'edited',
             'building[particularWalls]' => 'edited',
+            'building[plan][0]' => $this->createPdf()
         ]);
         $client->submit($form);
         $client->followRedirect();
