@@ -7,6 +7,8 @@ use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Uid\Uuid;
 
 class ClientTest extends WebTestCase
 {
@@ -105,6 +107,13 @@ class ClientTest extends WebTestCase
         self::assertRouteSame('homePage');
     }
 
+    private function createPdf(): UploadedFile
+    {
+        $fileName = 'foo.pdf';
+        $filePath = sprintf('%s/foo.pdf', __DIR__);
+        return new UploadedFile($filePath, $fileName, null, null, true);
+    }
+
     public function testClientCreateBuilding(): void
     {
         $client = static::createClient();
@@ -139,6 +148,7 @@ class ClientTest extends WebTestCase
             'building[intermediateFloorThermal]' => 'Avec planelle',
             'building[facades]' => 'facades',
             'building[particularWalls]' => 'particularWalls',
+            'building[plan][0]' => $this->createPdf(),
         ]);
         $client->submit($form);
         $client->followRedirect();
