@@ -59,6 +59,7 @@ class BuildingTest extends WebTestCase
     {
         $fileName = 'foo.pdf';
         $filePath = sprintf('%s/foo.pdf', __DIR__);
+
         return new UploadedFile($filePath, $fileName, null, null, true);
     }
 
@@ -140,7 +141,7 @@ class BuildingTest extends WebTestCase
             'building[intermediateFloorThermal]' => 'Avec planelle',
             'building[facades]' => 'facades',
             'building[particularWalls]' => 'particularWalls',
-            'building[plan][0]' => $this->createPdf()
+            'building[plan][0]' => $this->createPdf(),
         ]);
         $client->submit($form);
         $client->followRedirect();
@@ -263,7 +264,7 @@ class BuildingTest extends WebTestCase
             'building[intermediateFloorThermal]' => 'Avec planelle',
             'building[facades]' => 'edited',
             'building[particularWalls]' => 'edited',
-            'building[plan][0]' => $this->createPdf()
+            'building[plan][0]' => $this->createPdf(),
         ]);
         $client->submit($form);
         $client->followRedirect();

@@ -34,12 +34,14 @@ class Ticket
     #[ORM\ManyToOne(targetEntity: Thermician::class, inversedBy: 'pendingTicket')]
     private ?Thermician $oldThermician;
 
-
     /**
      * @var ?Collection<Document>
      */
     #[ORM\OneToMany(mappedBy: 'ticket', targetEntity: Document::class)]
     private ?Collection $documents;
+
+    #[ORM\ManyToOne(targetEntity: Thermician::class, inversedBy: 'finishedTickets')]
+    private ?Thermician $finishedThermician;
 
     public function __construct()
     {
@@ -138,4 +140,16 @@ class Ticket
 //
 //        return $this;
 //    }
+
+    public function getFinishedThermician(): ?Thermician
+    {
+        return $this->finishedThermician;
+    }
+
+    public function setFinishedThermician(?Thermician $finishedThermician): self
+    {
+        $this->finishedThermician = $finishedThermician;
+
+        return $this;
+    }
 }

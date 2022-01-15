@@ -5,10 +5,9 @@ namespace App\Tests\Client;
 use App\Entity\Project;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Uid\Uuid;
 
 class ClientTest extends WebTestCase
 {
@@ -111,6 +110,7 @@ class ClientTest extends WebTestCase
     {
         $fileName = 'foo.pdf';
         $filePath = sprintf('%s/foo.pdf', __DIR__);
+
         return new UploadedFile($filePath, $fileName, null, null, true);
     }
 
