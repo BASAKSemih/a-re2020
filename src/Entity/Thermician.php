@@ -56,11 +56,18 @@ class Thermician implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'oldThermician', targetEntity: Ticket::class)]
     private Collection $pendingTicket;
 
+    /**
+     * @var Collection<Ticket>
+     */
+    #[ORM\OneToMany(mappedBy: 'finishedThermician', targetEntity: Ticket::class)]
+    private Collection $finishedTickets;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
         $this->remarks = new ArrayCollection();
         $this->pendingTicket = new ArrayCollection();
+        $this->finishedTickets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -266,6 +273,36 @@ class Thermician implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($pendingTicket->getOldThermician() === $this) {
                 $pendingTicket->setOldThermician(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Ticket[]
+     */
+    public function getFinishedTickets(): Collection
+    {
+        return $this->finishedTickets;
+    }
+
+    public function addFinishedTicket(Ticket $finishedTicket): self
+    {
+        if (!$this->finishedTickets->contains($finishedTicket)) {
+            $this->finishedTickets[] = $finishedTicket;
+            $finishedTicket->setFinishedThermician($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFinishedTicket(Ticket $finishedTicket): self
+    {
+        if ($this->finishedTickets->removeElement($finishedTicket)) {
+            // set the owning side to null (unless already changed)
+            if ($finishedTicket->getFinishedThermician() === $this) {
+                $finishedTicket->setFinishedThermician(null);
             }
         }
 

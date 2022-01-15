@@ -11,6 +11,7 @@ use App\Entity\Thermician;
 use App\Entity\Ticket;
 use App\Form\DocumentType;
 use App\Form\RemarkType;
+use App\Repository\DocumentRepository;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,8 +24,7 @@ use Symfony\Component\Security\Core\Security;
 #[Route(name: 'thermician_')]
 final class TicketStatusController extends AbstractController
 {
-    public function __construct(protected ProjectRepository $projectRepository, protected EntityManagerInterface
-    $entityManager, protected Security $security)
+    public function __construct(protected ProjectRepository $projectRepository, protected EntityManagerInterface $entityManager, protected Security $security, protected DocumentRepository $documentRepository)
     {
     }
 
@@ -34,6 +34,7 @@ final class TicketStatusController extends AbstractController
         $project = $this->projectRepository->findOneById($idProject);
         if (!$project) {
             $this->addFlash('warning', "ce project n'existe pas");
+
             return $this->redirectToRoute('thermician_home');
         }
         /** @var Thermician $thermician */
@@ -41,11 +42,12 @@ final class TicketStatusController extends AbstractController
         /** @var Ticket $ticket */
         $ticket = $project->getTicket();
 
-         $access = $this->isGranted('CAN_EDIT', $ticket);
-         if ($access === false) {
-             $this->addFlash('warning', "Ce ticket ne vous apartietn pas");
-             return $this->redirectToRoute('thermician_home');
-         }
+        $access = $this->isGranted('CAN_EDIT', $ticket);
+        if (false === $access) {
+            $this->addFlash('warning', 'Ce ticket ne vous apartietn pas');
+
+            return $this->redirectToRoute('thermician_home');
+        }
 
         $remark = new Remark();
         $form = $this->createForm(RemarkType::class, $remark)->handleRequest($request);
@@ -59,8 +61,10 @@ final class TicketStatusController extends AbstractController
             $this->entityManager->persist($remark);
             $this->entityManager->flush();
             $this->addFlash('success', "La remarque à été envoyer a l'utilisateur, le ticket à été mis en pause vous pouvez séléctionner un autre ticket");
+
             return $this->redirectToRoute('thermician_home');
         }
+
         return $this->render('thermician/ticket/status/remark.html.twig', [
             'form' => $form->createView(),
         ]);
@@ -72,13 +76,15 @@ final class TicketStatusController extends AbstractController
         $project = $this->projectRepository->findOneById($idProject);
         if (!$project) {
             $this->addFlash('warning', "ce project n'existe pas");
+
             return $this->redirectToRoute('thermician_home');
         }
         /** @var Ticket $ticket */
         $ticket = $project->getTicket();
         $access = $this->isGranted('CAN_EDIT', $ticket);
-        if ($access === false) {
-            $this->addFlash('warning', "Ce ticket ne vous apartietn pas");
+        if (false === $access) {
+            $this->addFlash('warning', 'Ce ticket ne vous apartietn pas');
+
             return $this->redirectToRoute('thermician_home');
         }
         $form = $this->createForm(DocumentType::class)->handleRequest($request);
@@ -99,13 +105,15 @@ final class TicketStatusController extends AbstractController
                 $this->entityManager->persist($document);
                 $this->entityManager->flush();
                 $this->addFlash('success', 'le document à bien été ajouter');
+
                 return $this->redirectToRoute('thermician_send_document', ['idProject' => $project->getId()]);
             }
         }
+
         return $this->render('thermician/ticket/document/send.html.twig', [
             'form' => $form->createView(),
             'ticket' => $ticket,
-            'project' => $project
+            'project' => $project,
         ]);
     }
 
@@ -115,17 +123,20 @@ final class TicketStatusController extends AbstractController
         $project = $this->projectRepository->findOneById($idProject);
         if (!$project) {
             $this->addFlash('warning', "ce project n'existe pas");
+
             return $this->redirectToRoute('thermician_home');
         }
         /** @var Ticket $ticket */
         $ticket = $project->getTicket();
         $access = $this->isGranted('CAN_EDIT', $ticket);
-        if ($access === false) {
-            $this->addFlash('warning', "Ce ticket ne vous appartient pas");
+        if (false === $access) {
+            $this->addFlash('warning', 'Ce ticket ne vous appartient pas');
+
             return $this->redirectToRoute('thermician_home');
         }
+
         return $this->render('thermician/ticket/status/finish.html.twig', [
-            'project' => $project
+            'project' => $project,
         ]);
     }
 
@@ -135,20 +146,32 @@ final class TicketStatusController extends AbstractController
         $project = $this->projectRepository->findOneById($idProject);
         if (!$project) {
             $this->addFlash('warning', "ce project n'existe pas");
+
             return $this->redirectToRoute('thermician_home');
         }
         /** @var Ticket $ticket */
         $ticket = $project->getTicket();
         $access = $this->isGranted('CAN_EDIT', $ticket);
-        if ($access === false) {
-            $this->addFlash('warning', "Ce ticket ne vous appartient pas");
+        if (false === $access) {
+            $this->addFlash('warning', 'Ce ticket ne vous appartient pas');
+
             return $this->redirectToRoute('thermician_home');
         }
-        if (!$ticket->getDocuments()) {
+        $documents = $this->documentRepository->findOneByTicket($ticket);
+        if (!$documents) {
             $this->addFlash('warning', "Vous n'avez pas ajouter de document vous ne pouvez pas finir le projet");
+
             return $this->redirectToRoute('thermician_send_document', ['idProject' => $project->getId()]);
         }
         $this->addFlash('success', 'Le ticket est cloturé et finis félicitation ');
+        $ticket->setIsActive(false);
+        $ticket->setActiveThermician(null);
+        /** @var Thermician $thermician */
+        $thermician = $this->getUser();
+        $ticket->setFinishedThermician($thermician);
+        $project->setStatus(Project::STATUS_FINISH);
+        $this->entityManager->flush();
+
         return $this->redirectToRoute('thermician_home');
     }
 }

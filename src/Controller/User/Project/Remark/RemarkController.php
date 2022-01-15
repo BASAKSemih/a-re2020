@@ -110,15 +110,17 @@ final class RemarkController extends AbstractController
 
             return $this->redirectToRoute('homePage');
         }
-        if ($remark->getIsActive() === false) {
-            $this->addFlash('warning', "Erreurrrrr");
+        if (false === $remark->getIsActive()) {
+            $this->addFlash('warning', 'Erreurrrrr');
+
             return $this->redirectToRoute('homePage');
         }
         $this->security->isGranted('IS_OWNER', $project);
         $this->denyAccessUnlessGranted('IS_OWNER', $project, 'Pas proprio');
         $remark->setIsActive(false);
         $this->entityManager->flush();
-        $this->addFlash('success', "La remarque à bien été supprimer et le ticket reprend");
+        $this->addFlash('success', 'La remarque à bien été supprimer et le ticket reprend');
+
         return $this->redirectToRoute('homePage');
     }
 }

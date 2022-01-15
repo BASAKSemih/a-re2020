@@ -39,15 +39,16 @@ final class TicketController extends AbstractController
                 $remarks = $project->getRemarks();
                 /** @var Remark $remark */
                 foreach ($remarks as $remark) {
-                    if ($remark->getIsActive() === false) {
+                    if (false === $remark->getIsActive()) {
                         $priorityTickets[] = $remark->getProject()->getTicket();
                     }
                 }
             }
+
             return $this->render('thermician/home.html.twig', [
                 'tickets' => $tickets,
                 'activeTicket' => $thermicianTicket,
-                'priorityTickets' => $priorityTickets
+                'priorityTickets' => $priorityTickets,
             ]);
         }
 
@@ -96,16 +97,18 @@ final class TicketController extends AbstractController
         }
         if ($ticket->getProject()->getRemarks()) {
             foreach ($ticket->getProject()->getRemarks() as $remark) {
-                if ($remark->getIsActive() === true) {
-                    $this->addFlash('warning', "Ce ticket a une remark");
+                if (true === $remark->getIsActive()) {
+                    $this->addFlash('warning', 'Ce ticket a une remark');
+
                     return $this->redirectToRoute('thermician_home');
                 }
             }
         }
         if ($ticket->getOldThermician()) {
             $priority = $this->isGranted('IS_PRIORITY', $ticket);
-            if ($priority === false) {
+            if (false === $priority) {
                 $this->addFlash('warning', 'le ticket est prioriaitre a l ancien thermicien dessus');
+
                 return $this->redirectToRoute('thermician_home');
             }
         }

@@ -6,7 +6,6 @@ use App\Entity\Thermician;
 use App\Entity\Ticket;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class ThermicianPriorityVoter extends Voter
 {
@@ -22,6 +21,7 @@ class ThermicianPriorityVoter extends Voter
         $thermician = $token->getUser();
         /** @var Ticket $subject */
         $oldThermician = $subject->getOldThermician();
+
         return $thermician === $oldThermician;
     }
 }
