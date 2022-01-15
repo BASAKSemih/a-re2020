@@ -2,6 +2,7 @@
 
 namespace App\Tests\Security\User\Project;
 
+use App\Entity\Plan;
 use App\Entity\Project;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -52,6 +53,13 @@ class BuildingTest extends WebTestCase
         $client->submit($form);
         $client->followRedirect();
         self::assertRouteSame('homePage');
+    }
+
+    private function createPdf(): UploadedFile
+    {
+        $fileName = 'foo.pdf';
+        $filePath = sprintf('%s/foo.pdf', __DIR__);
+        return new UploadedFile($filePath, $fileName, null, null, true);
     }
 
     public function testCreateProjectForBuildingData(): void
@@ -132,10 +140,38 @@ class BuildingTest extends WebTestCase
             'building[intermediateFloorThermal]' => 'Avec planelle',
             'building[facades]' => 'facades',
             'building[particularWalls]' => 'particularWalls',
+            'building[plan][0]' => $this->createPdf()
         ]);
         $client->submit($form);
         $client->followRedirect();
         self::assertRouteSame('homePage');
+    }
+
+    public function testUserDeletePlanBuilding(): void
+    {
+        $client = static::createClient();
+        /** @var RouterInterface $router */
+        $router = $client->getContainer()->get('router');
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('security_login'));
+        $form = $crawler->filter('form[name=login]')->form([
+            'email' => 'user@user.com',
+            'password' => 'password',
+        ]);
+
+        $client->submit($form);
+        $client->followRedirect();
+        self::assertRouteSame('homePage');
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+        $projectRepository = $entityManager->getRepository(Project::class);
+        /** @var Project $project */
+        $project = $projectRepository->findOneByCompany('sdsdsdsdsd');
+        $planRepository = $entityManager->getRepository(Plan::class);
+        $plan = $planRepository->findOneByBuilding($project->getBuilding());
+        $crawler = $client->request(Request::METHOD_GET, $router->generate('building_planDelete', [
+            'namePlan' => $plan->getName(),
+        ]));
+        $client->followRedirect();
+        self::assertRouteSame('building_edit');
     }
 
     /**
