@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\Thermician;
 
 use App\Entity\Thermician\Remark;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

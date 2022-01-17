@@ -46,18 +46,18 @@ final class RegistrationController extends AbstractController
                 $this->entityManager->flush();
                 $user->setEmailToken($this->generateToken());
                 $this->entityManager->flush();
-                $email = (new TemplatedEmail())
-                    ->from('semihbasak25@gmail.com')
-                    /* @phpstan-ignore-next-line */
-                    ->to($user->getEmail())
-                    ->subject('Inscription réussite')
-                    ->htmlTemplate('mail/validation.html.twig')
-                    ->context(
-                        [
-                            'user' => $user,
-                            'token' => $user->getEmailToken(), ]
-                    );
-                $this->mailer->send($email);
+//                $email = (new TemplatedEmail())
+//                    ->from('semihbasak25@gmail.com')
+//                    /* @phpstan-ignore-next-line */
+//                    ->to($user->getEmail())
+//                    ->subject('Inscription réussite')
+//                    ->htmlTemplate('mail/validation.html.twig')
+//                    ->context(
+//                        [
+//                            'user' => $user,
+//                            'token' => $user->getEmailToken(), ]
+//                    );
+//                $this->mailer->send($email);
                 $this->addFlash('success', 'Votre compte à bien été crée');
 
                 return $this->redirectToRoute('homePage');
