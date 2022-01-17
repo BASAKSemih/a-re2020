@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace App\Repository\Thermician;
 
 use App\Entity\Thermician\Thermician;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
