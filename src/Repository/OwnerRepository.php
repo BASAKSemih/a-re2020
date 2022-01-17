@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Entity\Owner;
+use App\Entity\Project\Owner;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,7 +16,7 @@ use Doctrine\Persistence\ManagerRegistry;
  *
  * @template T
  *
- * @extends ServiceEntityRepository<Owner>
+ * @extends ServiceEntityRepository<\App\Entity\Project\Owner>
  */
 final class OwnerRepository extends ServiceEntityRepository
 {

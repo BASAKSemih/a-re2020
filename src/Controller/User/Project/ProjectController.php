@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\User\Project;
 
-use App\Entity\Owner;
 use App\Entity\Project;
+use App\Entity\Project\Owner;
 use App\Entity\User;
 use App\Form\OwnerType;
 use App\Form\ProjectType;
