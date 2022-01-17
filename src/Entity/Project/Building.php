@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Entity\Project;
 
+use App\Entity\Plan;
+use App\Entity\Project;
 use App\Repository\BuildingRepository;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;

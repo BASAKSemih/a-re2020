@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Building;
+use App\Entity\Project\Building;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;

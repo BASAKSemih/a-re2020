@@ -36,10 +36,10 @@ class Ticket
     private ?Thermician $oldThermician;
 
     /**
-     * @var ?Collection<Document>
+     * @var Collection<Document>
      */
     #[ORM\OneToMany(mappedBy: 'ticket', targetEntity: Document::class)]
-    private ?Collection $documents;
+    private Collection $documents;
 
     #[ORM\ManyToOne(targetEntity: Thermician::class, inversedBy: 'finishedTickets')]
     private ?Thermician $finishedThermician;

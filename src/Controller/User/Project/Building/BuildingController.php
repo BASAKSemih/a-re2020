@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\User\Project\Building;
 
-use App\Entity\Building;
 use App\Entity\Plan;
+use App\Entity\Project\Building;
 use App\Form\BuildingType;
 use App\Repository\PlanRepository;
 use App\Repository\ProjectRepository;
@@ -101,7 +101,7 @@ final class BuildingController extends AbstractController
         $this->security->isGranted('IS_OWNER', $project);
         $this->denyAccessUnlessGranted('IS_OWNER', $project, 'Pas proprio');
 
-        /** @var Building $building */
+        /** @var \App\Entity\Project\Building $building */
         $building = $project->getBuilding();
         $plans = null;
         /* @phpstan-ignore-next-line */
