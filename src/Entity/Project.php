@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Entity\Project\Building;
+use App\Entity\Project\Carpentry;
 use App\Entity\Thermician\Remark;
 use App\Entity\Thermician\Ticket;
 use App\Repository\ProjectRepository;

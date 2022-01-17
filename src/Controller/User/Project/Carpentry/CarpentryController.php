@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\User\Project\Carpentry;
 
-use App\Entity\Carpentry;
+use App\Entity\Project\Carpentry;
 use App\Form\CarpentryType;
 use App\Repository\ProjectRepository;
 use App\Repository\UserRepository;

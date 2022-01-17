@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Carpentry;
+use App\Entity\Project\Carpentry;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
