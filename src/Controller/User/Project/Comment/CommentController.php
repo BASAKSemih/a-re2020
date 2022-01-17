@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\User\Project\Comment;
 
-use App\Entity\Comment;
+use App\Entity\Project\Comment;
 use App\Form\CommentType;
 use App\Repository\ProjectRepository;
 use App\Repository\UserRepository;

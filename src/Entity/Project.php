@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Entity\Project\Building;
 use App\Entity\Project\Carpentry;
+use App\Entity\Project\Comment;
 use App\Entity\Thermician\Remark;
 use App\Entity\Thermician\Ticket;
 use App\Repository\ProjectRepository;
