@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Project;
 
-use App\Repository\SanitaryHotwaterRepository;
+use App\Repository\Project\SanitaryHotwaterRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
