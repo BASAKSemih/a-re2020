@@ -26,7 +26,7 @@ security:
             pattern: ^/thermician
             provider: app_thermician_provider
             custom_authenticator:
-                    - App\Security\ThermicianAuthenticator
+                    - App\Security\Thermician\ThermicianAuthenticator
             logout:
                 path: thermician_security_logout
         main:
