@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\User\Project\Ventilation;
 
-use App\Entity\Ventilation;
+use App\Entity\Project\Ventilation;
 use App\Form\VentilationType;
 use App\Repository\ProjectRepository;
 use App\Repository\UserRepository;
