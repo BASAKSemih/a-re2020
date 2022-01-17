@@ -34,7 +34,7 @@ security:
             pattern: ^/
             user_checker: App\Security\UserChecker
             provider: app_user_provider
-            custom_authenticator: App\Security\WebAuthenticator
+            custom_authenticator: App\Security\User\WebAuthenticator
             logout:
                 path: security_logout
                 # where to redirect after logout
