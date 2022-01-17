@@ -2,7 +2,7 @@
 
 namespace App\Entity\Thermician;
 
-use App\Repository\DocumentRepository;
+use App\Repository\Thermician\DocumentRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DocumentRepository::class)]
