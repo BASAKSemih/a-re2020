@@ -2,8 +2,8 @@
 
 namespace App\Tests\Security\User\Project;
 
-use App\Entity\Plan;
 use App\Entity\Project;
+use App\Entity\Project\Plan;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
