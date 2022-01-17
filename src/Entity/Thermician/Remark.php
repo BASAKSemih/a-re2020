@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Thermician;
 
-use App\Entity\Thermician\Thermician;
+use App\Entity\Project;
 use App\Repository\RemarkRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;

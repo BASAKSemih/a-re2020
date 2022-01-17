@@ -3,7 +3,7 @@
 namespace App\Tests\Thermician;
 
 use App\Entity\Project;
-use App\Entity\Remark;
+use App\Entity\Thermician\Remark;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;

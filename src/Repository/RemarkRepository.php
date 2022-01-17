@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Remark;
+use App\Entity\Thermician\Remark;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
