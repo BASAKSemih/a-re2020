@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository\Thermician;
 
 use App\Entity\Thermician\Remark;
@@ -16,7 +18,7 @@ use Doctrine\Persistence\ManagerRegistry;
  *
  * @extends ServiceEntityRepository<Remark>
  */
-class RemarkRepository extends ServiceEntityRepository
+final class RemarkRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

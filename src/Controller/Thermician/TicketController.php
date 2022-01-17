@@ -12,7 +12,6 @@ use App\Repository\Project\ProjectRepository;
 use App\Repository\Thermician\TicketRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -26,11 +25,11 @@ final class TicketController extends AbstractController
     #[Route('/thermician/accueil', name: 'home')]
     public function home(): Response
     {
-        /** @var \App\Entity\Thermician\Thermician $thermician */
+        /** @var Thermician $thermician */
         $thermician = $this->getUser();
         $tickets = $this->ticketRepository->findByIsActive(true);
         $thermicianTicket = $this->ticketRepository->findOneByActiveThermician($thermician);
-        /** @var \App\Entity\Thermician\Ticket $pendingTickets */
+        /** @var Ticket $pendingTickets */
         $pendingTickets = $this->ticketRepository->findByOldThermician($thermician);
         if ($pendingTickets) {
             foreach ($pendingTickets as $pendingTicket) {
@@ -128,7 +127,7 @@ final class TicketController extends AbstractController
     }
 
     #[Route('/thermician/projets/{idProject}/show/ticket', name: 'show_my_ticket')]
-    public function showMyTicket(int $idProject, Request $request): Response
+    public function showMyTicket(int $idProject): Response
     {
         /** @var Project $project */
         $project = $this->projectRepository->findOneById($idProject);
@@ -140,7 +139,7 @@ final class TicketController extends AbstractController
         }
         /** @var Thermician $thermician */
         $thermician = $this->getUser();
-        /** @var \App\Entity\Thermician\Ticket $ticket */
+        /** @var Ticket $ticket */
         $ticket = $project->getTicket();
         if ($ticket->getActiveThermician() !== $thermician) {
             $this->addFlash('warning', 'Ce ticket ne vous appartient pas ');

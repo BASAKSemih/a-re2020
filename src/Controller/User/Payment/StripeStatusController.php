@@ -32,7 +32,7 @@ final class StripeStatusController extends AbstractController
     public function successPayment(string $CHECKOUT_SESSION_ID): Response
     {
         $billing = $this->billingRepository->findOneByStripeSessionId($CHECKOUT_SESSION_ID);
-        /** @var \App\Entity\Project\Project $project */
+        /** @var Project $project */
         $project = $billing->getProject();
         $this->security->isGranted('IS_OWNER', $project);
         $this->denyAccessUnlessGranted('IS_OWNER', $project, 'Pas proprio');

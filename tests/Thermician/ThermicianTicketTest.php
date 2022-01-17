@@ -335,7 +335,6 @@ class ThermicianTicketTest extends WebTestCase
         return new UploadedFile($filePath, $fileName, null, null, true);
     }
 
-
     public function testThermicianSendDocumentTicket(): void
     {
         $client = static::createClient();
@@ -503,6 +502,4 @@ class ThermicianTicketTest extends WebTestCase
         $client->followRedirect();
         self::assertRouteSame('thermician_home');
     }
-
-
 }
