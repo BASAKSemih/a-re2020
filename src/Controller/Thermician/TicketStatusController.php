@@ -7,7 +7,7 @@ namespace App\Controller\Thermician;
 use App\Entity\Document;
 use App\Entity\Project;
 use App\Entity\Remark;
-use App\Entity\Thermician;
+use App\Entity\Thermician\Thermician;
 use App\Entity\Ticket;
 use App\Form\DocumentType;
 use App\Form\RemarkType;

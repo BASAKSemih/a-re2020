@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Thermician\Thermician;
 use App\Repository\TicketRepository;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;

@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Entity\Thermician;
 
+use App\Entity\Remark;
+use App\Entity\Ticket;
 use App\Repository\ThermicianRepository;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;

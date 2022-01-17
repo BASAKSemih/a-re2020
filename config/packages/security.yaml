@@ -15,7 +15,7 @@ security:
                 property: email
         app_thermician_provider:
             entity:
-                class: App\Entity\Thermician
+                class: App\Entity\Thermician\Thermician
                 property: email
     firewalls:
         dev:

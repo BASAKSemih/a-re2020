@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Thermician\Thermician;
 use App\Repository\RemarkRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;

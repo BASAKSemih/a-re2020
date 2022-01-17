@@ -6,7 +6,7 @@ namespace App\Controller\Thermician;
 
 use App\Entity\Project;
 use App\Entity\Remark;
-use App\Entity\Thermician;
+use App\Entity\Thermician\Thermician;
 use App\Entity\Ticket;
 use App\Repository\ProjectRepository;
 use App\Repository\TicketRepository;
@@ -26,7 +26,7 @@ final class TicketController extends AbstractController
     #[Route('/thermician/accueil', name: 'home')]
     public function home(): Response
     {
-        /** @var Thermician $thermician */
+        /** @var \App\Entity\Thermician\Thermician $thermician */
         $thermician = $this->getUser();
         $tickets = $this->ticketRepository->findByIsActive(true);
         $thermicianTicket = $this->ticketRepository->findOneByActiveThermician($thermician);

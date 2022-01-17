@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\DataFixtures\User;
 
-use App\Entity\Thermician;
+use App\Entity\Thermician\Thermician;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
