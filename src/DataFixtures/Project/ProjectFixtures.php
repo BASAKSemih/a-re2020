@@ -20,7 +20,7 @@ final class ProjectFixtures extends Fixture
     {
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         for ($u = 0; $u <= 3; ++$u) {
             $user = new User();

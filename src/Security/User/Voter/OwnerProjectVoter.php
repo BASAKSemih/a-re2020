@@ -19,7 +19,7 @@ final class OwnerProjectVoter extends Voter
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
-        /* @var \App\Entity\Project\Project $subject */
+        /** @var Project $subject */
         return $subject->getUser() === $user;
     }
 }
