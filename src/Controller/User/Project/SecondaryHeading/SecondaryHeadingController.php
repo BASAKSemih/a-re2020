@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\User\Project\SecondaryHeading;
 
-use App\Entity\SecondaryHeading;
+use App\Entity\Project\SecondaryHeading;
 use App\Form\SecondaryHeadingType;
 use App\Repository\ProjectRepository;
 use App\Repository\UserRepository;

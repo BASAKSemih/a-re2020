@@ -10,6 +10,7 @@ use App\Entity\Project\Comment;
 use App\Entity\Project\MainHeading;
 use App\Entity\Project\Owner;
 use App\Entity\Project\SanitaryHotwater;
+use App\Entity\Project\SecondaryHeading;
 use App\Entity\Thermician\Remark;
 use App\Entity\Thermician\Ticket;
 use App\Repository\ProjectRepository;

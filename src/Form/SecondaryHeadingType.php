@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\SecondaryHeading;
+use App\Entity\Project\SecondaryHeading;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
