@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Controller\User\Project\Building;
 
-use App\Entity\Building;
-use App\Entity\Plan;
-use App\Form\BuildingType;
-use App\Repository\PlanRepository;
-use App\Repository\ProjectRepository;
+use App\Entity\Project\Building;
+use App\Entity\Project\Plan;
+use App\Form\Project\BuildingType;
+use App\Repository\Project\PlanRepository;
+use App\Repository\Project\ProjectRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -101,7 +101,7 @@ final class BuildingController extends AbstractController
         $this->security->isGranted('IS_OWNER', $project);
         $this->denyAccessUnlessGranted('IS_OWNER', $project, 'Pas proprio');
 
-        /** @var Building $building */
+        /** @var \App\Entity\Project\Building $building */
         $building = $project->getBuilding();
         $plans = null;
         /* @phpstan-ignore-next-line */

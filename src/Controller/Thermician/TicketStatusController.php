@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Controller\Thermician;
 
-use App\Entity\Document;
-use App\Entity\Project;
-use App\Entity\Remark;
-use App\Entity\Thermician;
-use App\Entity\Ticket;
-use App\Form\DocumentType;
-use App\Form\RemarkType;
-use App\Repository\DocumentRepository;
-use App\Repository\ProjectRepository;
+use App\Entity\Project\Project;
+use App\Entity\Thermician\Document;
+use App\Entity\Thermician\Remark;
+use App\Entity\Thermician\Thermician;
+use App\Entity\Thermician\Ticket;
+use App\Form\Thermician\DocumentType;
+use App\Form\Thermician\RemarkType;
+use App\Repository\Project\ProjectRepository;
+use App\Repository\Thermician\DocumentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -126,7 +126,7 @@ final class TicketStatusController extends AbstractController
 
             return $this->redirectToRoute('thermician_home');
         }
-        /** @var Ticket $ticket */
+        /** @var \App\Entity\Thermician\Ticket $ticket */
         $ticket = $project->getTicket();
         $access = $this->isGranted('CAN_EDIT', $ticket);
         if (false === $access) {
@@ -149,7 +149,7 @@ final class TicketStatusController extends AbstractController
 
             return $this->redirectToRoute('thermician_home');
         }
-        /** @var Ticket $ticket */
+        /** @var \App\Entity\Thermician\Ticket $ticket */
         $ticket = $project->getTicket();
         $access = $this->isGranted('CAN_EDIT', $ticket);
         if (false === $access) {

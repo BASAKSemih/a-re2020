@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\User\Project\Carpentry;
 
-use App\Entity\Carpentry;
-use App\Form\CarpentryType;
-use App\Repository\ProjectRepository;
+use App\Entity\Project\Carpentry;
+use App\Form\Project\CarpentryType;
+use App\Repository\Project\ProjectRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\User\Project\Ventilation;
 
-use App\Entity\Ventilation;
-use App\Form\VentilationType;
-use App\Repository\ProjectRepository;
+use App\Entity\Project\Ventilation;
+use App\Form\Project\VentilationType;
+use App\Repository\Project\ProjectRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

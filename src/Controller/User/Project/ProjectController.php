@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller\User\Project;
 
-use App\Entity\Owner;
-use App\Entity\Project;
+use App\Entity\Project\Owner;
+use App\Entity\Project\Project;
 use App\Entity\User;
-use App\Form\OwnerType;
-use App\Form\ProjectType;
-use App\Repository\ProjectRepository;
+use App\Form\Project\OwnerType;
+use App\Form\Project\ProjectType;
+use App\Repository\Project\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

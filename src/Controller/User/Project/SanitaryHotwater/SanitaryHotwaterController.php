@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\User\Project\SanitaryHotwater;
 
-use App\Entity\SanitaryHotwater;
-use App\Form\SanitaryHotwaterType;
-use App\Repository\ProjectRepository;
+use App\Entity\Project\SanitaryHotwater;
+use App\Form\Project\SanitaryHotwaterType;
+use App\Repository\Project\ProjectRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

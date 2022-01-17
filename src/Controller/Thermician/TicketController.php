@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\Controller\Thermician;
 
-use App\Entity\Project;
-use App\Entity\Remark;
-use App\Entity\Thermician;
-use App\Entity\Ticket;
-use App\Repository\ProjectRepository;
-use App\Repository\TicketRepository;
+use App\Entity\Project\Project;
+use App\Entity\Thermician\Remark;
+use App\Entity\Thermician\Thermician;
+use App\Entity\Thermician\Ticket;
+use App\Repository\Project\ProjectRepository;
+use App\Repository\Thermician\TicketRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -88,7 +87,7 @@ final class TicketController extends AbstractController
 
             return $this->redirectToRoute('thermician_home');
         }
-        /** @var Ticket $ticket */
+        /** @var \App\Entity\Thermician\Ticket $ticket */
         $ticket = $project->getTicket();
         if ($ticket->getActiveThermician()) {
             $this->addFlash('warning', 'ce ticket est déjà pris');
@@ -128,7 +127,7 @@ final class TicketController extends AbstractController
     }
 
     #[Route('/thermician/projets/{idProject}/show/ticket', name: 'show_my_ticket')]
-    public function showMyTicket(int $idProject, Request $request): Response
+    public function showMyTicket(int $idProject): Response
     {
         /** @var Project $project */
         $project = $this->projectRepository->findOneById($idProject);

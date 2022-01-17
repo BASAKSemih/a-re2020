@@ -2,7 +2,7 @@
 
 namespace App\Tests\Client;
 
-use App\Entity\Project;
+use App\Entity\Project\Project;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -52,7 +52,7 @@ class RouteTest extends WebTestCase
         self::assertRouteSame('homePage');
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $crawler = $client->request(Request::METHOD_GET, $router->generate('project_create'));
         self::assertRouteSame('project_create');
     }
@@ -73,7 +73,7 @@ class RouteTest extends WebTestCase
         self::assertRouteSame('homePage');
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $crawler = $client->request(Request::METHOD_GET, $router->generate('project_showAll'));
         self::assertRouteSame('project_showAll');
     }

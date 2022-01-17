@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\DataFixtures\Project;
 
 use App\Entity\Billing;
-use App\Entity\Owner;
-use App\Entity\Project;
-use App\Entity\Ticket;
+use App\Entity\Project\Owner;
+use App\Entity\Project\Project;
+use App\Entity\Thermician\Ticket;
 use App\Entity\User;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -20,7 +20,7 @@ final class ProjectFixtures extends Fixture
     {
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         for ($u = 0; $u <= 3; ++$u) {
             $user = new User();

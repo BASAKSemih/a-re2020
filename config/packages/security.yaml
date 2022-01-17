@@ -15,7 +15,7 @@ security:
                 property: email
         app_thermician_provider:
             entity:
-                class: App\Entity\Thermician
+                class: App\Entity\Thermician\Thermician
                 property: email
     firewalls:
         dev:
@@ -26,15 +26,15 @@ security:
             pattern: ^/thermician
             provider: app_thermician_provider
             custom_authenticator:
-                    - App\Security\ThermicianAuthenticator
+                    - App\Security\Thermician\ThermicianAuthenticator
             logout:
                 path: thermician_security_logout
         main:
             lazy: true
             pattern: ^/
-            user_checker: App\Security\UserChecker
+            user_checker: App\Security\User\UserChecker
             provider: app_user_provider
-            custom_authenticator: App\Security\WebAuthenticator
+            custom_authenticator: App\Security\User\WebAuthenticator
             logout:
                 path: security_logout
                 # where to redirect after logout

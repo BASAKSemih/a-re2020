@@ -2,8 +2,8 @@
 
 namespace App\Tests\Thermician;
 
-use App\Entity\Project;
-use App\Entity\Remark;
+use App\Entity\Project\Project;
+use App\Entity\Thermician\Remark;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,7 +44,7 @@ class ThermicianTicketTest extends WebTestCase
 
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('company+0');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('thermician_show_ticket', [
             'idProject' => $project->getId(),
@@ -70,7 +70,7 @@ class ThermicianTicketTest extends WebTestCase
 
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('company+0');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('thermician_take_ticket', [
             'idProject' => $project->getId(),
@@ -96,7 +96,7 @@ class ThermicianTicketTest extends WebTestCase
 
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('company+0');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('thermician_take_ticket', [
             'idProject' => $project->getId(),
@@ -122,7 +122,7 @@ class ThermicianTicketTest extends WebTestCase
 
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('company+0');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('thermician_show_ticket', [
             'idProject' => $project->getId(),
@@ -147,7 +147,7 @@ class ThermicianTicketTest extends WebTestCase
 
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('company+0');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('thermician_create_remark_ticket', [
             'idProject' => $project->getId(),
@@ -179,7 +179,7 @@ class ThermicianTicketTest extends WebTestCase
 
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('company+1');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('thermician_take_ticket', [
             'idProject' => $project->getId(),
@@ -205,7 +205,7 @@ class ThermicianTicketTest extends WebTestCase
 
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('company+1');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('thermician_create_remark_ticket', [
             'idProject' => $project->getId(),
@@ -230,7 +230,7 @@ class ThermicianTicketTest extends WebTestCase
         self::assertRouteSame('homePage');
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('company+1');
         $remarkRepository = $entityManager->getRepository(Remark::class);
         /** @var Remark $remark */
@@ -260,7 +260,7 @@ class ThermicianTicketTest extends WebTestCase
 
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('company+0');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('thermician_take_ticket', [
             'idProject' => $project->getId(),
@@ -286,7 +286,7 @@ class ThermicianTicketTest extends WebTestCase
 
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('company+1');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('thermician_create_remark_ticket', [
             'idProject' => $project->getId(),
@@ -318,7 +318,7 @@ class ThermicianTicketTest extends WebTestCase
 
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('company+0');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('thermician_take_ticket', [
             'idProject' => $project->getId(),
@@ -334,7 +334,6 @@ class ThermicianTicketTest extends WebTestCase
 
         return new UploadedFile($filePath, $fileName, null, null, true);
     }
-
 
     public function testThermicianSendDocumentTicket(): void
     {
@@ -353,7 +352,7 @@ class ThermicianTicketTest extends WebTestCase
 
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('company+0');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('thermician_send_document', [
             'idProject' => $project->getId(),
@@ -411,7 +410,7 @@ class ThermicianTicketTest extends WebTestCase
 
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('company+3');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('thermician_take_ticket', [
             'idProject' => $project->getId(),
@@ -437,7 +436,7 @@ class ThermicianTicketTest extends WebTestCase
 
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('company+3');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('thermician_finish_ticket', [
             'idProject' => $project->getId(),
@@ -495,7 +494,7 @@ class ThermicianTicketTest extends WebTestCase
 
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('company+3');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('thermician_finish_ticket', [
             'idProject' => $project->getId(),
@@ -503,6 +502,4 @@ class ThermicianTicketTest extends WebTestCase
         $client->followRedirect();
         self::assertRouteSame('thermician_home');
     }
-
-
 }

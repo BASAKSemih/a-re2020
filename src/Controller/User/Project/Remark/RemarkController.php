@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\User\Project\Remark;
 
-use App\Repository\ProjectRepository;
-use App\Repository\RemarkRepository;
+use App\Repository\Project\ProjectRepository;
+use App\Repository\Thermician\RemarkRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

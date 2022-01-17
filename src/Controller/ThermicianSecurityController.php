@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -9,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 #[Route(name: 'thermician_security_')]
-class ThermicianSecurityController extends AbstractController
+final class ThermicianSecurityController extends AbstractController
 {
     #[Route('/thermician/connexion', name: 'login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
