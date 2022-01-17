@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Projet;
 
 use App\Entity\Project\Carpentry;
 use Symfony\Component\Form\AbstractType;
