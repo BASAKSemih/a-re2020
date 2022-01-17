@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\SanitaryHotwater;
+use App\Entity\Project\SanitaryHotwater;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
