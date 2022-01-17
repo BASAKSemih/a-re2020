@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\User\Payment;
 
 use App\Repository\OfferRepository;
-use App\Repository\ProjectRepository;
+use App\Repository\Project\ProjectRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

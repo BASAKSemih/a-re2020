@@ -6,7 +6,7 @@ namespace App\Controller\User\Project\Carpentry;
 
 use App\Entity\Project\Carpentry;
 use App\Form\Project\CarpentryType;
-use App\Repository\ProjectRepository;
+use App\Repository\Project\ProjectRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

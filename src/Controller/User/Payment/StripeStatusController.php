@@ -7,7 +7,7 @@ namespace App\Controller\User\Payment;
 use App\Entity\Project\Project;
 use App\Entity\Thermician\Ticket;
 use App\Repository\BillingRepository;
-use App\Repository\ProjectRepository;
+use App\Repository\Project\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

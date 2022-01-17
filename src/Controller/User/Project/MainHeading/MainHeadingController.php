@@ -6,7 +6,7 @@ namespace App\Controller\User\Project\MainHeading;
 
 use App\Entity\Project\MainHeading;
 use App\Form\Project\MainHeadingType;
-use App\Repository\ProjectRepository;
+use App\Repository\Project\ProjectRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

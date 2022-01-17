@@ -12,7 +12,7 @@ use App\Entity\Thermician\Ticket;
 use App\Form\Thermician\DocumentType;
 use App\Form\Thermician\RemarkType;
 use App\Repository\DocumentRepository;
-use App\Repository\ProjectRepository;
+use App\Repository\Project\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;

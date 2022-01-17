@@ -9,7 +9,7 @@ use App\Entity\Project\Project;
 use App\Entity\User;
 use App\Form\Project\OwnerType;
 use App\Form\Project\ProjectType;
-use App\Repository\ProjectRepository;
+use App\Repository\Project\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

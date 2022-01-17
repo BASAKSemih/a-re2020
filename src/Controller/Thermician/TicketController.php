@@ -8,7 +8,7 @@ use App\Entity\Project\Project;
 use App\Entity\Thermician\Remark;
 use App\Entity\Thermician\Thermician;
 use App\Entity\Thermician\Ticket;
-use App\Repository\ProjectRepository;
+use App\Repository\Project\ProjectRepository;
 use App\Repository\TicketRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

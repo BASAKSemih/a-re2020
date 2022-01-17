@@ -8,7 +8,7 @@ use App\Entity\Project\Building;
 use App\Entity\Project\Plan;
 use App\Form\Project\BuildingType;
 use App\Repository\Project\PlanRepository;
-use App\Repository\ProjectRepository;
+use App\Repository\Project\ProjectRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

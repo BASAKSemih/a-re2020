@@ -9,7 +9,7 @@ use App\Entity\User;
 use App\Form\BillingType;
 use App\Repository\BillingRepository;
 use App\Repository\OfferRepository;
-use App\Repository\ProjectRepository;
+use App\Repository\Project\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Stripe\Checkout\Session;

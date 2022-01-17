@@ -6,7 +6,7 @@ namespace App\Controller\User\Project\Comment;
 
 use App\Entity\Project\Comment;
 use App\Form\Project\CommentType;
-use App\Repository\ProjectRepository;
+use App\Repository\Project\ProjectRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
