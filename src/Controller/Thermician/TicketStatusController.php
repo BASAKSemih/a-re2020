@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Thermician;
 
-use App\Entity\Document;
 use App\Entity\Project;
 use App\Entity\Remark;
+use App\Entity\Thermician\Document;
 use App\Entity\Thermician\Thermician;
 use App\Entity\Thermician\Ticket;
 use App\Form\DocumentType;

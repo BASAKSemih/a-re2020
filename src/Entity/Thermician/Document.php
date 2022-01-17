@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Thermician;
 
-use App\Entity\Thermician\Ticket;
 use App\Repository\DocumentRepository;
 use Doctrine\ORM\Mapping as ORM;
 

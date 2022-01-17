@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Document;
+use App\Entity\Thermician\Document;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

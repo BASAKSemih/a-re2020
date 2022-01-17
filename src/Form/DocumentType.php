@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Document;
+use App\Entity\Thermician\Document;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
