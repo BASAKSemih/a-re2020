@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\User\Project\SanitaryHotwater;
 
 use App\Entity\Project\SanitaryHotwater;
-use App\Form\SanitaryHotwaterType;
+use App\Form\Project\SanitaryHotwaterType;
 use App\Repository\ProjectRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
