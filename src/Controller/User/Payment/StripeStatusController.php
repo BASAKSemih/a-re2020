@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\User\Payment;
 
-use App\Entity\Project;
+use App\Entity\Project\Project;
 use App\Entity\Thermician\Ticket;
 use App\Repository\BillingRepository;
 use App\Repository\ProjectRepository;
@@ -32,7 +32,7 @@ final class StripeStatusController extends AbstractController
     public function successPayment(string $CHECKOUT_SESSION_ID): Response
     {
         $billing = $this->billingRepository->findOneByStripeSessionId($CHECKOUT_SESSION_ID);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $billing->getProject();
         $this->security->isGranted('IS_OWNER', $project);
         $this->denyAccessUnlessGranted('IS_OWNER', $project, 'Pas proprio');

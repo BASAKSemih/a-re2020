@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Project\Project;
 use App\Repository\BillingRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;

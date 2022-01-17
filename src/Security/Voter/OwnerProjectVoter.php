@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Security\Voter;
 
-use App\Entity\Project;
+use App\Entity\Project\Project;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -19,7 +19,7 @@ final class OwnerProjectVoter extends Voter
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
-        /* @var Project $subject */
+        /* @var \App\Entity\Project\Project $subject */
         return $subject->getUser() === $user;
     }
 }

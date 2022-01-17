@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Thermician;
 
-use App\Entity\Project;
+use App\Entity\Project\Project;
 use App\Entity\Thermician\Document;
 use App\Entity\Thermician\Remark;
 use App\Entity\Thermician\Thermician;

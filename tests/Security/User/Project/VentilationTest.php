@@ -2,7 +2,7 @@
 
 namespace App\Tests\Security\User\Project;
 
-use App\Entity\Project;
+use App\Entity\Project\Project;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -69,7 +69,7 @@ class VentilationTest extends WebTestCase
         self::assertRouteSame('homePage');
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('forventilationcompany');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('ventilation_create', [
             'idProject' => $project->getId(),
@@ -134,7 +134,7 @@ class VentilationTest extends WebTestCase
         self::assertRouteSame('homePage');
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('forventilationcompany');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('ventilation_edit', [
             'idProject' => $project->getId(),

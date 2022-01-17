@@ -2,18 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Entity\Project;
 
-use App\Entity\Project\Building;
-use App\Entity\Project\Carpentry;
-use App\Entity\Project\Comment;
-use App\Entity\Project\MainHeading;
-use App\Entity\Project\Owner;
-use App\Entity\Project\SanitaryHotwater;
-use App\Entity\Project\SecondaryHeading;
-use App\Entity\Project\Ventilation;
+use App\Entity\Billing;
 use App\Entity\Thermician\Remark;
 use App\Entity\Thermician\Ticket;
+use App\Entity\User;
 use App\Repository\ProjectRepository;
 use DateTime;
 use DateTimeImmutable;

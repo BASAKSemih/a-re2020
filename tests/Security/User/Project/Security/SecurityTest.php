@@ -2,7 +2,7 @@
 
 namespace App\Tests\Security\User\Project\Security;
 
-use App\Entity\Project;
+use App\Entity\Project\Project;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -69,7 +69,7 @@ class SecurityTest extends WebTestCase
         self::assertRouteSame('homePage');
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('securitytest');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('comment_create', [
             'idProject' => $project->getId(),
@@ -93,7 +93,7 @@ class SecurityTest extends WebTestCase
         self::assertRouteSame('homePage');
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('securitytest');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('building_create', [
             'idProject' => $project->getId(),
@@ -117,7 +117,7 @@ class SecurityTest extends WebTestCase
         self::assertRouteSame('homePage');
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('securitytest');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('carpentry_create', [
             'idProject' => $project->getId(),
@@ -141,7 +141,7 @@ class SecurityTest extends WebTestCase
         self::assertRouteSame('homePage');
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('securitytest');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('mainHeading_create', [
             'idProject' => $project->getId(),
@@ -165,7 +165,7 @@ class SecurityTest extends WebTestCase
         self::assertRouteSame('homePage');
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('securitytest');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('sanitaryHotwater_create', [
             'idProject' => $project->getId(),
@@ -189,7 +189,7 @@ class SecurityTest extends WebTestCase
         self::assertRouteSame('homePage');
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
         $projectRepository = $entityManager->getRepository(Project::class);
-        /** @var Project $project */
+        /** @var \App\Entity\Project\Project $project */
         $project = $projectRepository->findOneByCompany('securitytest');
         $crawler = $client->request(Request::METHOD_GET, $router->generate('secondaryHeading_create', [
             'idProject' => $project->getId(),
