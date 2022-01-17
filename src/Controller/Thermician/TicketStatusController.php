@@ -9,7 +9,7 @@ use App\Entity\Thermician\Document;
 use App\Entity\Thermician\Remark;
 use App\Entity\Thermician\Thermician;
 use App\Entity\Thermician\Ticket;
-use App\Form\DocumentType;
+use App\Form\Thermician\DocumentType;
 use App\Form\Thermician\RemarkType;
 use App\Repository\DocumentRepository;
 use App\Repository\ProjectRepository;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Thermician;
 
 use App\Entity\Thermician\Document;
 use Symfony\Component\Form\AbstractType;
