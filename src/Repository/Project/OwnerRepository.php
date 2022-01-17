@@ -16,7 +16,7 @@ use Doctrine\Persistence\ManagerRegistry;
  *
  * @template T
  *
- * @extends ServiceEntityRepository<\App\Entity\Project\Owner>
+ * @extends ServiceEntityRepository<Owner>
  */
 final class OwnerRepository extends ServiceEntityRepository
 {

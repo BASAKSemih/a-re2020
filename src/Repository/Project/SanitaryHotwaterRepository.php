@@ -16,7 +16,7 @@ use Doctrine\Persistence\ManagerRegistry;
  *
  * @template T
  *
- * @extends ServiceEntityRepository<\App\Entity\Project\SanitaryHotwater>
+ * @extends ServiceEntityRepository<SanitaryHotwater>
  */
 final class SanitaryHotwaterRepository extends ServiceEntityRepository
 {
