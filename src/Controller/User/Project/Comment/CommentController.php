@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\User\Project\Comment;
 
 use App\Entity\Project\Comment;
-use App\Form\CommentType;
+use App\Form\Projet\CommentType;
 use App\Repository\ProjectRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
