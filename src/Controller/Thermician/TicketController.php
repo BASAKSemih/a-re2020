@@ -7,7 +7,7 @@ namespace App\Controller\Thermician;
 use App\Entity\Project;
 use App\Entity\Remark;
 use App\Entity\Thermician\Thermician;
-use App\Entity\Ticket;
+use App\Entity\Thermician\Ticket;
 use App\Repository\ProjectRepository;
 use App\Repository\TicketRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,7 +30,7 @@ final class TicketController extends AbstractController
         $thermician = $this->getUser();
         $tickets = $this->ticketRepository->findByIsActive(true);
         $thermicianTicket = $this->ticketRepository->findOneByActiveThermician($thermician);
-        /** @var Ticket $pendingTickets */
+        /** @var \App\Entity\Thermician\Ticket $pendingTickets */
         $pendingTickets = $this->ticketRepository->findByOldThermician($thermician);
         if ($pendingTickets) {
             foreach ($pendingTickets as $pendingTicket) {
@@ -88,7 +88,7 @@ final class TicketController extends AbstractController
 
             return $this->redirectToRoute('thermician_home');
         }
-        /** @var Ticket $ticket */
+        /** @var \App\Entity\Thermician\Ticket $ticket */
         $ticket = $project->getTicket();
         if ($ticket->getActiveThermician()) {
             $this->addFlash('warning', 'ce ticket est déjà pris');
@@ -140,7 +140,7 @@ final class TicketController extends AbstractController
         }
         /** @var Thermician $thermician */
         $thermician = $this->getUser();
-        /** @var Ticket $ticket */
+        /** @var \App\Entity\Thermician\Ticket $ticket */
         $ticket = $project->getTicket();
         if ($ticket->getActiveThermician() !== $thermician) {
             $this->addFlash('warning', 'Ce ticket ne vous appartient pas ');

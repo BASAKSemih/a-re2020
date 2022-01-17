@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Entity;
+namespace App\Entity\Thermician;
 
-use App\Entity\Thermician\Thermician;
+use App\Entity\Document;
+use App\Entity\Project;
 use App\Repository\TicketRepository;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;

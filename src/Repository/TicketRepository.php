@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Entity\Ticket;
+use App\Entity\Thermician\Ticket;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,7 +16,7 @@ use Doctrine\Persistence\ManagerRegistry;
  *
  * @template T
  *
- * @extends ServiceEntityRepository<Ticket>
+ * @extends ServiceEntityRepository<\App\Entity\Thermician\Ticket>
  */
 final class TicketRepository extends ServiceEntityRepository
 {

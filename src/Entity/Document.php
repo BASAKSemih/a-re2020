@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Thermician\Ticket;
 use App\Repository\DocumentRepository;
 use Doctrine\ORM\Mapping as ORM;
 

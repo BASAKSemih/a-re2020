@@ -8,7 +8,7 @@ use App\Entity\Document;
 use App\Entity\Project;
 use App\Entity\Remark;
 use App\Entity\Thermician\Thermician;
-use App\Entity\Ticket;
+use App\Entity\Thermician\Ticket;
 use App\Form\DocumentType;
 use App\Form\RemarkType;
 use App\Repository\DocumentRepository;
@@ -126,7 +126,7 @@ final class TicketStatusController extends AbstractController
 
             return $this->redirectToRoute('thermician_home');
         }
-        /** @var Ticket $ticket */
+        /** @var \App\Entity\Thermician\Ticket $ticket */
         $ticket = $project->getTicket();
         $access = $this->isGranted('CAN_EDIT', $ticket);
         if (false === $access) {
@@ -149,7 +149,7 @@ final class TicketStatusController extends AbstractController
 
             return $this->redirectToRoute('thermician_home');
         }
-        /** @var Ticket $ticket */
+        /** @var \App\Entity\Thermician\Ticket $ticket */
         $ticket = $project->getTicket();
         $access = $this->isGranted('CAN_EDIT', $ticket);
         if (false === $access) {

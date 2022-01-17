@@ -7,7 +7,7 @@ namespace App\DataFixtures\Project;
 use App\Entity\Billing;
 use App\Entity\Owner;
 use App\Entity\Project;
-use App\Entity\Ticket;
+use App\Entity\Thermician\Ticket;
 use App\Entity\User;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\User\Payment;
 
 use App\Entity\Project;
-use App\Entity\Ticket;
+use App\Entity\Thermician\Ticket;
 use App\Repository\BillingRepository;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
