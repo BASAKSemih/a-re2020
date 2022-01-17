@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Project;
 
-use App\Repository\CarpentryRepository;
+use App\Repository\Project\CarpentryRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
