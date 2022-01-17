@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Security\Voter;
+namespace App\Security\Thermician\Voter;
 
 use App\Entity\Thermician\Ticket;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;

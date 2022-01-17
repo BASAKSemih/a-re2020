@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Security\Voter;
+namespace App\Security\Thermician\Voter;
 
 use App\Entity\Thermician\Thermician;
 use App\Entity\Thermician\Ticket;
@@ -17,9 +17,9 @@ class ThermicianPriorityVoter extends Voter
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
-        /** @var \App\Entity\Thermician\Thermician $thermician */
+        /** @var Thermician $thermician */
         $thermician = $token->getUser();
-        /** @var \App\Entity\Thermician\Ticket $subject */
+        /** @var Ticket $subject */
         $oldThermician = $subject->getOldThermician();
 
         return $thermician === $oldThermician;
