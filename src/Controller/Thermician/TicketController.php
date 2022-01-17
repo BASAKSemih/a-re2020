@@ -9,7 +9,7 @@ use App\Entity\Thermician\Remark;
 use App\Entity\Thermician\Thermician;
 use App\Entity\Thermician\Ticket;
 use App\Repository\Project\ProjectRepository;
-use App\Repository\TicketRepository;
+use App\Repository\Thermician\TicketRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
