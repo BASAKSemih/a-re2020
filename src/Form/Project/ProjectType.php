@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Project;
 
 use App\Entity\Project\Project;
 use Symfony\Component\Form\AbstractType;

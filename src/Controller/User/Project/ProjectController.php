@@ -8,7 +8,7 @@ use App\Entity\Project\Owner;
 use App\Entity\Project\Project;
 use App\Entity\User;
 use App\Form\Project\OwnerType;
-use App\Form\ProjectType;
+use App\Form\Project\ProjectType;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
