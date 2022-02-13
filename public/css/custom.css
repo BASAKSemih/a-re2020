@@ -1,0 +1,50 @@
+/* Colors */
+
+:root{
+    --bleu: #55ABD5;
+    --bleu2: #55ABD5;
+    --vert: #9CCF3A;
+  }
+  
+  
+  /* Font Global du Site */
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+  body{
+    font-family: 'Poppins';
+  }
+  .websiteLogo img{
+    max-height:60px;
+  }
+  
+  /* header */
+  
+  header {
+      box-shadow: 0px 3px 7px 0px rgb(0 0 0 / 11%);
+  }
+  
+  .btnNav1{
+    background-color: var(--vert);
+    border-radius:5px;
+    color:#fff!important;
+    width:157px;
+    margin-right:10px;
+    text-align: center;
+  }
+  
+  .btnNav2{
+    background-color: var(--bleu);
+    border-radius:5px;
+    color:#fff!important;
+    width:157px;
+    text-align: center;
+  }
+  
+  .activeLigne{
+    height:2px;
+    width:35px;
+    background-color: var(--bleu);
+    margin-left: 0.5rem;
+    position: relative;
+    bottom: 6px;
+  }
+  
