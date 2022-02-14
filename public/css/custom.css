@@ -25,6 +25,7 @@ body{
 h1, h2, h3, h4, h5, h6{
     color: var(--bleu2);
       font-weight: 700!important;
+      text-transform: uppercase;
 }
 
 h3:after {
@@ -33,6 +34,7 @@ h3:after {
   width: 60px;
   height: 3px;
   background: var(--bleu);
+  margin-top: 10px!important;
 }
 
 /* header */
@@ -281,3 +283,224 @@ h3.centredTitle, h3.centredTitle:after {
   margin: auto;
   margin-bottom: 25px;
 }
+
+/* Tarifs Bloc */
+
+.tarifsContainer{
+  background-image: url(../images/packsbg.png);
+  padding-top:60px;
+  background-size: cover;
+}
+
+.pack{
+  padding-top: 30px;
+  background:#fff;
+  border-radius: 15px 15px 0 0;
+}
+
+.surTitrePack{
+  font-size:18px;
+  color: var(--bleu);
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+.packPrice {
+  font-size: 39px;
+  font-weight: 700;
+  color: var(--bleu2);
+}
+
+.packDivider{
+  height: 1px;
+  width: 50%;
+  margin: auto;
+  background-color: #eee;
+  margin-bottom: 15px;
+}
+
+p.packDescription {
+  color: #d1d1d1;
+  padding: 0 40px;
+  letter-spacing: 4px;
+  margin-bottom: 35px;
+  font-size: 15px;
+}
+
+.buyPack {
+  background-color: var(--vert);
+  color: #fff;
+  border-radius: 11px;
+  padding: 15px 30px;
+  border: 0;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.tarifsRow{
+  position: relative;
+  top:20px;
+}
+
+.cta1{
+  background-image: url(../images/bgcta.jpg);
+  color:#fff;
+}
+
+.ctaTitle{
+  color:#fff;
+  text-transform: uppercase;
+}
+
+.ctaBtns a{
+  text-decoration: none;
+}
+
+.btnTel {
+  background-color: var(--bleu);
+  color: #fff;
+  display: block;
+  width: 240px;
+  border-radius: 10px;
+  border: 0;
+  font-size: 19px;
+  padding: 13px 5px;
+  box-shadow: 0 0 7px rgb(0 0 0 / 64%);
+}
+
+.btnContact {
+  background-color: var(--bleu2);
+  color: #fff;
+  display: block;
+  width: 240px;
+  border-radius: 10px;
+  border: 0;
+  font-size: 19px;
+  padding: 13px 5px;
+  margin-top:10px;
+  box-shadow: 0 0 7px rgb(0 0 0 / 64%);
+}
+
+/* blog style */
+.blog img{
+  width: 100%;
+  border-bottom: 3px solid var(--bleu);
+  border-radius: 15px 15px 0px 0px;
+}
+.blog h4{
+  font-size: 17px;
+  text-transform: uppercase;
+  color: var(--bleu);
+}
+.blog .date{
+  font-size: 12px;
+  text-transform: uppercase;
+}
+p.description {
+  font-size: 14px;
+  text-align: justify;
+}
+.blog .more{
+  color:var(--bleu);
+  font-weight: 500;
+}
+
+.blog a, .blog a:hover{
+  text-decoration: none;
+  color:var(--bleu2);
+}
+/* end blog style */
+
+/* Informations style */
+.informations{
+  background-image: linear-gradient(to right, #F6F9FC , #F2F5F9);
+  border-top: 5px solid var(--vert);
+}
+.informations h3{
+  text-transform: uppercase;
+}
+
+.informations h3::after{
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--vert);
+  margin-top: 10px;
+}
+.informations p{
+  color:var(--bleu);
+  font-size:16px;
+  font-weight: 400;
+}
+
+.submitBtn {
+  background-color: var(--bleu);
+  float: right;
+  width: 35%;
+  border: 0;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 15px;
+}
+.rappel{
+  background:#F2F5F9;
+}
+.rappel input {
+  border: 1px solid #CECECE;
+  box-shadow: 2px 3px 13px 0px #00000017;
+}
+
+/* End informations style */
+
+/* footer style */
+.footer{
+  background:var(--bleu2);
+}
+.logoFooter{
+  width:60%;
+}
+.footer p{
+  color: #fff;
+  font-size: 14px;
+  text-align: justify;
+}
+.footer h5{
+  font-size: 20px;
+  color: #fff;
+  text-transform: uppercase;
+}
+.footer h5::after{
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--bleu);
+  margin-top: 10px;
+}
+.footer ul li{
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 35px;
+}
+.footer ul{
+  list-style: none;
+  padding-left: 0;
+}
+.infos img{
+  width:5%;
+}
+.bottomBar{
+  background-color: #131826;
+}
+.bottomBar p{
+  color:#fff;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* end footer style */
