@@ -1,4 +1,148 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
+  <div class="container-fluid">
+    <div class="row">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="background-image:url({{ asset('/images/bgslider.png')}});">
+                <div class="row h-100">
+                    <div class="col-xxl-6 col-xl-5"></div>
+                    <div class="col-xxl-6 col-xl-7 blurSlider">
+                        <h2 class="sliderTitle">étude re2020 permis</h2>
+                        <div class="sliderPrice">189 € TTC</div>
+                        <p>
+                        votre étude thermique re2020 th-bd avec attestation permis de construire, rapidement et simplement. 
+                        </p>
+                        <button class="btnSlider1">En savoir +</button><button class="btnSlider2">Commander</button>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item" style="background-image:url({{ asset('/images/bgslider.png')}});">
+                <div class="row h-100">
+                    <div class="col-xxl-6 col-xl-5"></div>
+                    <div class="col-xxl-6 col-xl-7 blurSlider">
+                        <h2 class="sliderTitle">étude re2020 permis</h2>
+                        <div class="sliderPrice">189 € TTC</div>
+                        <p>
+                        votre étude thermique re2020 th-bd avec attestation permis de construire, rapidement et simplement. 
+                        </p>
+                        <button class="btnSlider1">En savoir +</button><button class="btnSlider2">Commander</button>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="carousel-item">
+            <img src="..." class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+            <img src="..." class="d-block w-100" alt="...">
+            </div> -->
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-10 nousChoisir">
+                <div class="row g-5">
+                    <div class="col-md-5">
+                        <img src="{{asset('images/pancart.jpg')}}" class="img-fluid nouschoisirImg" />
+                    </div>
+                    <div class="col-md-7 py-3">
+                        <h3>POURQUOI NOUS CHOISIR ?</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lacus nisi, semper non elit quis, feugiat laoreet urna. Sed blandit velit a elit hendrerit, at dapibus metus ultrices. Donec eget turpis fermentum, porta diam id,</p>
+                        <div class="row">
+                            <div class="col-md-6 nousChoisirList">
+                                <i class="fa fa-solid fa-check colorIcon"></i> Délai de réalisation : 24 heures<br />
+                                <i class="fa fa-solid fa-check colorIcon"></i> Assurance décennale<br />
+                                <i class="fa fa-solid fa-check colorIcon"></i> Qualification RGE ingénierie qualifiée par l’OPQIBI (1331 et 1332)<br />
+                                <i class="fa fa-solid fa-check colorIcon"></i> POURQUOI NOUS CHOISIR ?<br />
+                            </div>
+                            <div class="col-md-6">
+                            <div><button class="btnNousChoisir1">En savoir +</button></div>
+                            <div class="dividBtnBleu"></div>
+                            <div><button class="btnNousChoisir2">Commander</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mt-5 pt-5 process">
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="centredTitle">UN PROCESSUS DE RÉALISATION NOVATEUR</h3>
+                <p>
+                    Les besoins de nos clients sont différents suivant l’avancement de leur projet, de leurs connaissances techniques, etc. Pour ceux qui sont uniquement intéressés par une étude RE2020, nous proposons les forfaits de base RE2020 à des tarifs compétitifs. Pour ceux qui ont des besoins supplémentaires, nous proposons plusieurs options facultatives. Le client paye donc uniquement les prestations dont il a besoin.
+                </p>
+            </div>
+            <div class="row justify-content-center g-3 mt-3 align-top processRow">
+                <a class="col-md-2 m-0" href="#">
+                    <div class="processStep text-center p-3">
+                        <div class="theStep">
+                            <i class="fa fa-right-to-bracket"></i>
+                            <h5>Connexion</h5>
+                            <p>Une fois inscrit, vous pouvez vous connecter à notre espace client, personnalisé à votre projet</p>
+                        </div>
+                        <div class="pn"><div class="processNumber">1</div></div>
+                    </div>
+                </a>
+                <a class="col-md-2 m-0" href="#">
+                    <div class="processStep text-center p-3">
+                        <div class="theStep">
+                            <i class="fa-solid fa-cart-plus"></i>
+                            <h5>Commande</h5>
+                            <p>Une fois inscrit, vous pouvez vous connecter à notre espace client, personnalisé à votre projet</p>
+                        </div>
+                        <div class="pn"><div class="processNumber">2</div></div>
+                    </div>
+                </a>
+                <a class="col-md-2 m-0" href="#">
+                    <div class="processStep text-center p-3">
+                        <div class="theStep">
+                            <i class="fa-solid fa-keyboard"></i>
+                            <h5>Saisie</h5>
+                            <p>Une fois inscrit, vous pouvez vous connecter à notre espace client, personnalisé à votre projet</p>
+                        </div>
+                        <div class="pn"><div class="processNumber">3</div></div>
+                    </div>
+                </a>
+                <a class="col-md-2 m-0" href="#">
+                    <div class="processStep text-center p-3">
+                        <div class="theStep">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            <h5>étude</h5>
+                            <p>Une fois inscrit, vous pouvez vous connecter à notre espace client, personnalisé à votre projet</p>
+                        </div>
+                        <div class="pn"><div class="processNumber">4</div></div>
+                    </div>
+                </a>
+                <a class="col-md-2 m-0" href="#">
+                    <div class="processStep text-center p-3">
+                        <div class="theStep">
+                            <i class="fa-solid fa-file-lines"></i>
+                            <h5>Attestations RE2020</h5>
+                            <p>Une fois inscrit, vous pouvez vous connecter à notre espace client, personnalisé à votre projet</p>
+                        </div>
+                        <div class="pn"><div class="processNumber">5</div></div>
+                    </div>
+                </a>
+                <div class="col-md-10 m-0">
+                    <div class="dividerProcess"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
