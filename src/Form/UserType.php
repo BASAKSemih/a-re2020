@@ -27,7 +27,7 @@ class UserType extends AbstractType
                 ]),
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Votre adresse e-mail'
+                    'placeholder' => 'Votre adresse e-mail',
                 ],
             ])
             ->add('password', RepeatedType::class, [
@@ -54,7 +54,7 @@ class UserType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Votre prénom'
+                    'placeholder' => 'Votre prénom',
                 ],
             ])
             ->add('lastName', TextType::class, [
@@ -62,7 +62,7 @@ class UserType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Votre Nom'
+                    'placeholder' => 'Votre Nom',
                 ],
             ])
             ->add('submit', SubmitType::class, [
