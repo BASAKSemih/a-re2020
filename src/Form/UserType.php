@@ -70,10 +70,8 @@ class UserType extends AbstractType
                 'attr' => [
                     'class' => 'btn btn-lg my-3 btnConnexion',
                 ],
-            ])
-        ;
+            ]);
     }
-
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

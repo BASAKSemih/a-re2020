@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Connexion{% endblock %}
-
 {% block body %}
 <div class="container-fluid connexionBg">
     <div class="container">
@@ -11,7 +9,6 @@
                     {% if error %}
                         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                     {% endif %}
-
                     {% if app.user %}
                         <div class="mb-3">
                             You are logged in as {{ app.user.username }}, <a href="{{ path('security_logout') }}">Logout</a>
@@ -25,7 +22,6 @@
                     <button class="btn btn-lg my-3 btnConnexion" type="submit">Se connecter</button>
                     <a href="#" class="formLink">Vous n'avez pas de compte ? Enregistrez-vous</a>
                 </form>
-                
             </div>
         </div>
     </div>
