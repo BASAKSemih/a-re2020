@@ -243,7 +243,7 @@ height: 3px;
   height: 30px;
   width: 30px;
   border-radius: 100%;
-  padding-top: 5px;
+  padding-top: 3px;
   margin: auto;
 }
 
@@ -504,3 +504,62 @@ p.description {
 }
 
 /* end footer style */
+
+/* Page de connexion */
+
+.occupeHauteur{
+  min-height:75vh;
+}
+
+.bgFormConnexion{
+  background-color: rgb(255 255 255 / 91%);
+  border-radius:20px;
+}
+
+.connexionBg{
+  background-image:url('../images/bgconnexion.jpg');
+  background-size:cover;
+}
+
+.titleCentredDivid:after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--bleu);
+  margin-top: 10px!important;
+  margin:auto;
+}
+
+
+
+.bgFormConnexion input{
+  text-align:center;
+  border:0;
+  border-radius:50px;
+  border:4px solid #e3e3e3;
+}
+
+.bgFormConnexion input::placeholder{
+  text-align:center;
+}
+
+.btnConnexion{
+  width:100%;
+  background-color:var(--vert)!important;
+  color:#fff!important;
+  border-radius:20px!important;
+}
+
+.btnConnexion:hover{
+  background-color:var(--bleu)!important;
+}
+
+.overlayConnexion{
+  background-color:#fff;
+}
+
+.formLink, .formLink:hover{
+  color:var(--bleu2);
+}
+/* end Page de connexion*/
