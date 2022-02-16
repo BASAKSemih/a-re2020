@@ -346,6 +346,7 @@ p.packDescription {
 .cta1{
   background-image: url(../images/bgcta.jpg);
   color:#fff;
+  background-size: cover;
 }
 
 .ctaTitle{
@@ -563,3 +564,96 @@ p.description {
   color:var(--bleu2);
 }
 /* end Page de connexion*/
+
+/* Page Contact */
+.bgPage {
+  background-image: url(../images/bgslider.png);
+  height: 400px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.titleCat{
+  font-size: 35px;;
+}
+.bodyPage{
+  background-image: url(../images/processbg.jpg);
+    background-size: cover;
+}
+.bodyPage h3{
+  text-transform: uppercase;
+}
+.blocContact{
+  background-color: #fff;
+    position: relative;
+    bottom: 128px;
+    border-radius: 15px;
+    box-shadow: 0px -5px 7px 0px #00000026;
+}
+
+.contactBtn{
+  float: right;
+  margin-top: 10px;
+  width: 31%;
+  background-color: var(--vert);
+  color: #fff;
+  border: 0;
+}
+.blocInfo {
+  font-size: 15px;
+}
+.blocContact p{
+  font-size: 15px;
+}
+.blocInfo i{
+  color: var(--vert);
+}
+form ::placeholder{
+  font-size: 14px;;
+}
+.bodyPage h3::after{
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
+/* Fin Page de contact */
+
+/* Apropos */
+
+.aproposCaracter{
+  height:100%;
+  background-color:#333;
+}
+
+.aproposCaracter {
+  height: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 0 6px 0px #e5e5e5;
+  color: var(--bleu2);
+  padding: 16px;
+  border-radius: 5px;
+  transition: 0.2s;
+}
+
+.aproposCaracter:hover{
+  background-color:var(--bleu2);
+  color:#fff;
+  transition: 0.2s;
+}
+
+.aproposCaracter:hover {
+  background-color: var(--vert);
+  color: #fff;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.aproposCaracter:hover i {
+  color: #fff!important;
+}
+
+.aproposBg{
+  background-color:#f3f3f3;
+}
+/* End Apropos */
