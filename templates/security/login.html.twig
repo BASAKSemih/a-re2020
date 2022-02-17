@@ -20,7 +20,7 @@
                     <input type="password" name="password" id="inputPassword" class="form-control mb-4" placeholder="Votre mot de passe" required>
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                     <button class="btn btn-lg my-3 btnConnexion" type="submit">Se connecter</button>
-                    <a href="#" class="formLink">Vous n'avez pas de compte ? Enregistrez-vous</a>
+                    <a href="{{ path('security_register') }}" class="formLink">Vous n'avez pas de compte ? Enregistrez-vous</a>
                 </form>
             </div>
         </div>
