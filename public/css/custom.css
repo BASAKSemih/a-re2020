@@ -684,6 +684,71 @@ form ::placeholder{
 
 /* Responsive */
 
-@media(max-width:9)
+@media(max-width:920px){
+  .carouselBg{
+    background-size: cover!important;
+    background-position: top center!important;
+  }
+  .blurSlider{
+    padding:0 58px!important;
+  }
+  .carousel-item{
+    height:500px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center right;
+  }
+  .nouschoisirImg{
+    margin-right:15px;
+  }
+  .sliderTitle{
+    margin-top: 70px;
+  }
+  .processStep {
+    border-bottom: 3px solid var(--bleu);
+  }
+  .nouschoisirImg{
+    margin:0;
+    margin-top:18px;
+  }
+  h3{
+    font-size: 25px!important;
+  }
+  .theStep {
+    height: 131px;
+  }
+  .tarifsRow h3 {
+    color: #fff;
+    text-shadow: 1px 3px 9px black;
+  }
+  .pack {
+    border-radius: 9px;
+    padding-bottom: 1px;
+    margin-bottom: 15px;
+  }
+  .tarifsContainer {
+    padding-bottom: 60px!important;
+  }
+  .btnSlider1{
+    margin-bottom:10px;
+  }
+  .btnNav1{
+    margin-bottom:15px;
+  }
+  .activeLigne {
+    margin-left: 0;
+}
+
+@media (min-width:600px) and (max-width:1197px) {
+
+  .blurSlider{
+    padding: 0 150px!important;
+  }
+
+  .aproposImg {
+    width:300px;
+  }
+  
+}​
 
 /* End Responsive */
