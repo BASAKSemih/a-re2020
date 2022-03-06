@@ -7,7 +7,6 @@
     {% include 'thermician/layout/_navbar.html.twig' %}
     <script src="https://kit.fontawesome.com/d684afa6cf.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('css/thermician.css') }}">
- 
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
@@ -16,9 +15,6 @@
     {% endblock %}
 </head>
 <body>
-
-
-
 <div class="">
     {% for rubrique, messages in app.flashes %}
         <div class="alert alert-{{ rubrique }} text-center">
@@ -28,7 +24,6 @@
         </div>
     {% endfor %}
     {% block body %}{% endblock %}
-
     </div>
 </body>
 </html>
