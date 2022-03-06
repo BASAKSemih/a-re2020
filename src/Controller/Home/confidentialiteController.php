@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-final class confidentController extends AbstractController
+final class ConfidentController extends AbstractController
 {
     #[Route('/confidentialite', name: 'confidentPage')]
     public function home(): Response
